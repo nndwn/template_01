@@ -19,7 +19,7 @@
       <b:else/>
       <title>
         <data:blog.pageName/>
-        ~ 
+        | 
         <data:blog.title/>
       </title>
     </b:if>
@@ -41,17 +41,17 @@ p.oswald-cap , .oswald-cap , .oswald-cap a{
 	text-decoration: none;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
-
 p.oswald-cap:hover {
 	color: #fff !important;
 }
-
 .oswald-cap:hover , .oswald-cap a:hover{
 color: rgb(255 255 255 / 82%) !important;
 }
-
 .dni-none{
 display: none;
+}
+.colorbg {
+	background-color: #000000!important;
 }
 
 
@@ -97,6 +97,13 @@ body .nav-main {
 	margin-top: 0;
     display: block;
     padding-right: 20px;
+}
+
+.buttonoffcanvas .nav-bar-button{
+	background-color: #fff;
+    height: 3px;
+    margin: 2px 0;
+    width: 16px;
 }
 
 .logo-text, .logo-text, .logo-text p {
@@ -178,52 +185,17 @@ display: none;
 
 /*---- Out Canvas ---- */
 
-li.nav-item {
-	font-size:large;
-}
 
-div#offcanvasExample {
+#outCanvas {
   box-shadow: 0 1px 0 rgb(255 255 255 / 20%);
 }
 
-
-.title-search {
-    font-size: xxx-large;
-    line-height: 1;
-	margin-bottom: 15px;
-}
-
-input.form-control {
-    border-top-left-radius: 0.15rem;
-    border-bottom-left-radius: 0.15rem;
-}
-
-button#searchform, input.form-control {
-    background-color: #fff;
-    border: 1px solid #ffffff;
-}
-
-button#searchform {
-    border-top-right-radius: 0.15rem;
-    border-bottom-right-radius: 0.15rem;
-}
-
-
-a .nav-bar-button{
-	background-color: #fff;
-    height: 3px;
-    margin: 2px 0;
-    width: 16px;
-}
-#searchform svg {
-    filter: brightness(0);
-}
-.search-form:focus{
-    box-shadow: unset ! important;
-	border-color: #fff !important;
-}
 .offcanvas-header button:focus {
     box-shadow: unset; important;
+}
+.offcanvas-body {
+	display: grid;
+    align-content: space-between;
 }
 .offcanvas .widget {
     border: 1px solid rgb(255 255 255 / 13%);
@@ -232,41 +204,58 @@ a .nav-bar-button{
     border-bottom: inherit;
     padding-top: 20px;
 }
-
-.offcanvas-body .outcanvas-label {
+.title-search {
+    font-size: xxx-large;
+    line-height: 1;
+	margin-bottom: 15px;
+}
+input.form-control {
+    border-top-left-radius: 0.15rem;
+    border-bottom-left-radius: 0.15rem;
+}
+button#searchform, input.form-control {
+    background-color: #fff;
+    border: 1px solid #fff;
+}
+button#searchform {
+    border-top-right-radius: 0.15rem;
+    border-bottom-right-radius: 0.15rem;
+}
+#searchform svg {
+    filter: brightness(0);
+}
+.search-form:focus{
+    box-shadow: unset ! important;
+	border-color: #fff !important;
+}
+.widget .outcanvas-label ul {
     padding: 0;
+	display: flex;
     flex-wrap: wrap;
 }
-
-.offcanvas-body .outcanvas-label li {
-    width: 50%;
-    background-color: unset;
+.outcanvas-label li{
     border: 1px solid rgb(255 255 255 / 13%);
     border-top: inherit;
     border-left: inherit;
     border-right: inherit;
     padding-bottom: 10px;
     padding-top: 10px;
+	width: 100%;
 }
-.outcanvas-label .oswald-cap a {
+.outcanvas-label a, .outcanvas-label span{
     font-size: large;
 }
 
-.colorbg {
-	background-color: #000000!important;
+.outcanvas-footer ul {
+    padding: 0;
+    margin: 0;
 }
 
-
-/*---- footer outcanvas ---- */
-.footer-outcanvas p {
-	margin-bottom: 5px;
+.outcanvas-footer li {
+    padding-right: 8px;
+    padding-left: 8px;
 }
-
-.outcanvas-footer {
-	margin-bottom: 5px;
-}
-
-.list-footer a {
+.outcanvas-footer a {
 	white-space: nowrap;
     text-decoration: 0;
     color:#fff;
@@ -275,9 +264,25 @@ a .nav-bar-button{
 	font-weight:400;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
-.list-footer a:hover {
+.outcanvas-footer a:hover {
 	color: rgb(255 255 255 / 82%)
 }
+
+@media (max-width: 767.98px){
+	.offcanvas-start {
+		width:100% !important;
+   		}
+}
+@media (min-width: 575.98px){
+	 .outcanvas-label li {
+		width: 50%;
+		}		
+}
+
+
+
+
+
 
 /*---- Headline post ---- */
 
@@ -451,12 +456,6 @@ div#main {
 	}
 }
 
-@media (max-width: 767.98px){
-
-	.offcanvas-body .outcanvas-label li {
-		width: 100%;
-	}
-}
 
 
 /*---- post ---- */
@@ -694,7 +693,7 @@ h3.post-title.entry-title {display: none;}
   </b:if>
 </b:if>
   
-<script async='async' data-ad-client='pub-9222866806157839' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'/>
+<!--<script async='async' data-ad-client='pub-9222866806157839' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'/>-->
 
 
 </head>
@@ -706,7 +705,7 @@ h3.post-title.entry-title {display: none;}
           <b:section class='navbar-nav w-100' id='header' maxwidgets='4'>
             <b:widget id='HTML1' locked='false' title='Button Canvas' type='HTML' version='1'>
               <b:widget-settings>
-                <b:widget-setting name='content'>&lt;a aria-controls=&#39;offcanvasExample&#39; class=&#39;buttonoffcanvas&#39; data-bs-toggle=&#39;offcanvas&#39; href=&#39;#offcanvasExample&#39; role=&#39;button&#39; type=&#39;button&#39;&gt;
+                <b:widget-setting name='content'>&lt;a aria-controls=&#39;outCanvas&#39; class=&#39;buttonoffcanvas&#39; data-bs-toggle=&#39;offcanvas&#39; href=&#39;#outCanvas&#39; role=&#39;button&#39; type=&#39;button&#39;&gt;
                			&lt;div class=&#39;nav-bar-button&#39;&gt;&lt;/div&gt;
                			&lt;div class=&#39;nav-bar-button&#39;&gt;&lt;/div&gt;
                			&lt;div class=&#39;nav-bar-button&#39;&gt;&lt;/div&gt;
@@ -821,7 +820,7 @@ h3.post-title.entry-title {display: none;}
 
 </header>
     <div class='clearfix'/>
-    <div aria-labelledby='offcanvasExampleLabel' class='offcanvas offcanvas-start colorbg' id='offcanvasExample' tabindex='-1'>
+    <div aria-labelledby='outcanvas' class='offcanvas offcanvas-start colorbg' id='outCanvas' tabindex='-1'>
       <div class='offcanvas-header justify-content-end'>
         <button aria-label='Close' class='btn-close btn-close-white' data-bs-dismiss='offcanvas' type='button'/>
       </div>
@@ -864,20 +863,16 @@ h3.post-title.entry-title {display: none;}
             </b:widget-settings>
             <b:includable id='main'>
 
- 
-      <div expr:class='&quot;widget-content &quot; + data:display + &quot;-label-widget-content&quot;'>
+      <div class='outcanvas-label'>
         <b:if cond='data:display == &quot;list&quot;'>
-            <ul class='list-group list-group-horizontal-sm outcanvas-label'>
+            <ul>
                <b:loop values='data:labels' var='label'>
-                 <li class='list-group-item oswald-cap'>
+                 <li>
                 <b:if cond='data:blog.url == data:label.url'>
-                  <span expr:dir='data:blog.languageDirection'><data:label.name/></span>
+                  <span aria-current='page' class='oswald-cap' expr:dir='data:blog.languageDirection'><data:label.name/></span>
                   <b:else/>
-                  <a expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a>
+                  <a aria-current='page' class='oswald-cap' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a>
                 </b:if>
-                <b:if cond='data:showFreqNumbers'>
-                  <span dir='ltr'>(<data:label.count/>)</span>
-            </b:if>
           </li>
         </b:loop>
       </ul>     
@@ -891,44 +886,25 @@ h3.post-title.entry-title {display: none;}
 </b:includable>
           </b:widget>
         </b:section>
-        <div id='Header2'>
+  
          <div class='outcanvas-footer'>
-                    <ul class='list-footer row p-0'>
-                      <li class='col text-center'>
+                    <ul>
+                      <li class=''>
                         <a href='#'>Subscribe </a>
                       </li>
-                      <li class='col text-center'>
+                      <li class=''>
                         <a href='#'>Disclaimer </a>
                       </li>
-                      <li class='col text-center'>
+                      <li class=''>
                         <a href='#'>Privacy Policy</a>
                       </li>
-                      <li class='col text-center'>
+                      <li class=''>
                         <a href='#'>Contact </a>
                       </li>
                     </ul>
                   </div>
-        </div>
+ 
       </div>
-  
-           <style type='text/css'>
-				@media (max-width: 767.98px){
-					.offcanvas-start , div#Header2 {
-             			width:100% !important;
-             			}
-             
-             	 div#Header2 {
-             position: relative !important;
-             }
-				}
-             div#Header2 {
-					position: absolute;
-    				bottom: 0;
-    				width: 90%;
-             		padding-top: 5px !important;
-			}
-             
-           </style>
        </div>
 
 <section id='outer-wrapper'>
