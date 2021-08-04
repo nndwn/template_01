@@ -23,6 +23,9 @@
         <data:blog.title/>
       </title>
     </b:if>
+  
+<!-- Font -->
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'/>
 <b:skin><![CDATA[
 /* Variable definitions
 =======================
@@ -36,7 +39,7 @@
 p.oswald-cap , .oswald-cap , .oswald-cap a{
 	text-transform: capitalize;
     font-weight: 400;
-    font-family: 'Oswald',auto;
+    font-family: 'Oswald';
 	color:#fff !important ;
 	text-decoration: none;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
@@ -66,7 +69,7 @@ body#layout div#Blog2, body#layout div#Blog1{
 }
 
 .section {
-	margin:auto;
+	margin:0;
 }
 .widget li {
  	padding: 0;
@@ -89,30 +92,20 @@ body .nav-main {
 .nav-main .navbar-nav {
     flex-direction: row;
 }
-#HTML1,#Header1,#Label2,#HTML2{
+#Header1 {
+	padding-left: 45px;
+}
+#Header1,#Label2,#HTML2{
 	margin: 0 ;
 	line-height: normal;
 }
-.buttonoffcanvas {
-	margin-top: 0;
-    display: block;
-    padding-right: 20px;
-}
-
-.buttonoffcanvas .nav-bar-button{
-	background-color: #fff;
-    height: 3px;
-    margin: 2px 0;
-    width: 16px;
-}
-
 .logo-text, .logo-text, .logo-text p {
     height: 100%;
     align-self: center;
 }
 .logo-text p, .logo-text a {
     color:  #fff;
-	font-family: 'Oswald',auto;
+	font-family: 'Oswald';
 	text-transform: uppercase;
 	text-decoration: none;
 	font-weight: 400;
@@ -128,7 +121,7 @@ body .nav-main {
     text-align:center;
     white-space: nowrap;
 }
-#Header1,#HTML1,#HTML2{
+#Header1,#HTML2{
 	align-self: center;
 }
 .nav-menu, .nav-menu ul {
@@ -181,13 +174,69 @@ display: none;
 	}
 }
 
-
-
 /*---- Out Canvas ---- */
 
+/* nav toggle */
+.nav-toggle {
+	cursor: pointer;
+    height: 10px;
+    left: 16px;
+	right: unset;
+    position: fixed;
+    top: 29px;
+    width: 21px;
+    z-index: 1051;
+	transition: top .25s ease 0s;
+}
+.nav-toggle:hover {
+  	opacity: 0.8;
+}
+.nav-toggle.top {
+	top: 18px;	
+}
+.nav-toggle .nav-toggle-bar,
+.nav-toggle .nav-toggle-bar::after,
+.nav-toggle .nav-toggle-bar::before {
+    position: absolute;
+    top: 0%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: #ffffff;
+    content: "";
+    height: 4px;
+    transition: all 0.5s;
+    width: 100%;
+}
+.nav-toggle .nav-toggle-bar {
+  	margin-top: 0;
+}
+.nav-toggle .nav-toggle-bar::after {
+    margin-top: -6px;
+}
+.nav-toggle .nav-toggle-bar::before {
+  	margin-top: 10px;
+}
+.nav-toggle.expanded .nav-toggle-bar {
+  	background: transparent;
+}
+.nav-toggle.expanded .nav-toggle-bar::after, .nav-toggle.expanded .nav-toggle-bar::before {
+  	background: #ffffff;
+ 	margin-top: 0;
+}
+.nav-toggle.expanded .nav-toggle-bar::after {
+  	-ms-transform: rotate(45deg);
+  	-webkit-transform: rotate(45deg);
+  	transform: rotate(45deg);
+}
+.nav-toggle.expanded .nav-toggle-bar::before {
+  	-ms-transform: rotate(-45deg);
+  	-webkit-transform: rotate(-45deg);
+  	transform: rotate(-45deg);
+}
 
 #outCanvas {
-  box-shadow: 0 1px 0 rgb(255 255 255 / 20%);
+  	box-shadow: 0 1px 0 rgb(255 255 255 / 20%);
 }
 
 .offcanvas-header button:focus {
@@ -196,12 +245,9 @@ display: none;
 .offcanvas-body {
 	display: grid;
     align-content: space-between;
+	padding-top:35px !important;
 }
 .offcanvas .widget {
-    border: 1px solid rgb(255 255 255 / 13%);
-    border-left: inherit;
-    border-right: inherit;
-    border-bottom: inherit;
     padding-top: 20px;
 }
 .title-search {
@@ -240,7 +286,7 @@ button#searchform {
     border-right: inherit;
     padding-bottom: 10px;
     padding-top: 10px;
-	width: 100%;
+	width: 50%;
 }
 .outcanvas-label a, .outcanvas-label span{
     font-size: large;
@@ -251,10 +297,6 @@ button#searchform {
     margin: 0;
 }
 
-.outcanvas-footer li {
-    padding-right: 8px;
-    padding-left: 8px;
-}
 .outcanvas-footer a {
 	white-space: nowrap;
     text-decoration: 0;
@@ -273,10 +315,14 @@ button#searchform {
 		width:100% !important;
    		}
 }
-@media (min-width: 575.98px){
+@media (max-width: 575.98px){
 	 .outcanvas-label li {
-		width: 50%;
-		}		
+		width: 100%;
+		}
+	 .nav-toggle {
+		left: unset;
+    	right: 16px;
+		}
 }
 
 
@@ -385,6 +431,7 @@ div#main {
 }
 
 .slide-item {
+	width: 100%;
 	position: absolute;
     top: 0;
 	display:none;
@@ -496,19 +543,6 @@ div#main {
 ]]></b:skin>
 
 <style type='text/css'>
-/*
------------------------------------------------
-Blogger Template Style
-Name         : Basic Blogger Template
-Designer     : Agus Purwantoro
-Release      : April 2018
-Version      : 1.0
-License      : MIT
-Email        : me@aguspurwantoro.com
------------------------------------------------
-Thanks to:
-- Eric Meyer (CSS Reset)
-*/
 
 /* Eric Meyer&#39;s Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
 --------------------------------------------------------------------------------------- */
@@ -523,7 +557,7 @@ posts_thumb_sum = 300;
 </script>
 <!--Jquery 1.8.3 -->
 <script src='http://code.jquery.com/jquery-1.8.3.min.js'/>
-  
+<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'/>
 <!-- Featured Post -->
 <script type='text/javascript'>
 post_tidak_gambar = 690;
@@ -543,9 +577,11 @@ $(window).scroll(function() {
 	var scroll = $(window).scrollTop();
     if (scroll > 500) {
         $("#navigation").addClass("mini-header");
+		$("#minitoggle").addClass("top");
     }
 	if (scroll < 300) {
         $("#navigation").removeClass("mini-header");
+		$("#minitoggle").removeClass("top");
     }
 });
 
@@ -559,6 +595,15 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function () {
+    var myOffcanvas = document.getElementById('outCanvas')
+    myOffcanvas.addEventListener('shown.bs.offcanvas', function () {
+        $(".nav-toggle").addClass("expanded");
+    })
+    myOffcanvas.addEventListener('hidden.bs.offcanvas', function () {
+        $(".nav-toggle").removeClass("expanded");
+    })
+});
 function removeHtmlTag(strx,chop){
 	if(strx.indexOf("<")!=-1){
 		var s = strx.split("<");
@@ -603,14 +648,6 @@ function createLink(linkClass,linkPath,link){
   var linkdata = document.getElementById(linkClass);
   var taglink = '<a href="'+linkPath+link +'">'+link+'</a>';
   linkdata.innerHTML = taglink;
-}
-
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
 }
 
 var slideIndex = 0;
@@ -669,16 +706,12 @@ h3.post-title.entry-title {display: none;}
 
 
 <!-- Boostrap 5 --> 
-<link crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' rel='stylesheet'/>
-  
-<script crossorigin='anonymous' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'/>
+<link crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet'/>
   
 <!--<link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css' rel='stylesheet'/>-->
   
 
   
-<!-- Font -->
-<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'/>
 
   
 <b:if cond='data:blog.metaDescription'>
@@ -701,22 +734,9 @@ h3.post-title.entry-title {display: none;}
 <body class='index' itemscope='itemscope' itemtype='http://schema.org/WebPage'>
   <div id='wrapper'>
     <header class='nav-main navbar navbar-expand-md navbar-dark colorbg' id='header-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPHeader'>
-      <nav class='container-xxl flex-wrap flex-md-nowrap' id='navigation' itemscope='itemscope' itemtype='http://schema.org/SiteNavigationElement' role='navigation'>
+      <nav class='container-fluid flex-wrap flex-md-nowrap' id='navigation' itemscope='itemscope' itemtype='http://schema.org/SiteNavigationElement' role='navigation'>
           <b:section class='navbar-nav w-100' id='header' maxwidgets='4'>
-            <b:widget id='HTML1' locked='false' title='Button Canvas' type='HTML' version='1'>
-              <b:widget-settings>
-                <b:widget-setting name='content'>&lt;a aria-controls=&#39;outCanvas&#39; class=&#39;buttonoffcanvas&#39; data-bs-toggle=&#39;offcanvas&#39; href=&#39;#outCanvas&#39; role=&#39;button&#39; type=&#39;button&#39;&gt;
-               			&lt;div class=&#39;nav-bar-button&#39;&gt;&lt;/div&gt;
-               			&lt;div class=&#39;nav-bar-button&#39;&gt;&lt;/div&gt;
-               			&lt;div class=&#39;nav-bar-button&#39;&gt;&lt;/div&gt;
-    				&lt;/a&gt;</b:widget-setting>
-              </b:widget-settings>
-              <b:includable id='main'>
-    <data:content/>
-  <b:include name='quickedit'/>
-</b:includable>
-            </b:widget>
-            <b:widget id='Header1' locked='false' title='SampeTemplate (Header)' type='Header' version='1'>
+            <b:widget id='Header1' locked='false' title='Notepedia.xyz (Header)' type='Header' version='1'>
               <b:widget-settings>
                 <b:widget-setting name='displayUrl'/>
                 <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -820,10 +840,12 @@ h3.post-title.entry-title {display: none;}
 
 </header>
     <div class='clearfix'/>
+    <div aria-controls='outCanvas' class='nav-toggle' data-bs-toggle='offcanvas' href='#outCanvas' id='minitoggle' role='button' type='button'>
+		<div class='nav-toggle-bar'>
+        </div>
+	</div>
     <div aria-labelledby='outcanvas' class='offcanvas offcanvas-start colorbg' id='outCanvas' tabindex='-1'>
-      <div class='offcanvas-header justify-content-end'>
-        <button aria-label='Close' class='btn-close btn-close-white' data-bs-dismiss='offcanvas' type='button'/>
-      </div>
+
       <div class='offcanvas-body'>
         <b:section class='outcanvas' id='outcanvas'>
           <b:widget id='BlogSearch1' locked='false' title='Read more &lt;br&gt; Interesting article' type='BlogSearch' version='1'>
@@ -890,7 +912,7 @@ h3.post-title.entry-title {display: none;}
          <div class='outcanvas-footer'>
                     <ul>
                       <li class=''>
-                        <a href='#'>Subscribe </a>
+                        <a href='#'>Sitemaps</a>
                       </li>
                       <li class=''>
                         <a href='#'>Disclaimer </a>
@@ -910,28 +932,33 @@ h3.post-title.entry-title {display: none;}
 <section id='outer-wrapper'>
 <article id='article-wrapper' itemscope='itemscope' itemtype='http://schema.org/Blog' role='main'>
 <b:section class='main row' id='main'>
-  <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
+  <b:widget id='Blog1' locked='true' title='Postingan Blog' type='Blog' version='1'>
     <b:widget-settings>
-      <b:widget-setting name='showDateHeader'>false</b:widget-setting>
-      <b:widget-setting name='style.textcolor'>#000000</b:widget-setting>
+      <b:widget-setting name='commentLabel'>comments</b:widget-setting>
       <b:widget-setting name='showShareButtons'>false</b:widget-setting>
-      <b:widget-setting name='showCommentLink'>false</b:widget-setting>
-      <b:widget-setting name='style.urlcolor'>#008000</b:widget-setting>
-      <b:widget-setting name='postLocationLabel'>Lokasi:</b:widget-setting>
-      <b:widget-setting name='showAuthor'>true</b:widget-setting>
+      <b:widget-setting name='authorLabel'>post by</b:widget-setting>
       <b:widget-setting name='disableGooglePlusShare'>true</b:widget-setting>
-      <b:widget-setting name='style.linkcolor'>#0000ff</b:widget-setting>
       <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
-      <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='timestampLabel'>at</b:widget-setting>
       <b:widget-setting name='reactionsLabel'/>
       <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
       <b:widget-setting name='style.layout'>1x1</b:widget-setting>
-      <b:widget-setting name='showLabels'>true</b:widget-setting>
       <b:widget-setting name='showLocation'>false</b:widget-setting>
       <b:widget-setting name='showTimestamp'>true</b:widget-setting>
       <b:widget-setting name='postsPerAd'>1</b:widget-setting>
-      <b:widget-setting name='showBacklinks'>false</b:widget-setting>
       <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='backlinksLabel'/>
+      <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+      <b:widget-setting name='style.textcolor'>#2196f3</b:widget-setting>
+      <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+      <b:widget-setting name='style.urlcolor'>#212121</b:widget-setting>
+      <b:widget-setting name='postLocationLabel'>Lokasi:</b:widget-setting>
+      <b:widget-setting name='showAuthor'>true</b:widget-setting>
+      <b:widget-setting name='style.linkcolor'>#757575</b:widget-setting>
+      <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='showLabels'>true</b:widget-setting>
+      <b:widget-setting name='postLabelsLabel'>Labels:</b:widget-setting>
+      <b:widget-setting name='showBacklinks'>false</b:widget-setting>
       <b:widget-setting name='showInlineAds'>false</b:widget-setting>
       <b:widget-setting name='showReactions'>false</b:widget-setting>
     </b:widget-settings>
@@ -1868,7 +1895,7 @@ h3.post-title.entry-title {display: none;}
   </div>
 </b:includable>
   </b:widget>
-  <b:widget id='Blog2' locked='true' title='Blog Posts' type='Blog' version='1'>
+  <b:widget id='Blog2' locked='true' title='Postingan Blog' type='Blog' version='1'>
     <b:widget-settings>
       <b:widget-setting name='showDateHeader'>true</b:widget-setting>
       <b:widget-setting name='style.textcolor'>#000000</b:widget-setting>
