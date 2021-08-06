@@ -8,7 +8,7 @@
 
 <meta content='width=device-width, initial-scale=1' name='viewport'/>
 <meta content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1' name='viewport'/>
-<meta content='text/html;charset=UTF-8' http-equiv='Content-Type'/>
+<meta content='text/html;charset=UTF-8' http-equiv='Content-Type'/> 	
 <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'/> 
 <b:include data='blog' name='all-head-content'/>
 
@@ -53,8 +53,12 @@ color: rgb(255 255 255 / 82%) !important;
 .dni-none{
 display: none;
 }
+
+:root {
+  --main-bg-color: #d00000;
+}
 .colorbg {
-	background-color: #000000!important;
+	background-color: var(--main-bg-color) !important;
 }
 
 
@@ -315,6 +319,7 @@ button#searchform {
    		}
 	.modal-backdrop.show {
     	opacity: 1 !important;
+		background-color: var(--main-bg-color);
 		}
 }
 @media (max-width: 575.98px){
@@ -338,6 +343,8 @@ button#searchform {
 }
 .headline {
 	margin:0;
+	display: flex;
+    flex-wrap: wrap;
 }
 .headline img{
 	width: 100%;
@@ -353,7 +360,6 @@ button#searchform {
 }
 .headline-text .title-post {
     margin: 15px;
-    line-height: 35px;
 }
 .headline-text .text-post {
     margin: 15px;
@@ -363,7 +369,6 @@ button#searchform {
 	font-weight: 300;
 }
 .headline .text-post-date {
-	background-color: #000;
     position: relative;
     width: 100%;
 	padding:15px;
@@ -378,34 +383,54 @@ button#searchform {
     color: rgb(255 255 255 / 70%);
 }
 .headline .text-post,.text-post-date,.text-post-date a{
-    color: rgba(255 255 255 /45%);
+    color: rgba(255 255 255 /60%);
 }
-.dots .active{
-	background-color:#000;
-}
-.dot {
-	cursor: pointer;
-    height: 10px;
-    width: 10px;
-    margin: 0;
-    background-color: #fff;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-	margin-left: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-}
-.dots {
-	display:none;
-    position: absolute;
+#indikator {
+	height: 17px;
+	right: 0;
     bottom: 0;
-    z-index: 2;
+    left: 0;
+	justify-content: unset;
+	padding: 0;
+	margin:0;
+	width: 75%;
 }
+
+#indikator button {
+	margin:0 ; 
+	width:100% ;
+	height:7px;
+}
+
+
 @media (max-width: 767.98px){
+	.postingan-data {
+		height: 360px;
+	}
 	.headline img{
     	height: 250px;
  	}
+	#indikator {
+		width:100%;
+		top:0;
+	}
+	#indikator button {
+		border-top: unset;
+	}
+	.headline .headline-text {
+		margin-left: 10px;
+    	margin-right: 10px;
+	}
+	.headline-text .text-post {
+		display:none;
+	}
+	.headline-text .title-post {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+	.headline-text .text-post-date {
+		padding-top:0px;
+	}
 }
 
 
@@ -551,7 +576,7 @@ function createSummaryAndThumb3(pID, pURL, pTITLE, pDATE, pAUTHOR){
 		if(img.length>=1) {
     		imgtag = '<div class="col-md-9 p-0"><a href="'+ pURL +'" title="'+ pTITLE+'"><img width="1012" height="457" src="'+img[0].src+' "/></a></div>';
         	summ = post_dengan_gambar;}
-    var summary = imgtag + '<div class="col-md-3 order-2 headline-text"><div class="headline-content"><h3 class="oswald-cap title-post"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post ">' + removeHtmlTag(div.innerHTML,summ) + '</p> </div><div class="text-post-date"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '</div></div>';
+    var summary = imgtag + '<div class="col-md-3 order-2 headline-text"><div class="headline-content"><h3 class="oswald-cap title-post"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post ">' + removeHtmlTag(div.innerHTML,summ) + '</p> </div><div class="text-post-date colorbg"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '</div></div>';
   	div.innerHTML = summary;
 }
 
@@ -1813,7 +1838,7 @@ h3.post-title.entry-title {display: none;}
           <div class='carousel slide carousel-fade' data-bs-ride='carousel' id='carousel'>
              <b:if cond='data:view.search.query.escaped == data:blog.view'>
                <div class='carousel-indicators' id='indikator'>
-                 <span aria-current='true' aria-label='Slide 1' class='active' data-bs-slide-to='0' data-bs-target='#carousel' style='margin-left: 9px;margin-right: 1px;'/>
+                 <button aria-current='true' aria-label='Slide 1' class='active' data-bs-slide-to='0' data-bs-target='#carousel' type='button'/>
                </div>
             </b:if>
             <div class='carousel-inner'>
@@ -1867,7 +1892,7 @@ h3.post-title.entry-title {display: none;}
           <!-- Add Code For ReadMore2 -->
           <b:if cond='data:blog.pageType != &quot;static_page&quot;'>
             <b:if cond='data:blog.pageType != &quot;item&quot;'>
-              <div class='row headline' expr:id='&quot;postingan&quot; + data:post.id'>
+              <div class='headline' expr:id='&quot;postingan&quot; + data:post.id'>
                 <data:post.title/>
                 <data:post.body/>   
                 <script type='text/javascript'>createSummaryAndThumb3(&quot;postingan<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot;<data:post.title/>&quot;,&quot;<data:post.timestamp/>&quot;,&quot;<data:post.author/>&quot;)</script>
