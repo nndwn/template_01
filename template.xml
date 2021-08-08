@@ -55,7 +55,9 @@ display: none;
 }
 
 :root {
-  --main-bg-color: rgb(223, 57, 49);
+  --main-bg-color: #000;
+  --card_width: 250px;
+  --row_increment: 10px;
 }
 .colorbg {
 	background-color: var(--main-bg-color) !important;
@@ -241,8 +243,11 @@ display: none;
   	transform: rotate(-45deg);
 }
 
+.offcanvas-start {
+	 width: 25% !important;
+}
 .offcanvas-header button:focus {
-    box-shadow: unset; important;
+    box-shadow: unset; !important;
 }
 .offcanvas-body {
 	display: grid;
@@ -348,7 +353,7 @@ button#searchform {
 }
 .headline img{
 	width: 100%;
-    height: 457px;
+    height: 370px;
     object-fit: cover;
 	object-position: center;
 }
@@ -385,38 +390,36 @@ button#searchform {
 .headline .text-post,.text-post-date,.text-post-date a{
     color: rgba(255 255 255 /60%);
 }
+
 #indikator {
-	height: 17px;
-	right: 0;
-    bottom: 0;
-    left: 0;
-	justify-content: unset;
-	padding: 0;
-	margin:0;
-	width: 75%;
+    right: unset;
+    margin: 0;
+    padding-left: 15px;
 }
 
-#indikator button {
-	margin:0 ; 
-	width:100% ;
-	height:7px;
+.dot {
+	cursor: pointer;
+    height: 10px !important;
+    width: 10px !important;
+    margin: 0;
+    background-color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 5px;
 }
-
 
 @media (max-width: 767.98px){
 	.postingan-data {
 		height: 360px;
 	}
+	#indikator {
+		right:0;
+		bottom:105px;
+		padding:0;
+	}
 	.headline img{
     	height: 250px;
  	}
-	#indikator {
-		width:100%;
-		top:0;
-	}
-	#indikator button {
-		border-top: unset;
-	}
 	.headline .headline-text {
 		margin-left: 10px;
     	margin-right: 10px;
@@ -437,23 +440,30 @@ button#searchform {
 
 /*---- post ---- */
 
+
 #Blog1 {
-    order: 2!important;
 	display:none;
-	-webkit-animation-name: fade;
-  	-webkit-animation-duration: 1.5s;
-  	animation-name: fade;
-  	animation-duration: 1.5s;
 }
-.date-posts.row {
+
+.date-posts.row , #outer-wrapper{
     --bs-gutter-x: unset;
 }
+
+.img-post img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+}
+
 .post-text {
     margin: 10px 10px 0px 10px;
 }
+
 .post-text p {
     text-align: justify;
 }
+
 .post-text .title-post a {
     text-decoration: none;
     font-weight: bold;
@@ -475,6 +485,10 @@ button#searchform {
     color: rgb(0 0 0 / 81%);
 }
 
+.blog-posts {
+	display: flex;
+    flex-wrap: wrap;
+}
 
 
 ]]></b:skin>
@@ -590,7 +604,7 @@ function createLink(linkClass,linkPath,link){
 $(document).ready(function() {
     var numItem = $('.postingan-data').length;
 	for (i = 0; i < numItem -1 ; i++){
-	$("#indikator").append("<button type='button'  data-bs-target='#carousel' data-bs-slide-to="+ (i+1) +" aria-label='Slide "+ (i+2) +"'/>");
+	$("#indikator").append("<button type='button'  data-bs-target='#carousel' data-bs-slide-to="+ (i+1) +" aria-label='Slide "+ (i+2) +"' class='dot'/>");
 };
 });
 
@@ -642,6 +656,8 @@ h3.post-title.entry-title {display: none;}
 
 <body class='index' itemscope='itemscope' itemtype='http://schema.org/WebPage'>
   <div id='wrapper'>
+    
+<!--navigasi -->
     <header class='nav-main navbar navbar-expand-md navbar-dark colorbg' id='header-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPHeader'>
       <nav class='container-fluid flex-wrap flex-md-nowrap' id='navigation' itemscope='itemscope' itemtype='http://schema.org/SiteNavigationElement' role='navigation'>
           <b:section class='navbar-nav w-100' id='header' maxwidgets='4'>
@@ -660,7 +676,7 @@ h3.post-title.entry-title {display: none;}
   <b:if cond='data:useImage'>
   <b:else/>
             <div class='logo-text'>
-            <p class=' text-md-start' id='logo'>
+            <p class=' text-md-start' id='logo' itemprop='name'>
         <b:include name='title'/>
             </p>
     </div>
@@ -744,7 +760,7 @@ h3.post-title.entry-title {display: none;}
           </b:section>
       </nav>
 </header>
-    <div class='clearfix'/>
+<!-- Outcanvas -->
     <div aria-controls='outCanvas' class='nav-toggle' data-bs-toggle='offcanvas' href='#outCanvas' id='minitoggle' role='button' type='button'>
 		<div class='nav-toggle-bar'>
         </div>
@@ -829,9 +845,139 @@ h3.post-title.entry-title {display: none;}
  
       </div>
        </div>
+    
 
-<section id='outer-wrapper'>
-<article id='article-wrapper' itemscope='itemscope' itemtype='http://schema.org/Blog' role='main'>
+   
+
+<!-- Post -->
+<section class='row' id='outer-wrapper'>
+  <!--headline -->
+  <section class='col-md-12 order-md-1' id='headline-wrapper' itemscope='itemscope' itemtype='https://schema.org/Property'>
+   <b:section class='headline-post' id='headline' itemprop='headline'>
+     <b:widget id='Blog2' locked='false' title='Postingan Blog' type='Blog' version='1'>
+       <b:widget-settings>
+         <b:widget-setting name='showDateHeader'>true</b:widget-setting>
+         <b:widget-setting name='style.textcolor'>#000000</b:widget-setting>
+         <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+         <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+         <b:widget-setting name='style.urlcolor'>#008000</b:widget-setting>
+         <b:widget-setting name='showAuthor'>false</b:widget-setting>
+         <b:widget-setting name='disableGooglePlusShare'>true</b:widget-setting>
+         <b:widget-setting name='style.linkcolor'>#0000ff</b:widget-setting>
+         <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+         <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+         <b:widget-setting name='reactionsLabel'/>
+         <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+         <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+         <b:widget-setting name='showLabels'>true</b:widget-setting>
+         <b:widget-setting name='showLocation'>false</b:widget-setting>
+         <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+         <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+         <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+         <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+         <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+         <b:widget-setting name='showReactions'>false</b:widget-setting>
+       </b:widget-settings>
+       <b:includable id='main' var='top'>
+      <b:if cond='!data:mobile'>
+
+          <b:include data='top' name='status-message'/>
+            <!-- page not found -->
+          <b:if cond='data:numPosts == 0'>
+            <style type='text/css'>ss </style>
+          </b:if>
+           <!-- label page -->
+          <b:if cond='data:blog.searchLabel'>
+            <style type='text/css'>
+              #Blog2 {display:none; !important}
+            </style>
+          </b:if>
+          <div class='carousel slide carousel-fade' data-bs-ride='carousel' id='carousel'>
+             <b:if cond='data:view.search.query.escaped == data:blog.view'>
+               <div class='carousel-indicators' id='indikator'>
+                 <button aria-current='true' aria-label='Slide 1' class='dot active' data-bs-slide-to='0' data-bs-target='#carousel' type='button'/>
+               </div>
+            </b:if>
+            <div class='carousel-inner'>
+              <b:with value='data:posts filter (p =&gt; p.labels any ( l =&gt; l.name == &quot;Utama&quot; ))' var='filteredData'>
+                <b:loop index='i' values='data:filteredData' var='post'>
+                  <div class='carousel-item'>
+                      <b:include data='post' name='post'/>
+                      <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
+                  </div>
+                </b:loop>
+              </b:with>
+            </div>
+          </div>
+      </b:if>
+      <b:include cond='data:top.showPlusOne' name='googlePlusBootstrap'/>
+    </b:includable>
+       <b:includable id='backlinkDeleteIcon' var='backlink'/>
+       <b:includable id='backlinks' var='post'/>
+       <b:includable id='comment-form' var='post'>
+    </b:includable>
+       <b:includable id='commentDeleteIcon' var='comment'>
+    </b:includable>
+       <b:includable id='comment_count_picker' var='post'>
+    </b:includable>
+       <b:includable id='comment_picker' var='post'>
+    </b:includable>
+       <b:includable id='comments' var='post'>
+    </b:includable>
+       <b:includable id='feedLinks'>
+    </b:includable>
+       <b:includable id='feedLinksBody' var='links'>
+    </b:includable>
+       <b:includable id='iframe_comments' var='post'>
+    </b:includable>
+       <b:includable id='mobile-index-post' var='post'>
+    </b:includable>
+       <b:includable id='mobile-main' var='top'>
+    </b:includable>
+       <b:includable id='mobile-nextprev'>
+    </b:includable>
+       <b:includable id='mobile-post' var='post'>
+    </b:includable>
+       <b:includable id='nextprev'>
+    </b:includable>
+       <b:includable id='post' var='post'>
+        <div class='post-body entry-content postingan-data colorbg' expr:id='&quot;post-body-&quot; + data:post.id' expr:itemprop='(data:blog.metaDescription ? &quot;&quot; : &quot;description &quot;) + &quot;articleBody&quot;'>
+          <!-- Add Code For ReadMore2 -->
+          <b:if cond='data:blog.pageType != &quot;static_page&quot;'>
+            <b:if cond='data:blog.pageType != &quot;item&quot;'>
+              <div class='headline' expr:id='&quot;postingan&quot; + data:post.id'>
+                <data:post.title/>
+                <data:post.body/>   
+                <script type='text/javascript'>createSummaryAndThumb3(&quot;postingan<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot;<data:post.title/>&quot;,&quot;<data:post.timestamp/>&quot;,&quot;<data:post.author/>&quot;)</script>
+              </div>
+    
+            </b:if>
+          </b:if>
+          <b:if cond='data:blog.pageType == &quot;item&quot;'>
+            <data:post.body/>
+          </b:if>
+          <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
+            <data:post.body/>
+          </b:if>
+          <div style='clear: both;'/> <!-- clear for photos floats -->
+        </div>
+    </b:includable>
+       <b:includable id='postQuickEdit' var='post'>
+    </b:includable>
+       <b:includable id='shareButtons' var='post'>
+    </b:includable>
+       <b:includable id='status-message'>
+    </b:includable>
+       <b:includable id='threaded-comment-form' var='post'>
+    </b:includable>
+       <b:includable id='threaded_comment_js' var='post'>
+    </b:includable>
+       <b:includable id='threaded_comments' var='post'>
+    </b:includable>
+     </b:widget>
+   </b:section>
+  </section>
+<article class='col-md-9 order-md-3' id='article-wrapper' itemscope='itemscope' itemtype='http://schema.org/Blog' role='main'>
 <b:section class='main row' id='main'>
   <b:widget id='Blog1' locked='true' title='Postingan Blog' type='Blog' version='1'>
     <b:widget-settings>
@@ -873,7 +1019,7 @@ h3.post-title.entry-title {display: none;}
       <b:include data='top' name='status-message'/>
 		    
       <b:loop values='data:posts' var='post'>
-        <b:if cond='data:post.isDateStart and not data:post.isFirstPost'>
+        <!-- <b:if cond='data:post.isDateStart and not data:post.isFirstPost'>
           &lt;/div&gt;&lt;/div&gt;
         </b:if>
    
@@ -885,7 +1031,7 @@ h3.post-title.entry-title {display: none;}
         </b:if>
         <b:if cond='data:post.isDateStart'>
           &lt;div class=&quot;date-posts row&quot;&gt;
-        </b:if>
+        </b:if>-->
         <b:if cond='data:blog.pageType != &quot;item&quot;'>
           <div class='col-md-4 p-0'>
         <div class='post-outer'>
@@ -909,9 +1055,9 @@ h3.post-title.entry-title {display: none;}
           </div>
         </b:if>
       </b:loop>
-      <b:if cond='data:numPosts != 0'>
+      <!--<b:if cond='data:numPosts != 0'>
         &lt;/div&gt;&lt;/div&gt;
-      </b:if>
+      </b:if>-->
              
     </div>
 
@@ -1796,143 +1942,16 @@ h3.post-title.entry-title {display: none;}
   </div>
 </b:includable>
   </b:widget>
-  <b:widget id='Blog2' locked='true' title='Postingan Blog' type='Blog' version='1'>
-    <b:widget-settings>
-      <b:widget-setting name='showDateHeader'>true</b:widget-setting>
-      <b:widget-setting name='style.textcolor'>#000000</b:widget-setting>
-      <b:widget-setting name='showShareButtons'>false</b:widget-setting>
-      <b:widget-setting name='showCommentLink'>false</b:widget-setting>
-      <b:widget-setting name='style.urlcolor'>#008000</b:widget-setting>
-      <b:widget-setting name='showAuthor'>false</b:widget-setting>
-      <b:widget-setting name='disableGooglePlusShare'>true</b:widget-setting>
-      <b:widget-setting name='style.linkcolor'>#0000ff</b:widget-setting>
-      <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
-      <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
-      <b:widget-setting name='reactionsLabel'/>
-      <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
-      <b:widget-setting name='style.layout'>1x1</b:widget-setting>
-      <b:widget-setting name='showLabels'>true</b:widget-setting>
-      <b:widget-setting name='showLocation'>false</b:widget-setting>
-      <b:widget-setting name='showTimestamp'>true</b:widget-setting>
-      <b:widget-setting name='postsPerAd'>1</b:widget-setting>
-      <b:widget-setting name='showBacklinks'>false</b:widget-setting>
-      <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
-      <b:widget-setting name='showInlineAds'>false</b:widget-setting>
-      <b:widget-setting name='showReactions'>false</b:widget-setting>
-    </b:widget-settings>
-    <b:includable id='main' var='top'>
-      <b:if cond='!data:mobile'>
-        <!-- posts -->
-        <div class='blog-posts hfeed '>
-          <b:include data='top' name='status-message'/>
-            <!-- page not found -->
-          <b:if cond='data:numPosts == 0'>
-            <style type='text/css'>ss </style>
-          </b:if>
-           <!-- label page -->
-          <b:if cond='data:blog.searchLabel'>
-            <style type='text/css'>
-              #Blog2 {display:none; !important}
-            </style>
-          </b:if>
-          <div class='carousel slide carousel-fade' data-bs-ride='carousel' id='carousel'>
-             <b:if cond='data:view.search.query.escaped == data:blog.view'>
-               <div class='carousel-indicators' id='indikator'>
-                 <button aria-current='true' aria-label='Slide 1' class='active' data-bs-slide-to='0' data-bs-target='#carousel' type='button'/>
-               </div>
-            </b:if>
-            <div class='carousel-inner'>
-              <b:with value='data:posts filter (p =&gt; p.labels any ( l =&gt; l.name == &quot;Utama&quot; ))' var='filteredData'>
-                <b:loop index='i' values='data:filteredData' var='post'>
-                  <div class='carousel-item'>
-                      <b:include data='post' name='post'/>
-                      <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
-                  </div>
-                </b:loop>
-              </b:with>
-              <b:if cond='data:numPosts != 0'>
-                &lt;/div&gt;&lt;/div&gt;
-              </b:if>
-            </div>
-          </div>
-        </div>
-      </b:if>
-      <b:include cond='data:top.showPlusOne' name='googlePlusBootstrap'/>
-    </b:includable>
-    <b:includable id='backlinkDeleteIcon' var='backlink'/>
-    <b:includable id='backlinks' var='post'/>
-    <b:includable id='comment-form' var='post'>
-    </b:includable>
-    <b:includable id='commentDeleteIcon' var='comment'>
-    </b:includable>
-    <b:includable id='comment_count_picker' var='post'>
-    </b:includable>
-    <b:includable id='comment_picker' var='post'>
-    </b:includable>
-    <b:includable id='comments' var='post'>
-    </b:includable>
-    <b:includable id='feedLinks'>
-    </b:includable>
-    <b:includable id='feedLinksBody' var='links'>
-    </b:includable>
-    <b:includable id='iframe_comments' var='post'>
-    </b:includable>
-    <b:includable id='mobile-index-post' var='post'>
-    </b:includable>
-    <b:includable id='mobile-main' var='top'>
-    </b:includable>
-    <b:includable id='mobile-nextprev'>
-    </b:includable>
-    <b:includable id='mobile-post' var='post'>
-    </b:includable>
-    <b:includable id='nextprev'>
-    </b:includable>
-    <b:includable id='post' var='post'>
-        <div class='post-body entry-content postingan-data colorbg' expr:id='&quot;post-body-&quot; + data:post.id' expr:itemprop='(data:blog.metaDescription ? &quot;&quot; : &quot;description &quot;) + &quot;articleBody&quot;'>
-          <!-- Add Code For ReadMore2 -->
-          <b:if cond='data:blog.pageType != &quot;static_page&quot;'>
-            <b:if cond='data:blog.pageType != &quot;item&quot;'>
-              <div class='headline' expr:id='&quot;postingan&quot; + data:post.id'>
-                <data:post.title/>
-                <data:post.body/>   
-                <script type='text/javascript'>createSummaryAndThumb3(&quot;postingan<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot;<data:post.title/>&quot;,&quot;<data:post.timestamp/>&quot;,&quot;<data:post.author/>&quot;)</script>
-              </div>
-    
-            </b:if>
-          </b:if>
-          <b:if cond='data:blog.pageType == &quot;item&quot;'>
-            <data:post.body/>
-          </b:if>
-          <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
-            <data:post.body/>
-          </b:if>
-          <div style='clear: both;'/> <!-- clear for photos floats -->
-        </div>
-    </b:includable>
-    <b:includable id='postQuickEdit' var='post'>
-    </b:includable>
-    <b:includable id='shareButtons' var='post'>
-    </b:includable>
-    <b:includable id='status-message'>
-    </b:includable>
-    <b:includable id='threaded-comment-form' var='post'>
-    </b:includable>
-    <b:includable id='threaded_comment_js' var='post'>
-    </b:includable>
-    <b:includable id='threaded_comments' var='post'>
-    </b:includable>
-  </b:widget>
 </b:section>
-  <div class='clearfix'/>
-     
-<aside id='sidebar-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPSideBar'>
-<b:section class='sidebar' id='sidebar' showaddelement='yes'/>
-  
-  <div> test</div>
-</aside>
 </article>
-</section>
+  <aside class='col-md-3 order-md-2' id='sidebar-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPSideBar '>
+<b:section class='sidebar' id='sidebar' showaddelement='yes'/>
 
+  	
+  <div> test</div>
+
+</aside>
+</section>
 <div class='clearfix'/>
          
 <footer id='footer-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPFooter'>
