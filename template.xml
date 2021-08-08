@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.3.3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='notepedia.xml' b:templateVersion='1.3.3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 <head>
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"> </script>
@@ -55,7 +55,7 @@ display: none;
 }
 
 :root {
-  --main-bg-color: #d00000;
+  --main-bg-color: rgb(223, 57, 49);
 }
 .colorbg {
 	background-color: var(--main-bg-color) !important;
@@ -372,7 +372,7 @@ button#searchform {
     position: relative;
     width: 100%;
 	padding:15px;
-	font-family: monospace;
+	font-family: var(--bs-font-monospace);
     text-transform: capitalize;
 }
 .text-post-date a {
@@ -470,7 +470,7 @@ button#searchform {
 .postmeta a {
     text-decoration: none;
     font-size: smaller;
-    font-family: monospace;
+    font-family: var(--bs-font-monospace);
     text-transform: capitalize;
     color: rgb(0 0 0 / 81%);
 }
@@ -561,10 +561,10 @@ function createSummaryAndThumb(pID, pURL, pTITLE, pDATE, pAUTHOR){
 	var img = div.getElementsByTagName("img");
 	var summ = posts_no_thumb_sum;
 	if(img.length>=1) {
-		imgtag = '<div class="img-post"><a href="'+ pURL +'" title="'+ pTITLE+'"><img width="1012" height="457" class="img-headline" src="'+img[0].src+' "/></a></div>';
+		imgtag = '<div class="img-post"><a href="'+ pURL +'" title="'+ pTITLE+'"><img width="1012" height="457" class="img-headline" src="'+img[0].src+' " itemprop="image_url"/></a></div>';
 		summ = posts_thumb_sum;
 		}
-    var summary = imgtag + '<div class="post-text"><h3 class="title-post"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post d-sm-none d-md-block dni-none">' + removeHtmlTag(div.innerHTML,summ) + '</p></div>';
+    var summary = imgtag + '<div class="post-text"><h3 class="title-post"  itemprop="name"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post d-sm-none d-md-block dni-none">' + removeHtmlTag(div.innerHTML,summ) + '</p></div>';
 	div.innerHTML = summary;
 }
 
@@ -574,9 +574,9 @@ function createSummaryAndThumb3(pID, pURL, pTITLE, pDATE, pAUTHOR){
 	var img = div.getElementsByTagName("img");
 	var summ = post_tidak_gambar;
 		if(img.length>=1) {
-    		imgtag = '<div class="col-md-9 p-0"><a href="'+ pURL +'" title="'+ pTITLE+'"><img width="1012" height="457" src="'+img[0].src+' "/></a></div>';
+    		imgtag = '<div class="col-md-9 p-0"><a href="'+ pURL +'" title="'+ pTITLE+'"><img width="1012" height="457" src="'+img[0].src+' " itemprop="image_url"/></a></div>';
         	summ = post_dengan_gambar;}
-    var summary = imgtag + '<div class="col-md-3 order-2 headline-text"><div class="headline-content"><h3 class="oswald-cap title-post"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post ">' + removeHtmlTag(div.innerHTML,summ) + '</p> </div><div class="text-post-date colorbg"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '</div></div>';
+    var summary = imgtag + '<div class="col-md-3 order-2 headline-text"><div class="headline-content"><h3 class="oswald-cap title-post" itemprop="name"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post ">' + removeHtmlTag(div.innerHTML,summ) + '</p> </div><div class="text-post-date colorbg"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '</div></div>';
   	div.innerHTML = summary;
 }
 
@@ -1923,13 +1923,18 @@ h3.post-title.entry-title {display: none;}
     </b:includable>
   </b:widget>
 </b:section>
-</article>
-</section>
-<div class='clearfix'/>
+  <div class='clearfix'/>
+     
 <aside id='sidebar-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPSideBar'>
 <b:section class='sidebar' id='sidebar' showaddelement='yes'/>
+  
+  <div> test</div>
 </aside>
+</article>
+</section>
+
 <div class='clearfix'/>
+         
 <footer id='footer-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPFooter'>
 <b:section class='footer' id='footer' showaddelement='yes'/>
 <footer class='footer-left'>
