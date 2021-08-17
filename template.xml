@@ -470,6 +470,13 @@ button#searchform {
     padding-left: 0;
 }
 
+.post-blog {
+    display: none;
+}
+
+.post-blog:nth-child(1), .post-blog:nth-child(2), .post-blog:nth-child(3), .post-blog:nth-child(4) {
+    display: block;
+}
 .article-post img {
     width: 100%;
     object-fit: cover;
@@ -489,8 +496,12 @@ button#searchform {
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
-.article-post h3 a:hover , .post-blog .postmeta a:hover{
+.article-post h3 a:hover , .post-blog .postmeta a:hover , [aria-label="breadcrumb"] a:hover{
 	color: rgb(37 37 37 / 82%)
+}
+
+.article-post .text-post {
+	display:none;
 }
 .post-blog .postmeta {
     margin: 10px;
@@ -502,6 +513,45 @@ button#searchform {
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
     font-size: small;
+}
+[aria-label="breadcrumb"] {
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+[aria-label="breadcrumb"] ol {
+    margin-bottom: 0 !important;
+}
+
+[aria-label="breadcrumb"] a {
+    text-decoration: none;
+    color: var(--bs-dark);
+}
+
+@media (max-width: 767.98px){
+	#Blog1 .post-blog {
+		padding: 0;
+	}
+	#Blog1 .hfeed {
+    	display: grid;
+		align-items: start;
+	}
+	.article-post {
+    	display: flex;
+    	flex-wrap: nowrap;
+	}
+	.article-post .img-post {
+    	position: absolute;
+    	display: block;
+    	width: 50%;
+    	right: 0;
+		height: 200px;
+	}
+	.article-post .post-text {
+    	width: 50%;
+    	position: relative;
+    	padding-right: 25px;
+	}
 }
 
 
@@ -533,7 +583,7 @@ posts_thumb_sum = 150;
 
 </script>
 <!--Jquery 1.8.3 -->
-<script src='http://code.jquery.com/jquery-1.8.3.min.js'/>
+<script src='http://code.jquery.com/jquery-1.8.3.min.js'/> 
 
 <!-- headline Post -->
 <script type='text/javascript'>
@@ -554,7 +604,7 @@ $(document).ready(function() {
 });
 
 $(window).scroll(function() {
-	var scroll = $(window).scrollTop();
+	let scroll = $(window).scrollTop();
     if (scroll > 500) {
         $("#navigation").addClass("mini-header");
 		$("#minitoggle").addClass("top");
@@ -563,13 +613,25 @@ $(window).scroll(function() {
         $("#navigation").removeClass("mini-header");
 		$("#minitoggle").removeClass("top");
     }
+	if (scroll + window.innerHeight > $(document).height() - 50 ) {
+		$(".post-blog:nth-child(5)").fadeIn();
+		$(".post-blog:nth-child(6)").fadeIn();
+	}
+	if (scroll + window.innerHeight > $(document).height() - 49 ) {
+		$(".post-blog:nth-child(7)").fadeIn();
+		$(".post-blog:nth-child(8)").fadeIn();
+	}
+	console.log(scroll + window.innerHeight > $(document).height() - 50);
+
 });
+
+
 
 $(document).ready(function() {
      $(':button[type="submit"]').prop('disabled', true);
      $('input[type="text"]').keyup(function() {
         if($(this).val() != '') {
-           $(':button[type="submit"]').prop('disabled', false);
+      		$(':button[type="submit"]').prop('disabled', false);     
         }
 	});
 	
@@ -605,7 +667,7 @@ function createSummaryAndThumb(pID, pURL, pTITLE, pDATE, pAUTHOR){
 	var img = div.getElementsByTagName("img");
 	var summ = posts_no_thumb_sum;
 	if(img.length>=1) {
-		imgtag = '<div class="img-post"><a href="'+ pURL +'" title="'+ pTITLE+'"><img src="'+img[0].src+' " itemprop="image_url"/></a></div>';
+		imgtag = '<div class="img-post"><a href="'+ pURL +'" title="'+ pTITLE+'"><img src="'+img[0].src+' " itemprop="image_url" height="457" width="1012"/></a></div>';
 		summ = posts_thumb_sum;
 		}
     var summary = imgtag + '<div class="post-text"><h3 class="title-post"  itemprop="name"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post d-sm-none d-md-block">' + removeHtmlTag(div.innerHTML,summ) + '</p></div>';
@@ -618,11 +680,12 @@ function createSummaryAndThumb3(pID, pURL, pTITLE, pDATE, pAUTHOR){
 	var img = div.getElementsByTagName("img");
 	var summ = post_tidak_gambar;
 		if(img.length>=1) {
-    		imgtag = '<div class="col-md-9 img-headline"><a href="'+ pURL +'" title="'+ pTITLE+'"><img src="'+img[0].src+' " itemprop="image_url"/></a></div>';
+    		imgtag = '<div class="col-md-9 img-headline"><a href="'+ pURL +'" title="'+ pTITLE+'"><img src="'+img[0].src+' " itemprop="image_url" height="228" width="495.88" /></a></div>';
         	summ = post_dengan_gambar;}
     var summary = imgtag + '<div class="col-md-3 order-2 headline-text"><div class="headline-content"><h3 class="oswald-cap title-post" itemprop="name"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post ">' + removeHtmlTag(div.innerHTML,summ) + '</p> </div><div class="text-post-date colorbg"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '</div></div>';
   	div.innerHTML = summary;
 }
+
 
 
 function createLink(linkClass,linkPath,link){
@@ -934,7 +997,7 @@ $(document).ready(function() {
                <div class='carousel-indicators' id='indikator'>
                  <button aria-current='true' aria-label='Slide 1' class='dot active' data-bs-slide-to='0' data-bs-target='#carousel' type='button'/>
                </div>
-            </b:if>
+          
             <div class='carousel-inner'>
               <b:with value='data:posts filter (p =&gt; p.labels any ( l =&gt; l.name == &quot;Utama&quot; ))' var='filteredData'>
                 <b:loop index='i' values='data:filteredData' var='post'>
@@ -945,6 +1008,7 @@ $(document).ready(function() {
                 </b:loop>
               </b:with>
             </div>
+                 </b:if>
           </div>
       </b:if>
       <b:include cond='data:top.showPlusOne' name='googlePlusBootstrap'/>
@@ -2775,5 +2839,7 @@ Design by <a href='' target='_blank' title='Blogger'>nndwn</a>
 </footer>
 </footer>
 </div>
+
 </body>
+
 </html>
