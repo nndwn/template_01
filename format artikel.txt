@@ -1,0 +1,35 @@
+<div id= "posttext">
+	<figure class="figure">
+		<a href="https://">
+  			<img  class="img-fluid" border="0" src="https://lh3.googleusercontent.com/" />
+  				<figcaption class="figure-caption">Photo by unsplash.com</figcaption>
+		</a>
+	</figure>
+	<p>Introductive Paragraph</p>
+	<p>Descriptive Paragraph</p>
+	<p> Addtional Information </p>
+		<h1>Title Content 1 </h1>
+			<p>Content Paragraph</p>
+			<h2> Sub Title Content 2</h2>
+				<p>Content Paragraph</p>
+				<h3> Subsub Title Content 2 <h3>
+					<p>Content Paragraph</p>
+	<p>Conclution</p>
+
+
+<!-- Addtional Option -->
+<!-- if have link -->
+<!--
+<a href="https://location_link" rel="nofollow" target="_blank">
+	Name Link
+</a>
+-->
+<!-- if have other image -->
+<figure class="figure">
+	<a href="https://">
+  		<img  class="img-fluid" border="0" src="https://lh3.googleusercontent.com/" />
+  			<figcaption class="figure-caption">Photo by unsplash.com</figcaption>
+	</a>
+</figure>	
+	
+<div>
