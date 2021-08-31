@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='notepedia.xml' b:templateVersion='1.3.3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
-<head>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.3.0' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale.language' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+  <b:attr name='xmlns' value=''/>
+  <b:attr name='xmlns:b' value=''/>
+  <b:attr name='xmlns:expr' value=''/>
+  <b:attr name='xmlns:data' value=''/>
+  
+ <!--[ <head> Open ]-->
+  &lt;head&gt;
   
 <meta charset='utf-8'/>
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"> </script>
-<![endif]-->
+<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"> </script><![endif]-->
 <meta content='width=device-width, initial-scale=1' name='viewport'/>
+<meta content='var(--main-bg-color)' name='theme-color'/>
 <link rel='shortcut icon' type='image/jpg'/>
 <!--<b:include data='blog' name='all-head-content'/>-->
 
@@ -43,12 +48,12 @@ p.oswald-cap , .oswald-cap , .oswald-cap a{
 	text-transform: capitalize;
     font-weight: 400;
     font-family: var(--oswald-font);
-	color:#fff !important ;
+	color:var(--bs-white) !important ;
 	text-decoration: none;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 p.oswald-cap:hover {
-	color: #fff !important;
+	color: var(--bs-white) !important;
 }
 .oswald-cap:hover , .oswald-cap a:hover{
 color: rgb(255 255 255 / 82%) !important;
@@ -62,6 +67,10 @@ display: none;
   --oswald-font : 'Oswald';
   --h2-fontsize : 3rem;
 
+}
+
+a {		
+    overflow-wrap: break-word;
 }
 .colorbg {
 	background-color: var(--main-bg-color) !important;
@@ -78,9 +87,12 @@ display: none;
 
 
 #wrapper {
-    display: grid;
-    justify-items: center;
-    align-content: space-between;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+	background-color: var(--bs-gray);
 }
 
 /*---- Navigasi ---- */
@@ -114,7 +126,7 @@ body .nav-main {
     align-self: center;
 }
 .logo-text p, .logo-text a {
-    color:  #fff;
+    color:  var(--bs-white);
 	font-family: var(--oswald-font);
 	text-transform: uppercase;
 	text-decoration: none;
@@ -213,7 +225,7 @@ display: none;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    background: #ffffff;
+    background: var(--bs-white);
     content: "";
     height: 4px;
     transition: all 0.5s;
@@ -232,7 +244,7 @@ display: none;
   	background: transparent;
 }
 .nav-toggle.expanded .nav-toggle-bar::after, .nav-toggle.expanded .nav-toggle-bar::before {
-  	background: #ffffff;
+  	background: var(--bs-white);
  	margin-top: 0;
 }
 .nav-toggle.expanded .nav-toggle-bar::after {
@@ -271,8 +283,8 @@ input.form-control {
     border-bottom-left-radius: 0.15rem;
 }
 button#searchform, input.form-control {
-    background-color: #fff;
-    border: 1px solid #fff;
+    background-color: var(--bs-white);
+    border: 1px solid var(--bs-white);
 }
 button#searchform {
     border-top-right-radius: 0.15rem;
@@ -283,7 +295,7 @@ button#searchform {
 }
 .search-form:focus{
     box-shadow: unset ! important;
-	border-color: #fff !important;
+	border-color: var(--bs-white) !important;
 }
 .widget .outcanvas-label ul {
     padding: 0;
@@ -311,7 +323,7 @@ button#searchform {
 .outcanvas-footer a {
 	white-space: nowrap;
     text-decoration: 0;
-    color:#fff;
+    color: var(--bs-white);
     font-family: monospace;
     font-size: small;
 	font-weight:400;
@@ -344,6 +356,7 @@ button#searchform {
 
 #outer-wrapper {
     --bs-gutter-x: unset;
+	  background-color: var(--bs-white);
 }
 
 #Blog2{
@@ -410,10 +423,10 @@ button#searchform {
     height: 10px !important;
     width: 10px !important;
     margin: 0;
-    background-color: #fff;
+    background-color: var(--bs-white);
     border-radius: 50%;
     display: inline-block;
-    margin-bottom: 5px;
+ 
 }
 
 @media (max-width: 767.98px){
@@ -460,11 +473,6 @@ button#searchform {
 #Blog1 {
 	display:none;
 }
-#Blog1 .hfeed {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-}
 
 #Blog1 .post-blog {
     padding-right: 10px;
@@ -473,9 +481,6 @@ button#searchform {
     padding-left: 0;
 }
 
-.post-blog {
-    display: none;
-}
 
 .blog-posts .post-blog:nth-child(1),.blog-posts .post-blog:nth-child(2),.blog-posts .post-blog:nth-child(3),.blog-posts .post-blog:nth-child(4) {
     display: block;
@@ -535,10 +540,6 @@ button#searchform {
 	#Blog1 .post-blog {
 		padding: 0;
 	}
-	#Blog1 .hfeed {
-    	display: grid;
-		align-items: start;
-	}
 	.article-post {
     	display: flex;
     	flex-wrap: nowrap;
@@ -549,7 +550,7 @@ button#searchform {
     	width: 50%;
     	right: 0;
 		height: 200px;
-		z-index: -1
+		z-index: 1
 	}
 	.article-post .post-text {
     	width: 50%;
@@ -562,13 +563,24 @@ button#searchform {
 /*---- aside left ---- */
 
 #sidebar-wrapper {
-    background-color: #fff;
+    background-color: var(--bs-white);
+	z-index: 2;
 }
 
 
 #PopularPosts1 {
     padding: 10px;
 	padding-right: 20px;
+}
+
+#PopularPosts1 a {
+	text-transform: capitalize;
+	text-decoration: none;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+#PopularPosts1 a:hover{
+	color: rgb(37 37 37 / 82%)	
 }
 
 #PopularPosts1 .title {
@@ -605,29 +617,18 @@ button#searchform {
 }
 
 #PopularPosts1 .post-title a {
-	text-transform: capitalize;
-    text-decoration: none;
     font-size: large;
     font-family: var(--oswald-font);
     font-weight: 400;
     color: var(--bs-dark);
-	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 
-#PopularPosts1 .post-title a:hover {
-	color: rgb(37 37 37 / 82%)
-	
-}
-
-.item-byline .post-timestamp {
+#PopularPosts1 .byline {
     font-size: small;
-    color: #000000bd;
 }
-
-.item-byline .post-timestamp abbr {
-    text-decoration: none;
+#PopularPosts1 .byline a {
+	color: #000000bd;
 }
-
 
 
 /*---- footer ---- */
@@ -685,6 +686,16 @@ button#searchform {
 
 /*---- postingan ---- */
 
+#Blog1 .posttext-data {
+	width: 100%;
+}
+@media (max-width: 767.98px) {
+
+	#outer-wrapper {
+		width: 100%;
+	}
+
+}
 
 
 ]]></b:skin>
@@ -709,13 +720,32 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 </style>
   
 <!--Jquery 1.8.3 -->
-<script src='http://code.jquery.com/jquery-1.8.3.min.js'/> 
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'/> 
+
+<!--jquery.lazy/1.7.9 -->  
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js' type='text/javascript'/>
 
 <script type='text/javascript'>
 //<![CDATA[
 
 
 
+$(function() {
+        $('.lazy').Lazy({
+                beforeLoad: (e) => {
+                    console.log('## about to load ' + e.data('src') + (new Date()).toISOString())
+                },
+                afterLoad: (e) => {
+                    console.log('## finished to load ' + e.data('src') + (new Date()).toISOString())
+                },
+                onError: (e) => {
+                    console.log('##############', e)
+                },
+                onFinishedAll: () => {
+                    console.log('############### done')
+                }
+        });
+});
 
 $(document).ready(function() {
 	var lebar = $(window).width();
@@ -735,38 +765,7 @@ $(window).scroll(function() {
         $("#navigation").removeClass("mini-header");
 		$("#minitoggle").removeClass("top");
     }
-	if (scroll + window.innerHeight > $(document).height() - 50 ) {
-		$(".post-blog:nth-child(5)").fadeIn();
-		$(".post-blog:nth-child(6)").fadeIn();
-	}
-	if (scroll + window.innerHeight > $(document).height() - 50 ) {
-		$(".post-blog:nth-child(7)").fadeIn();
-		$(".post-blog:nth-child(8)").fadeIn();
-	}
-	if (scroll + window.innerHeight > $(document).height() - 50 ) {
-		$(".post-blog:nth-child(9)").fadeIn();
-		$(".post-blog:nth-child(10)").fadeIn();
-	}
-	if (scroll + window.innerHeight > $(document).height() - 50 ) {
-		$(".post-blog:nth-child(11)").fadeIn();
-		$(".post-blog:nth-child(12)").fadeIn();
-	}
-	if (scroll + window.innerHeight > $(document).height() - 50 ) {
-		$(".post-blog:nth-child(13)").fadeIn();
-		$(".post-blog:nth-child(14)").fadeIn();
-	}
-	if (scroll + window.innerHeight > $(document).height() - 50 ) {
-		$(".post-blog:nth-child(15)").fadeIn();
-		$(".post-blog:nth-child(16)").fadeIn();
-	}
-	if (scroll + window.innerHeight > $(document).height() - 50 ) {
-		$(".post-blog:nth-child(17)").fadeIn();
-		$(".post-blog:nth-child(18)").fadeIn();
-	}
-	if (scroll + window.innerHeight > $(document).height() - 50 ) {
-		$(".post-blog:nth-child(19)").fadeIn();
-		$(".post-blog:nth-child(20)").fadeIn();
-	}
+
 	if (scroll + window.innerHeight > $(document).height() - 50 ) {
 		$("#footer-wrapper").fadeIn();
 	}
@@ -845,12 +844,12 @@ function titlelesstop(pID, pURL, pTITLE, pDATE, pAUTHOR) {
 	let title = pTITLE;
 	const tiv = document.getElementById(pID);
 	let summa = title_post;
-	let timeTag = '<span class="byline"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '<span>';
+	let timeTag = '<span class="byline"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '</span>';
 	if (title.length > 37 ) {	
-		let summaryy = '<a href="'+ pURL +'" title="'+ pTITLE +'" alt="'+ pTITLE +'"> ' + removeHtmlTag(tiv.innerHTML,summa) + '</a>'+ timeTag;
+		let summaryy = '<div class="post-title"><a href="'+ pURL +'" title="'+ pTITLE +'" alt="'+ pTITLE +'"> ' + removeHtmlTag(tiv.innerHTML,summa) + '</a> </div>'+ timeTag;
 		tiv.innerHTML = summaryy;
 		}else {
-			let summaryy = '<a href="'+ pURL +'" title="'+ pTITLE +'" alt="'+ pTITLE +'"> ' +  pTITLE + '</a>'+ timeTag;
+			let summaryy = '<div class="post-title"><a href="'+ pURL +'" title="'+ pTITLE +'" alt="'+ pTITLE +'"> ' +  pTITLE + '</a> </div>'+ timeTag;
 			tiv.innerHTML = summaryy;
 	}}
 
@@ -895,10 +894,20 @@ $(document).ready(function() {
 	h3.post-title.entry-title {
 		display: none;
 		}
+  	#Blog1 .hfeed {
+    	display: flex;
+    	flex-wrap: wrap;
+    	align-items: flex-start;
+		}
+
 </style>
 </b:if>
 </b:if>
-
+<b:if cond='data:blog.homepageUrl != data:blog.url'>
+<style type='text/css'>
+    TEST
+</style>
+</b:if>
 <!-- AND READMORE -->
   
 
@@ -922,8 +931,13 @@ $(document).ready(function() {
 <!--<script async='async' data-ad-client='pub-9222866806157839' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'/>-->
 
 
-</head>
+<!--[ </head> close ]-->
+   &lt;/head&gt; 
+  &lt;!-- <head/> &lt;!--  --&gt;
 
+  
+  
+<!--[ <body> open ]-->
 <body class='index' itemscope='itemscope' itemtype='http://schema.org/WebPage'>
   <div id='wrapper'>
     
@@ -1031,7 +1045,7 @@ $(document).ready(function() {
       </nav>
 </header>
 <!-- Outcanvas -->
-    <div aria-controls='outCanvas' aria-label='outcanvas' class='nav-toggle' data-bs-toggle='offcanvas' href='#outCanvas' id='minitoggle' role='button' type='button'>&gt;
+    <div aria-controls='outCanvas' aria-label='outcanvas' class='nav-toggle' data-bs-toggle='offcanvas' href='#outCanvas' id='minitoggle' role='button' type='button'>
 		<div class='nav-toggle-bar'>
         </div>
 	</div>
@@ -1229,7 +1243,7 @@ $(document).ready(function() {
           <b:if cond='data:blog.pageType == &quot;static_page&quot;'>
             <data:post.body/>
           </b:if>
-          <div style='clear: both;'/> <!-- clear for photos floats -->
+          <!--<div style='clear: both;'/>  clear for photos floats -->
         </div>
     </b:includable>
        <b:includable id='postQuickEdit' var='post'>
@@ -1303,7 +1317,7 @@ $(document).ready(function() {
           &lt;div class=&quot;date-posts row&quot;&gt;
         </b:if>-->
         <b:if cond='data:blog.pageType != &quot;item&quot;'>
-          <div class='col-md-6 post-blog'>
+          <div class='col-md-6 post-blog lazy'>
         <div class='post-outer'>
           <b:include data='post' name='post'/>
           <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
@@ -1311,10 +1325,12 @@ $(document).ready(function() {
           </div>
         
           <b:else/>
+          <div class='posttext-data'>
         <div class='post-outer'>
           <b:include data='post' name='post'/>
           <b:include cond='data:blog.pageType in {&quot;static_page&quot;,&quot;item&quot;}' data='post' name='comment_picker'/>
         </div>
+            </div>
           </b:if>
       
 		
@@ -1716,7 +1732,7 @@ $(document).ready(function() {
           </div>
         </div>
 
-        <div style='clear: both;'/>
+        <!--<div style='clear: both;'/>-->
       </a>
 
       <div class='mobile-index-comment'>
@@ -1767,7 +1783,7 @@ $(document).ready(function() {
     </div>
 
   </div>
-  <div class='clear'/>
+  <!--<div class='clear'/>-->
 </b:includable>
     <b:includable id='mobile-post' var='post'>
   <div class='date-outer'>
@@ -1802,7 +1818,7 @@ $(document).ready(function() {
           </div>
           	<div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id' itemprop='articleBody'>
               <data:post.body/> 
-            <div style='clear: both;'/> <!-- clear for photos floats -->
+            <!--<div style='clear: both;'/>  clear for photos floats -->
           </div>
 		<!--Change2 15/07/2021-->
           <!--<div class='post-footer'>
@@ -1881,7 +1897,7 @@ $(document).ready(function() {
     </b:if>
 -->
   </div>
-  <div class='clear'/>
+  <!--<div class='clear'/>-->
 </b:includable>
     <b:includable id='otherSharingButton'>
   <span class='sharing-platform-button sharing-element-other' expr:aria-label='data:messages.shareToOtherApps.escaped' expr:data-url='data:originalUrl' expr:title='data:messages.shareToOtherApps.escaped' role='menuitem' tabindex='-1'>
@@ -1959,7 +1975,7 @@ $(document).ready(function() {
         </a>
       </div>
     </b:if>
-      <div style='clear: both;'/> <!-- clear for photos floats -->
+     <!--  <div style='clear: both;'/> clear for photos floats -->
     </div>
 
     <b:if cond='data:post.hasJumpLink'>
@@ -2208,7 +2224,7 @@ $(document).ready(function() {
       </div>
     </div>
   </div>
-  <div style='clear: both;'/>
+  <!--<div style='clear: both;'/>-->
   </b:if>
 </b:includable>
     <b:includable id='threaded-comment-form' var='post'>
@@ -2713,11 +2729,11 @@ $(document).ready(function() {
     <b:includable id='snippetedPostTitle'>
   <b:if cond='data:post.title != &quot;&quot;'>
     <!--titile more -->
-    <div class='post-title' expr:id='&quot;titletop&quot; + data:post.id'>
+    <div class='posts-contents' expr:id='&quot;titletop&quot; + data:post.id'>
       <!-- <a expr:href='data:post.url'>-->
         <data:post.title/>
       <!--</a>-->
-      <script type='text/javascript'>titlelesstop(&quot;titletop<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot; <data:post.title/>&quot;,&quot;<data:post.timestamp/>&quot;,&quot;<data:post.author/>&quot;);</script>
+      <script type='text/javascript'>titlelesstop(&quot;titletop<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot; <data:post.title/>&quot;,&quot; <data:post.date/>&quot;,&quot;<data:post.author.name/>&quot;);</script>
     </div>
   </b:if>
 </b:includable>
@@ -2736,7 +2752,7 @@ $(document).ready(function() {
 
 </aside>
 </section>
-<div class='clearfix'/>
+<!--<div class='clearfix'/>-->
          
 <footer id='footer-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPFooter'>
   <footer class='footer-content'>
@@ -2796,6 +2812,7 @@ $(document).ready(function() {
   </footer>
 </div>
 
-</body>
+  <!--[ </body> close ]-->
+&lt;!--</body>--&gt;&lt;/body&gt;
 
 </html>
