@@ -477,7 +477,7 @@ button#searchform {
     display: none;
 }
 
-.post-blog:nth-child(1), .post-blog:nth-child(2), .post-blog:nth-child(3), .post-blog:nth-child(4) {
+.blog-posts .post-blog:nth-child(1),.blog-posts .post-blog:nth-child(2),.blog-posts .post-blog:nth-child(3),.blog-posts .post-blog:nth-child(4) {
     display: block;
 }
 .article-post img {
@@ -708,23 +708,9 @@ button#searchform {
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:&#39;&#39;;content:none}table{border-collapse:collapse;border-spacing:0}
 </style>
   
-<!-- READMORE -->
-<script type='text/javascript'>
-posts_no_thumb_sum = 690;
-posts_thumb_sum = 150;
-
-</script>
 <!--Jquery 1.8.3 -->
 <script src='http://code.jquery.com/jquery-1.8.3.min.js'/> 
 
-<!-- headline Post -->
-<script type='text/javascript'>
-post_tidak_gambar = 690;
-post_dengan_gambar = 250;
-</script> 
-  
-
-  
 <script type='text/javascript'>
 //<![CDATA[
 
@@ -758,13 +744,37 @@ $(window).scroll(function() {
 		$(".post-blog:nth-child(8)").fadeIn();
 	}
 	if (scroll + window.innerHeight > $(document).height() - 50 ) {
+		$(".post-blog:nth-child(9)").fadeIn();
+		$(".post-blog:nth-child(10)").fadeIn();
+	}
+	if (scroll + window.innerHeight > $(document).height() - 50 ) {
+		$(".post-blog:nth-child(11)").fadeIn();
+		$(".post-blog:nth-child(12)").fadeIn();
+	}
+	if (scroll + window.innerHeight > $(document).height() - 50 ) {
+		$(".post-blog:nth-child(13)").fadeIn();
+		$(".post-blog:nth-child(14)").fadeIn();
+	}
+	if (scroll + window.innerHeight > $(document).height() - 50 ) {
+		$(".post-blog:nth-child(15)").fadeIn();
+		$(".post-blog:nth-child(16)").fadeIn();
+	}
+	if (scroll + window.innerHeight > $(document).height() - 50 ) {
+		$(".post-blog:nth-child(17)").fadeIn();
+		$(".post-blog:nth-child(18)").fadeIn();
+	}
+	if (scroll + window.innerHeight > $(document).height() - 50 ) {
+		$(".post-blog:nth-child(19)").fadeIn();
+		$(".post-blog:nth-child(20)").fadeIn();
+	}
+	if (scroll + window.innerHeight > $(document).height() - 50 ) {
 		$("#footer-wrapper").fadeIn();
 	}
 
 });
 
 
-
+//disable button search if no input
 $(document).ready(function() {
      $(':button[type="submit"]').prop('disabled', true);
      $('input[type="text"]').keyup(function() {
@@ -776,6 +786,8 @@ $(document).ready(function() {
 });
 
 
+
+//animation button outcanvas bootstrap
 $(document).ready(function () {
     var myOffcanvas = document.getElementById('outCanvas')
     myOffcanvas.addEventListener('shown.bs.offcanvas', function () {
@@ -785,6 +797,9 @@ $(document).ready(function () {
         $(".nav-toggle").removeClass("expanded");
     })
 });
+
+
+//function for less text like snipets text
 function removeHtmlTag(strx,chop){
 	if(strx.indexOf("<")!=-1){
 		var s = strx.split("<");
@@ -799,53 +814,45 @@ strx = strx.substring(0,chop-1);
 return strx+'...';
 }
 
+
+//function for snipets text for artikel
 function createSummaryAndThumb(pID, pURL, pTITLE, pDATE, pAUTHOR){
-	var div = document.getElementById(pID);
-	var imgtag = "";
-	var img = div.getElementsByTagName("img");
-	var summ = posts_no_thumb_sum;
-	if(img.length>=1) {
-		imgtag = '<div class="img-post"><a href="'+ pURL +'" title="'+ pTITLE+'"><img src="'+img[0].src+' " itemprop="image_url" height="457" width="1012" alt="'+ pTITLE+'" title="'+ pTITLE+'"/></a></div>';
-		summ = posts_thumb_sum;
-		}
-    var summary = imgtag + '<div class="post-text"><h3 class="title-post"  itemprop="name"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post d-sm-none d-md-block">' + removeHtmlTag(div.innerHTML,summ) + '</p></div>';
-	div.innerHTML = summary;
-
-	
-}
-function createSummaryAndThumb3(pID, pURL, pTITLE, pDATE, pAUTHOR){
-	var div = document.getElementById(pID);
-	var imgtag = "";
-	var img = div.getElementsByTagName("img");
-	var summ = post_tidak_gambar;
-		if(img.length>=1) {
-    		imgtag = '<div class="col-md-9 img-headline"><a href="'+ pURL +'" title="'+ pTITLE+'"><img src="'+img[0].src+' " itemprop="image_url" height="228" width="495.88" alt="'+ pTITLE+'" title="'+ pTITLE+'" /></a></div>';
-        	summ = post_dengan_gambar;}
-    var summary = imgtag + '<div class="col-md-3 order-2 headline-text"><div class="headline-content"><h3 class="oswald-cap title-post" itemprop="name"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post ">' + removeHtmlTag(div.innerHTML,summ) + '</p> </div><div class="text-post-date colorbg"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '</div></div>';
-  	div.innerHTML = summary;
-
-
+	posts_thumb_sum = 150;
+	let div = document.getElementById(pID);
+	let img = div.getElementsByTagName("img");
+	let imgtag = '<div class="img-post"><a href="'+ pURL +'" title="'+ pTITLE+'"><img src="'+img[0].src+' " itemprop="image_url" height="457" width="1012" alt="'+ pTITLE+'" title="'+ pTITLE+'"/></a></div>';
+	let summ = posts_thumb_sum;
+    let summary = imgtag + '<div class="post-text"><h3 class="title-post"  itemprop="name"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post d-sm-none d-md-block">' + removeHtmlTag(div.innerHTML,summ) + '</p></div>';
+	div.innerHTML = summary;	
 }
 
 
+//function for snipets text for headline
+function createSnipetsheadline(pID, pURL, pTITLE, pDATE, pAUTHOR){
+	headline_image = 250;
+	let idHeadline = document.getElementById(pID);
+	let imgheadline = idHeadline.getElementsByTagName("img");
+    let imgHeadlinetag = '<div class="col-md-9 img-headline"><a href="'+ pURL +'" title="'+ pTITLE+'"><img src="'+imgheadline[0].src+' " itemprop="image_url" height="228" width="495.88" alt="'+ pTITLE+'" title="'+ pTITLE+'" /></a></div>';
+   	let summaa = headline_image;
+    let headlinetext = imgHeadlinetag  + '<div class="col-md-3 order-2 headline-text"><div class="headline-content"><h3 class="oswald-cap title-post" itemprop="name"><a href="'+ pURL +'">' + pTITLE+ '</a></h3><p class="text-post ">' + removeHtmlTag(idHeadline.innerHTML,summaa) + '</p> </div><div class="text-post-date colorbg"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '</div></div>';
+  	idHeadline.innerHTML = headlinetext;
+}
 
-function titlelesstop(pID, pURL, pTITLE) {
+
+//function for snipets text title postpopuler
+function titlelesstop(pID, pURL, pTITLE, pDATE, pAUTHOR) {
 	title_post = 37;
 	let title = pTITLE;
-	title.length 
 	const tiv = document.getElementById(pID);
 	let summa = title_post;
- 	let n = removeHtmlTag(tiv.innerHTML,summa);
+	let timeTag = '<span class="byline"><a href="/search/label/'+pAUTHOR+'">'+ pAUTHOR +'</a>. '+ pDATE + '<span>';
 	if (title.length > 37 ) {	
-		let summaryy = '<a href="'+ pURL +'" title="'+ pTITLE +'" alt="'+ pTITLE +'"> ' + removeHtmlTag(tiv.innerHTML,summa) + '</a>';
+		let summaryy = '<a href="'+ pURL +'" title="'+ pTITLE +'" alt="'+ pTITLE +'"> ' + removeHtmlTag(tiv.innerHTML,summa) + '</a>'+ timeTag;
 		tiv.innerHTML = summaryy;
-}else {
-		let summaryy = '<a href="'+ pURL +'" title="'+ pTITLE +'" alt="'+ pTITLE +'"> ' +  pTITLE + '</a>';
-		tiv.innerHTML = summaryy;
-
-}
- 
-}
+		}else {
+			let summaryy = '<a href="'+ pURL +'" title="'+ pTITLE +'" alt="'+ pTITLE +'"> ' +  pTITLE + '</a>'+ timeTag;
+			tiv.innerHTML = summaryy;
+	}}
 
 
 
@@ -924,7 +931,7 @@ $(document).ready(function() {
     <header class='nav-main navbar navbar-expand-md navbar-dark colorbg' id='header-wrapper' itemscope='itemscope' itemtype='http://schema.org/WPHeader'>
       <nav class='container-fluid flex-wrap flex-md-nowrap' id='navigation' itemscope='itemscope' itemtype='http://schema.org/SiteNavigationElement' role='navigation'>
           <b:section class='navbar-nav w-100' id='header' maxwidgets='4'>
-            <b:widget id='Header1' locked='false' title='SampeTemplate (Header)' type='Header' version='1'>
+            <b:widget id='Header1' locked='false' title='Notepedia.xyz (Header)' type='Header' version='1'>
               <b:widget-settings>
                 <b:widget-setting name='displayUrl'/>
                 <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -1117,7 +1124,7 @@ $(document).ready(function() {
   <!--headline -->
   <section class='col-md-12 order-md-1' id='headline-wrapper' itemscope='itemscope' itemtype='https://schema.org/Property'>
    <b:section class='headline-post' id='headline' itemprop='headline'>
-     <b:widget id='Blog2' locked='false' title='Blog Posts' type='Blog' version='1'>
+     <b:widget id='Blog2' locked='false' title='Postingan Blog' type='Blog' version='1'>
        <b:widget-settings>
          <b:widget-setting name='showDateHeader'>true</b:widget-setting>
          <b:widget-setting name='style.textcolor'>#000000</b:widget-setting>
@@ -1211,7 +1218,7 @@ $(document).ready(function() {
             <b:if cond='data:blog.pageType != &quot;item&quot;'>
               <div class='headline' expr:id='&quot;postingan&quot; + data:post.id'>
                 <data:post.body/>   
-                <script type='text/javascript'>createSummaryAndThumb3(&quot;postingan<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot;<data:post.title/>&quot;,&quot;<data:post.timestamp/>&quot;,&quot;<data:post.author/>&quot;)</script>
+                <script type='text/javascript'>createSnipetsheadline(&quot;postingan<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot;<data:post.title/>&quot;,&quot;<data:post.timestamp/>&quot;,&quot;<data:post.author/>&quot;)</script>
               </div>
     
             </b:if>
@@ -1242,40 +1249,44 @@ $(document).ready(function() {
   </section>
 <article class='col-md-9 order-md-3' id='article-wrapper' itemscope='itemscope' itemtype='http://schema.org/Blog' role='main'>
 <b:section class='main' id='main'>
-  <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
+  <b:widget id='Blog1' locked='true' title='Postingan Blog' type='Blog' version='1'>
     <b:widget-settings>
-      <b:widget-setting name='showDateHeader'>false</b:widget-setting>
-      <b:widget-setting name='style.textcolor'>#000000</b:widget-setting>
+      <b:widget-setting name='commentLabel'>comments</b:widget-setting>
       <b:widget-setting name='showShareButtons'>false</b:widget-setting>
       <b:widget-setting name='authorLabel'>post by</b:widget-setting>
-      <b:widget-setting name='showCommentLink'>false</b:widget-setting>
-      <b:widget-setting name='style.urlcolor'>#008000</b:widget-setting>
-      <b:widget-setting name='postLocationLabel'>Lokasi:</b:widget-setting>
-      <b:widget-setting name='showAuthor'>true</b:widget-setting>
       <b:widget-setting name='disableGooglePlusShare'>true</b:widget-setting>
-      <b:widget-setting name='style.linkcolor'>#0000ff</b:widget-setting>
       <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
-      <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='timestampLabel'>at</b:widget-setting>
       <b:widget-setting name='reactionsLabel'/>
       <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
       <b:widget-setting name='style.layout'>1x1</b:widget-setting>
-      <b:widget-setting name='showLabels'>true</b:widget-setting>
       <b:widget-setting name='showLocation'>false</b:widget-setting>
       <b:widget-setting name='showTimestamp'>true</b:widget-setting>
       <b:widget-setting name='postsPerAd'>1</b:widget-setting>
-      <b:widget-setting name='showBacklinks'>false</b:widget-setting>
       <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='backlinksLabel'/>
+      <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+      <b:widget-setting name='style.textcolor'>#2196f3</b:widget-setting>
+      <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+      <b:widget-setting name='style.urlcolor'>#212121</b:widget-setting>
+      <b:widget-setting name='postLocationLabel'>Lokasi:</b:widget-setting>
+      <b:widget-setting name='showAuthor'>true</b:widget-setting>
+      <b:widget-setting name='style.linkcolor'>#757575</b:widget-setting>
+      <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='showLabels'>true</b:widget-setting>
+      <b:widget-setting name='postLabelsLabel'>Labels:</b:widget-setting>
+      <b:widget-setting name='showBacklinks'>false</b:widget-setting>
       <b:widget-setting name='showInlineAds'>false</b:widget-setting>
       <b:widget-setting name='showReactions'>false</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main' var='top'>
   <b:if cond='!data:mobile'>
     <!-- posts -->
-         
-    <div class='blog-posts hfeed'>
-     <!-- breadcrumb -->
+              <!-- breadcrumb -->
 	<b:include data='posts' name='breadcrumb'/>
       <b:include data='top' name='status-message'/>
+    <div class='blog-posts hfeed'>
+
 		    
       <b:loop values='data:posts' var='post'>
         <!-- <b:if cond='data:post.isDateStart and not data:post.isFirstPost'>
@@ -2706,7 +2717,7 @@ $(document).ready(function() {
       <!-- <a expr:href='data:post.url'>-->
         <data:post.title/>
       <!--</a>-->
-      <script type='text/javascript'>titlelesstop(&quot;titletop<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot; <data:post.title/>&quot;);</script>
+      <script type='text/javascript'>titlelesstop(&quot;titletop<data:post.id/>&quot;,&quot;<data:post.url/>&quot;,&quot; <data:post.title/>&quot;,&quot;<data:post.timestamp/>&quot;,&quot;<data:post.author/>&quot;);</script>
     </div>
   </b:if>
 </b:includable>
