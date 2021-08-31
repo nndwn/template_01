@@ -27,9 +27,6 @@
         <data:blog.title/>
       </title>
     </b:if>
-  
-<!-- Font -->
-<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'/>
 <b:skin version='1.3.3'><![CDATA[
 
 
@@ -37,6 +34,15 @@
 /* Variable definitions
 =======================
 */
+
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/oswald/v40/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 .selector-for-some-widget {
   box-sizing: content-box;
@@ -258,84 +264,90 @@ display: none;
   	transform: rotate(-45deg);
 }
 
-.offcanvas-start {
-	 width: 25% !important;
+#outCanvas p {
+	font-family: var(--oswald-font);
+	color: var(--bs-white) !important;
+	text-transform: capitalize;
 }
-.offcanvas-header button:focus {
-    box-shadow: unset; !important;
+
+#outCanvas a{
+	color: var(--bs-white);
+	text-decoration: none;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
-.offcanvas-body {
+
+#outCanvas a:hover{
+	 color: rgb(255 255 255 / 82%);
+}
+
+#outCanvas ul {
+	padding: 0;
+    margin: 0;
+	list-style: none;
+}
+
+#outCanvas.offcanvas-start {
+	 width: 25%;
+}
+#outCanvas .offcanvas-body {
 	display: grid;
     align-content: space-between;
-	padding-top:35px !important;
-	overflow-y: unset !important;
+	padding-top:35px;
+	overflow-y: unset;
 }
-.offcanvas .widget {
+#outCanvas .widget {
     padding-top: 20px;
 }
-.title-search {
+#BlogSearch1 .title-search {
 	font-size: var(--h2-fontsize);
     line-height: 1;
 	margin-bottom: 15px;
 }
-input.form-control {
+#BlogSearch1 input {
     border-top-left-radius: 0.15rem;
     border-bottom-left-radius: 0.15rem;
 }
-button#searchform, input.form-control {
-    background-color: var(--bs-white);
-    border: 1px solid var(--bs-white);
-}
-button#searchform {
+
+#BlogSearch1 button {
     border-top-right-radius: 0.15rem;
     border-bottom-right-radius: 0.15rem;
 }
-#searchform svg {
-    filter: brightness(0);
+#BlogSearch1 button, #BlogSearch1 input {
+    background-color: var(--bs-white);
+    border: 1px solid var(--bs-white);
 }
-.search-form:focus{
+
+#BlogSearch1 button:focus, #BlogSearch1 input:focus{
     box-shadow: unset ! important;
 	border-color: var(--bs-white) !important;
 }
-.widget .outcanvas-label ul {
-    padding: 0;
+
+#BlogSearch1 svg {
+    filter: brightness(0);
+}
+
+#Label1 ul{
 	display: flex;
     flex-wrap: wrap;
 }
-.outcanvas-label li{
-    border: 1px solid rgb(255 255 255 / 13%);
-    border-top: inherit;
-    border-left: inherit;
-    border-right: inherit;
+#Label1 li{
+    border-bottom: 1px solid rgb(255 255 255 / 13%);
     padding-bottom: 10px;
     padding-top: 10px;
 	width: 50%;
 }
-.outcanvas-label a, .outcanvas-label span{
+#Label1 a, #Label1 span{
     font-size: large;
+	font-family: var(--oswald-font);
 }
-
-.outcanvas-footer ul {
-    padding: 0;
-    margin: 0;
-}
-
 .outcanvas-footer a {
-	white-space: nowrap;
-    text-decoration: 0;
-    color: var(--bs-white);
     font-family: monospace;
     font-size: small;
-	font-weight:400;
-	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}
-.outcanvas-footer a:hover {
-	color: rgb(255 255 255 / 82%)
 }
 
 @media (max-width: 767.98px){
-	.offcanvas-start {
-		width:100% !important;
+	#outCanvas.offcanvas-start {
+		width:100%;
    		}
 	.modal-backdrop.show {
     	opacity: 1 !important;
@@ -343,7 +355,7 @@ button#searchform {
 		}
 }
 @media (max-width: 575.98px){
-	 .outcanvas-label li {
+	 #Label1 li{
 		width: 100%;
 		}
 	 .nav-toggle {
@@ -712,40 +724,14 @@ button#searchform {
 ]]>
   </b:template-skin>
 
-<style type='text/css'>
 
-/* Eric Meyer&#39;s Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
---------------------------------------------------------------------------------------- */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:&#39;&#39;;content:none}table{border-collapse:collapse;border-spacing:0}
-</style>
   
 <!--Jquery 1.8.3 -->
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'/> 
 
-<!--jquery.lazy/1.7.9 -->  
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js' type='text/javascript'/>
-
 <script type='text/javascript'>
 //<![CDATA[
 
-
-
-$(function() {
-        $('.lazy').Lazy({
-                beforeLoad: (e) => {
-                    console.log('## about to load ' + e.data('src') + (new Date()).toISOString())
-                },
-                afterLoad: (e) => {
-                    console.log('## finished to load ' + e.data('src') + (new Date()).toISOString())
-                },
-                onError: (e) => {
-                    console.log('##############', e)
-                },
-                onFinishedAll: () => {
-                    console.log('############### done')
-                }
-        });
-});
 
 $(document).ready(function() {
 	var lebar = $(window).width();
@@ -903,11 +889,6 @@ $(document).ready(function() {
 </style>
 </b:if>
 </b:if>
-<b:if cond='data:blog.homepageUrl != data:blog.url'>
-<style type='text/css'>
-    TEST
-</style>
-</b:if>
 <!-- AND READMORE -->
   
 
@@ -1057,9 +1038,9 @@ $(document).ready(function() {
             <b:includable id='main'>
               <!-- only display title if it's non-empty -->
               <b:if cond='data:title != &quot;&quot;'>
-                <p class='title title-search oswald-cap'><data:title/></p>
+                <p class='title-search'><data:title/></p>
               </b:if>
-              <div class='widget-content'>
+   
                 <div expr:id='data:widget.instanceId + &quot;_form&quot;'>
                   <form class='gsc-search-box' expr:action='data:blog.searchUrl'>
                     <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
@@ -1076,7 +1057,6 @@ $(document).ready(function() {
                     </div>
                   </form>
                 </div>
-              </div>
               <b:include name='quickedit'/>
             </b:includable>
           </b:widget>
@@ -1090,15 +1070,15 @@ $(document).ready(function() {
             </b:widget-settings>
             <b:includable id='main'>
 
-      <div class='outcanvas-label'>
+
         <b:if cond='data:display == &quot;list&quot;'>
             <ul>
                <b:loop values='data:labels' var='label'>
                  <li>
                 <b:if cond='data:blog.url == data:label.url'>
-                  <span aria-current='page' class='oswald-cap' expr:dir='data:blog.languageDirection'><data:label.name/></span>
+                  <span aria-current='page' expr:dir='data:blog.languageDirection'><data:label.name/></span>
                   <b:else/>
-                  <a aria-current='page' class='oswald-cap' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a>
+                  <a aria-current='page' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/></a>
                 </b:if>
           </li>
         </b:loop>
@@ -1106,7 +1086,7 @@ $(document).ready(function() {
     </b:if>
     
     <b:include name='quickedit'/>
-      </div>
+
 </b:includable>
           </b:widget>
         </b:section>
