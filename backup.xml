@@ -127,11 +127,11 @@
   <b:if cond='data:view.isLayoutMode'>
     <!--[ CSS Layout ]-->
 	<b:template-skin><![CDATA[
-body#layout .navbar {
-	position: relative !important;
+	body#layout .navbar {
+		position: relative !important;
 	}
-body#layout div#Blog2, body#layout #Blog1{
-	display:block;
+	body#layout div#Blog2, body#layout #Blog1{
+		display:block;
 	}
 	]]></b:template-skin>  
   </b:if>
@@ -154,6 +154,8 @@ body#layout div#Blog2, body#layout #Blog1{
 --main-bg-color : $(themeColor);
 --semi-gray: #919191;
 --transition-1: all .1s ease;
+--border-white: #eceff1;
+
 }
 
 /* Font */
@@ -191,14 +193,29 @@ body#layout div#Blog2, body#layout #Blog1{
 body {
 	-webkit-font-smoothing: antialiased;
 	color: #2b2631;
-	overflow-x: hidden;
+
 }
+
+body.darkMode {
+    background-color: var(--main-bg-color);
+    color: var(--bs-white);
+}
+
+.onIndex .cardPost .cardContentTitle, .onIndex .cardPost p, .onPost .tableOfContainer a, .sharePreview .previewTitle, .authorInfo .authorAbout{
+	display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+
+}
+
 
 #mainContent .mainWrapper a {
 	text-decoration: none;
 	transition: color .15s ease-in-out;
 	-webkit-transition: color .15s ease-in-out;
-	word-break: break-all;
+	color:inherit;
 }
 
 #headline{
@@ -316,11 +333,10 @@ body {
 }
 
 #Header1 .headerTitle {
-    color: var(--bs-white);
+    color: var(--bs-white) !important;
     font-family: var(--oswald-font);
     text-transform: uppercase;
 	font-weight: 100;
-	word-break: unset !important;
 }
 
 #Label1, #Header1{
@@ -339,8 +355,88 @@ body {
 }
 
 #Label1 li a {
-    color: var(--bs-white);
+    color: var(--bs-white) !important;
     font-weight: bold;
+}
+
+/* Mini Header Scroll */
+
+.mini-header #header-widget {
+    padding: 0;
+}
+
+.mini-header #Header1 {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.mini-header #Header1 h1, .mini-header #Header1 h2{
+    font-size: 1.8rem;
+}
+
+.mini-header #Label1{
+    display: none;
+}
+
+/* switch dark mode */
+
+.switch {
+  display: none;
+}
+.switch + div {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 200ms ease-in;
+}
+.switch + div .moon,
+.switch + div .sun {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 30px;
+  height: 30px;
+  transition: all 350ms cubic-bezier(0.51, 0.37, 0.26, 0.87);
+  transform-origin: 50% 100%;
+}
+.switch + div .moon {
+  color: var(--bs-white);
+  opacity: 0;
+  transform: rotate(90deg);
+}
+.switch + div .sun {
+  color: var(--bs-white);
+}
+.switch:checked + div .moon {
+  opacity: 1;
+  transform: rotate(0);
+}
+.switch:checked + div .sun {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+/* widget mobile navigation */
+
+@media (max-width: 767.98px){
+	#Label1 {
+		display:none;
+	}
+	#Header1 {
+		width:100%;
+    	padding: 0;
+    	text-align: center;
+    	display: block;
+		order:2;
+	}
+	.nav-toggle {
+		left: unset;
+    	right: 16px;
+	}
 }
 
 
@@ -372,50 +468,6 @@ body {
     pointer-events: none;
 }
 
-/* widget LinkList1 */
-
-#LinkList1 li {
-    padding-left: 1rem;
-}
-
-/* Mini Header Scroll */
-
-.mini-header #header-widget {
-    padding: 0;
-}
-
-.mini-header #Header1 {
-    display: block;
-    width: 100%;
-    text-align: center;
-}
-
-.mini-header #Header1 h1, .mini-header #Header1 h2{
-    font-size: 1.8rem;
-}
-
-.mini-header #Label1, .mini-header #LinkList1 {
-    display: none;
-}
-
-/* widget mobile navigation */
-
-@media (max-width: 767.98px){
-	#Label1, #LinkList1 {
-		display:none;
-	}
-	#Header1 {
-		width:100%;
-    	padding: 0;
-    	text-align: center;
-    	display: block;	
-	}
-	.nav-toggle {
-		left: unset;
-    	right: 16px;
-	}
-}
-
 
 /* outcanvas like sidebar alternatife */
 
@@ -433,7 +485,7 @@ body {
 }
 
 #outCanvas a {
-    color: var(--bs-white);
+    color: var(--bs-white) !important;
 }
 
 #outCanvas #outcontent {
@@ -500,7 +552,7 @@ body {
 		width:100%;
 		transform: translateX(100%);
    		}
-	.modal-backdrop.show {
+	.mainWrapper > .modal-backdrop.show {
     	opacity: 1 !important;
 		background-color: var(--main-bg-color);
 		}
@@ -510,79 +562,6 @@ body {
 		width: 100%;
 		}
 
-}
-
-/* widget feature  */
-
-#FeaturedPost1 a {
-    color: var(--bs-white);
-	opacity:75%;
-}
-
-#FeaturedPost1 a:hover {
-    color: var(--semi-gray);
-}
-
-#FeaturedPost1 .hero-thumb{
-    background-attachment: fixed;
-    background-color: #3a3a3a;
-    background-size: cover;
-    /*height: 62.5vw;*/
-    max-height: 50vh;
-	background-position: left;
-	position: relative;
-	height:100%;
-	width:100%;
-	-webkit-transition: var(--transition-1);
-    transition: var(--transition-1);
-}
-
-#FeaturedPost1 .header-overlay {
-	position: absolute;
-    top: 0;
-    width: 100%;
-    background: rgba(0,0,0,.5);
-    height: 100%;
-    left: 0;
-}
-#FeaturedPost1 .headline {
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-	height:100%
-}
-#FeaturedPost1 .text-headline {
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-#FeaturedPost1 .post-title a {
-    font-family: var(--oswald-font);
-    font-weight: 700;
-}
-#FeaturedPost1 p {
-    color: var(--bs-white);
-    font-weight: 100;
-	-webkit-transition: var(--transition-1);
-    transition: var(--transition-1);
-	display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-#FeaturedPost1 .post-footer {
-    display: flex;
-    flex-wrap: nowrap;
-}
-#FeaturedPost1 .post-footer>* {
-    padding-right: 1rem;
-}
-
-@media (max-width: 575.98px){
-	 #FeaturedPost1 .hero-thumb{
-			background-position: center;
-		}
 }
 
 /* widget Blog1 onIndex */
@@ -627,6 +606,7 @@ body {
     height: 100%;
     box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
     background-clip: border-box;
+	
 }
 .onIndex .cardContent {
     display: flex;
@@ -634,38 +614,33 @@ body {
     justify-content: space-between;
     height: 100%;
     padding: 1rem;
-    background-color: #00000078;
+    background-color: #000000c7;
     border-radius: 1rem;
     background-clip: border-box;
-	-webkit-backdrop-filter: blur(2px);
-	backdrop-filter: blur(2px);
+	
+	
 }
-.onIndex .cardContent, .onIndex .cardContent a{
+.cardContentTitle:before{
+	content: attr(data-text);
+}
+
+.cardContent a{
 	text-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 25%);
     color: var(--bs-white);
 }
-.onIndex .cardContent a {
-	word-break:unset !important;
-	font-family: var(--oswald-font);
-}
-.onIndex .cardPost h2, .onIndex .cardPost p {
-    line-height: 1.5;
-	display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.onIndex .cardPost .cardContentTitle, .onIndex .cardPost p {
+
 	opacity: 80%;
+	color:var(--bs-white);
 }
-.onIndex .cardPost h2 {
-    font-weight: 700;
+.onIndex .cardPost .cardContentTitle {
+	font-weight: 700;
     padding-top: 3rem;
     margin-top: 3rem;
-	transition: opacity .15s;
-	-webkit-transition: opacity .15s;
-}
-
-.onIndex .cardPost h2:hover {
-	opacity:100%;
+    font-size: 2rem;
+    font-family: var(--oswald-font);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .onIndex .cardPost p {
@@ -673,40 +648,47 @@ body {
     margin-bottom: 3rem;
 	padding-right: 0.5rem;
 	flex: auto;
+	    font-size: 11pt;
+}
+.onIndex .postAuthorName{
+	color: var(--bs-white);
+	opacity: .7;
+    font-size: 10pt;
+    align-self: center;
 }
 
-.onIndex .cardContent ul{
-	list-style: none;
-	margin:0;
-	padding:0;
-	display:flex;
+.homeLabel:before {
+    content: '\2022';
+    margin: 0 5px;
 }
-.onIndex .cardContent ul>* {
-    padding-right: 1rem;
-}
-
 .author a {
     text-transform: uppercase;
 }
+
+
 /* OnPost */
 
 .onPost .Blog {
     padding-top: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 0.7rem;
 }
+
+/* LeftSidebar*/
+
+.leftsidebar {
+	position: sticky;
+	height: 100%;
+	top: 0;
+}
+
+
 
 /* Table of content */
-
-
 .onPost .tableOfContainer {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 58px;
 	transition: var(--transition-1);
 	-webkit-transition: var(--transition-1);
-}
-.onPost .tableOfContainer.top {
-    top: 35px;
+	padding-left: 1rem;
+    padding-top: 3.5rem;
 }
 
 .onPost .tableOfContainer li {
@@ -723,37 +705,26 @@ body {
     counter-increment: link;
     width: calc(25px + 1vh);
 	flex-shrink: 0;
+	margin-top: 2px;
 }
 
 .onPost .tableOfContainer a {
-    font-size: calc(0.5rem + 1vh);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.5;
-	word-break: unset !important;
-    color: var(--bs-dark);
-    font-weight: lighter;
+	opacity: 0.5;
+    font-size: calc(0.4rem + 1vh);
 	transition: var(--transition-1) !important;
 	-webkit-transition: var(--transition-1) !important;
 	padding-bottom: 0;
 	padding-top:0;
 }
 .onPost .tableOfContainer a.active{
-  	font-weight:bold;
+	opacity: 1;
 }
 
 .tableOfHeader span:before {
     content: attr(data-text);
 	font-weight: bold;
-    color: var(--main-bg-color);
 	font-family: var(--oswald-font);
 	font-size: 1.5rem;
-}
-.tableOfContainer {
-    padding-left: 1rem;
-    padding-top: 1.5rem;
 }
 .tableOfHeader {
     padding-bottom: 1rem;
@@ -770,9 +741,63 @@ body {
 	position: absolute;
    	border-bottom: 1px solid var(--semi-gray);	
 }
+nav[data-toggle="toc"] .nav-link + ol {
+    display: none;
+}
+
+nav[data-toggle="toc"] .nav-link.active + ol {
+    display: block;
+}
+
+/* Widget Social Media - leftsidebar */
+
+/* widget LinkList1 */
+
+#left-sidebar {
+    align-self: flex-end;
+    padding-bottom: 1rem;
+	display: flex;
+    justify-content: center;
+}
+
+#left-sidebar:before {
+    content: '';
+    border-top: 1px solid var(--main-bg-color);
+    position: absolute;
+    width: 80%;
+    opacity: 0.2;
+}
+
+#LinkList1 {
+	padding-top: 1rem;
+}
+
+#LinkList1 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+	display: flex;
+}
+
+#LinkList1 li {
+    padding-left: 1rem;
+}
+
+#LinkList1 path {
+    fill: var(--main-bg-color);
+}
+
+
+
+
 /* Breadcrumb */
+
+.breadcrumb {
+	margin: 0;
+	font-size: 0.7rem;
+}
 .breadcrumb a {
-    color: var(--bs-gray-dark);
+    color: inherit;
     text-transform: capitalize;
 }
 
@@ -801,7 +826,14 @@ body {
 
 .onPagePost .postBody p:before {
     content: '';
-    padding-left: 2rem;
+}
+
+.onPagePost .postBody h4 {
+    font-family: var(--oswald-font);
+}
+.onPagePost .postBody h4 + p, .onPagePost .postBody h4, .onPagePost .postBody p:before  {
+	padding-left: 2rem;
+
 }
 
 .onPagePost   li p:before {
@@ -809,7 +841,8 @@ body {
 }
 
 .onPagePost .postBody h3 {
-	padding-top: 1rem;
+	padding-top: 4rem;
+	    margin-top: -3rem;
 }
 
 
@@ -824,7 +857,7 @@ body {
 
 }
 
-.postInfo .postAuthor {
+.postAuthor {
     display: flex;
 }
 
@@ -836,10 +869,10 @@ body {
     content: attr(data-write);
 
 }
-.postAuthorName .authorName:before, .postAuthorName .authorName > *:before, .postTimes span, .postTimes a {
+.onPagePost .postAuthorName .authorName:before, .onPagePost .postAuthorName .authorName > *:before, .onPagePost .postTimes span,.onPagePost .postTimes a, .nameandate .authorName, .nameandate .postDatetime{
 	opacity: .7;
     font-size: 10pt;
-    color: var(--bs-gray-dark);
+    color: inherit;
 }
 .postAuthorImage .authorImage { 
     background-repeat: no-repeat;
@@ -859,7 +892,7 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.postAuthorName .authorName > *:before {
+.postAuthorName .authorName > *:before , .nameandate .authorName:before, .authorInfo .authorAbout:before{
     content: attr(data-text);
     text-transform: capitalize;
 }
@@ -880,17 +913,21 @@ body {
     overflow: hidden;
     opacity: .8;
 }
-.postInfo #readTime:before {
+.postInfo #readTime:before, .nameandate .postDatetime:before{
     content: '\2022';
     margin: 0 5px;
 }
+
+/* Post share button*/
 
 .postComments svg {
     width: 18px;
     height: 18px;
     margin: 0;
 }
-
+.darkMode svg.line {
+	stroke: var(--bs-white);
+}
 svg.line{
     fill: none!important;
     stroke: var(--bs-gray-dark);
@@ -903,6 +940,7 @@ svg.line{
     align-items: center;
     flex-shrink: 0;
 }
+
 .postComments > * {
     display: flex;
     align-items: center;
@@ -915,125 +953,332 @@ svg.line{
 	-webkit-transition:var(--transition-1);
 }
 
+.darkMode .postComments > *:hover, .darkMode .postComments > *{
+	border-color: var(--bs-white);
+}
+
 .postComments > *:hover {
 	border-color: var(--bs-gray-dark);
 	opacity: .8;
 }
 
-.shareIn:checked ~ .shareInner {
-    opacity: 1;
-    visibility: visible;
+#shareBut {
+    bottom: 20vh;
+    border: 0;
+    right: calc(35% + 5vw);
+    left: calc(35% + 5vw);
+    height: 60vh;
+    z-index: 1053;
+	background-color: unset;
 }
-.shareInner {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1056;
-    -webkit-transition: var(--transition-1);
-    transition: var(--transition-1);
-    opacity: 0;
-    visibility: hidden;
-}
-
-.shareIn:checked ~ .shareInner .shareBlock {
-    margin: 0 auto;
-}
-
-.shareBlock {
-    width: 100%;
-    max-width: 500px;
-    max-height: 90%;
-    display: flex;
-    margin: 0 auto -50%;
-    background-color: var(--bs-white);
-    border-radius: 8px;
-    transition: inherit;
-    z-index: 1057;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 8px -8px rgb(0 0 0 / 12%);
-}
-.shareHeader {
-    padding: 20px;
-    background-color: inherit;
-    display: flex;
-    align-items: center;
+#shareBut .header-share{
+	padding: 0.8rem 1.2rem;
+	display: flex;
     justify-content: space-between;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
+    align-content: center;
+    flex-wrap: wrap;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
-.shareBox {
-    padding-top: 60px;
-    max-height: 100%;
-    width: 100%;
-    overflow-y: auto;
+#shareBut .header-text-share {
+	color: var(--main-bg-color);
+    font-weight: bold;
+    font-family: var(--oswald-font);
+    font-size: 1.2rem;
+}
+
+#shareBut .body-share, #shareBut .header-share {
+    background-color: var(--bs-white);
+}
+
+#shareBut .body-share{
+	border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#shareBut ~ .modal-backdrop {
+    z-index: 1052;
+}
+
+.btn-close:focus {
+	 box-shadow: unset;
+}
+
+.header-text-share:before, .sharePreview .previewTitle:before, .sharePreview .previewLabel > *:before{
+	content: attr(data-text);
 }
 .sharePreview {
-    padding: 15px 20px;
-    border: 1px solid var(--content-border);
-    border-left: 0;
-    border-right: 0;
-    display: flex;
-    align-items: center;
+	padding: 15px 20px;
+	border: 1px solid var(--border-white);
+	border-left: 0;
+	border-right: 0;
+	display: flex;
+	align-items: center;
 }
 
-.shareInner ul {
+.sharePreview .previewImg {
+	width: 70px;
+    height: 70px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,.03);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.sharePreview .previewTitle {
+	font-size: 20px;
+	font-family: var(--oswald-font);
+	font-weight: lighter;
+	color: var(--main-bg-color);
+}
+.sharePreview .previewLabel {
+    font-size: 12px;
+    opacity: .7;
+	color: var(--main-bg-color);
+}
+#shareBut ul {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
     margin: 0;
-    padding: 10px 20px 20px;
+    padding: 0;
 }
 
-.shareInner li {
-    width: 25%;
+#shareBut li {
+    width: 33.3333%;
     text-align: center;
 }
-
-.shareInner li a, .shareInner li .copyLink {
+#shareBut li a:hover, #shareBut li .copyLink:hover {
+    background-color: rgba(0,0,0,.03);
+}
+#shareBut li a, #shareBut li .copyLink {
     display: block;
-    max-width: 80px;
-    height: 80px;
     margin: 0 auto;
     padding: 15px 0;
     border-radius: 2px;
     color: inherit;
 }
-
-.shareIn:checked ~ .shareInner .fullClose {
-    background: rgba(0,0,0,.5);
-    opacity: 1;
-    visibility: visible;
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+#shareBut li > * svg {
+    width: 26px;
+    height: 26px;
+    opacity: .8;
+	fill: var(--bs-gray-dark);
 }
 
-.fullClose {
-    display: block;
-    position: fixed;
-    top: 0;
+#shareBut svg.line {
+    stroke-width: 1.5;
+}
+#shareBut li input {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    width: 1px;
+    height: 0;
+    opacity: 0;
+}
+
+#shareBut .shareNotif span {
+    position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
-    z-index: 1055;
-    -webkit-transition: var(--transition-1);
-    transition: var(--transition-1);
-    background: transparent;
+    bottom: -70px;
+    font-size: 90%;
+    display: block;
+    width: 240px;
+    margin: 0 auto 20px;
+    padding: 15px 10px;
+    border-radius: 3px;
+    background-color: rgba(0,0,0,.8);
+    color: #fefefe;
+    line-height: 20px;
+    text-align: center;
     opacity: 0;
-    visibility: hidden;
+    transition: var(--transition-1);
+    -webkit-animation: slidein 2s ease forwards;
+    animation: slidein 2s ease forwards;
+}
+#shareBut li a:after, #shareBut li .copyLink:after {
+    content: attr(data-text);
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    opacity: .7;
 }
 
+/*Popular Post*/
+
+.rightsidebar {
+    padding-top: 1.5rem;
+}
+
+#PopularPosts00 {
+	padding-top: 2.3rem;
+}
+
+#PopularPosts00 h2.title {
+    font-weight: bold;
+    font-family: var(--oswald-font);
+    font-size: 1.5rem;
+}
+
+#PopularPosts00 h2.title:after {
+ 	content: '';
+    display: block;
+    width: 18px;
+    position: absolute;
+    border-bottom: 1px
+ 	solid var(--semi-gray);
+	padding-top: 3.1px;
+}
+
+#PopularPosts00 .widget-content {
+    padding-top: 1rem;
+}
+#PopularPosts00 .postAuthorName .authorName:before {
+	content:'';
+}
+
+#PopularPosts00 .postAuthorName {
+    display: flex;
+}
+
+#PopularPosts00 .authorName:after {
+	content: '';
+    margin: 0 5px; 
+}
+#PopularPosts00 article {
+    padding-bottom: 1rem;
+}
+
+#PopularPosts00 .itemInfo.postInfo {
+    padding: 0;
+    margin: 0;
+}
+
+
+.itemPopulars {
+    padding-left: 1rem;
+    margin-left: 0.5rem;
+}
+
+#PopularPosts00 .itemTitle {
+	font-size: calc(0.7rem + 1vh);
+    font-family: var(--oswald-font);
+	margin: 0;
+}
+
+#PopularPosts00 .itemTitle a {
+    color: inherit;
+}
+
+#PopularPosts00 .homeLabel:before {
+	content: '';
+}
+
+/* Related Post */
+
+.relatedPosts h4 {
+    font-family: var(--oswald-font);
+    font-weight: bold;
+}
+
+/* Author Profile */
+
+.postAuthors {
+    padding: 0.4rem;
+    border: 1px solid #0000004d;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+}
+
+.postAuthors >* {
+    padding: 0 1rem 0 0;
+}
+
+.postAuthors .authorImage {
+	align-self: center;
+}
+
+.authorImage .authorImg {
+    width: 47px;
+    height: 47px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.postAuthors .nameandate {
+	display:flex;
+}
+
+.authorInfo .authorAbout {
+    font-size: 10pt;
+    font-style: italic;
+
+}
+
+
+
+@media (max-width: 1399.98px) {
+		#shareBut{
+	    right: calc(30% + 5vw);
+		left: calc(30% + 5vw);
+   		}
+
+}
+
+@media (max-width: 1199.98px) {
+	#shareBut{
+	    right: calc(25% + 5vw);
+		left: calc(25% + 5vw);
+   		}
+
+}
+
+@media (max-width: 991.98px) {
+	.onPost .tableOfContainer li:before {
+		content: unset;
+	}
+}
+
+
+@media (max-width: 767.98px){
+	#shareBut{
+	    right: calc(15% + 5vw);
+		left: calc(15% + 5vw);
+   		}
+}
+
+@media print {
+	#Header1 h1, .postInfo, nav[aria-label='breadcrumb']{ 
+		display:none;
+	}
+}
+
+
+/* Keyframes Animation */
+@-webkit-keyframes slidein{
+	0%{opacity:0}
+	20%{opacity:1;bottom:0}
+	50%{opacity:1;bottom:0}
+	80%{opacity:1;bottom:0}
+	100%{opacity:0;bottom:-70px;visibility:hidden}} 
+@keyframes slidein{
+	0%{opacity:0}
+	20%{opacity:1;bottom:0}
+	50%{opacity:1;bottom:0}
+	80%{opacity:1;bottom:0}
+	100%{opacity:0;bottom:-70px;visibility:hidden}} 
 
 
 
@@ -1057,10 +1302,6 @@ svg.line{
     	flex: 0 0 auto;
     	width: 33.3333333333%;
 	}
-	.tableOfContainer ol {
-    	padding-left: 1.5rem;
-	}
-
 }
 @media (min-width: 1200px){
 	.onIndex #Blog1{
@@ -1083,6 +1324,40 @@ svg.line{
     <!--[ Blogger defaultmarkups ]-->
     <b:defaultmarkup type='Common'>
       
+            <!--[ Whatsapp icon ]-->
+      <b:includable id='whatsapp-icon'>
+        <svg class='c-1' viewBox='0 0 32 32'><path d='M16,2A13,13,0,0,0,8,25.23V29a1,1,0,0,0,.51.87A1,1,0,0,0,9,30a1,1,0,0,0,.51-.14l3.65-2.19A12.64,12.64,0,0,0,16,28,13,13,0,0,0,16,2Zm0,24a11.13,11.13,0,0,1-2.76-.36,1,1,0,0,0-.76.11L10,27.23v-2.5a1,1,0,0,0-.42-.81A11,11,0,1,1,16,26Z'/><path d='M19.86,15.18a1.9,1.9,0,0,0-2.64,0l-.09.09-1.4-1.4.09-.09a1.86,1.86,0,0,0,0-2.64L14.23,9.55a1.9,1.9,0,0,0-2.64,0l-.8.79a3.56,3.56,0,0,0-.5,3.76,10.64,10.64,0,0,0,2.62,4A8.7,8.7,0,0,0,18.56,21a2.92,2.92,0,0,0,2.1-.79l.79-.8a1.86,1.86,0,0,0,0-2.64Zm-.62,3.61c-.57.58-2.78,0-4.92-2.11a8.88,8.88,0,0,1-2.13-3.21c-.26-.79-.25-1.44,0-1.71l.7-.7,1.4,1.4-.7.7a1,1,0,0,0,0,1.41l2.82,2.82a1,1,0,0,0,1.41,0l.7-.7,1.4,1.4Z'/></svg>
+      </b:includable>
+      
+            <!--[ Facebook icon ]-->
+      <b:includable id='facebook-icon'>
+        <svg class='c-1' viewBox='0 0 32 32'><path d='M24,3H8A5,5,0,0,0,3,8V24a5,5,0,0,0,5,5H24a5,5,0,0,0,5-5V8A5,5,0,0,0,24,3Zm3,21a3,3,0,0,1-3,3H17V18h4a1,1,0,0,0,0-2H17V14a2,2,0,0,1,2-2h2a1,1,0,0,0,0-2H19a4,4,0,0,0-4,4v2H12a1,1,0,0,0,0,2h3v9H8a3,3,0,0,1-3-3V8A3,3,0,0,1,8,5H24a3,3,0,0,1,3,3Z'/></svg>
+      </b:includable>
+
+      <!--[ Twitter icon ]-->
+      <b:includable id='twitter-icon'>
+        <svg class='c-1' viewBox='0 0 32 32'><path d='M13.35,28A13.66,13.66,0,0,1,2.18,22.16a1,1,0,0,1,.69-1.56l2.84-.39A12,12,0,0,1,5.44,4.35a1,1,0,0,1,1.7.31,9.87,9.87,0,0,0,5.33,5.68,7.39,7.39,0,0,1,7.24-6.15,7.29,7.29,0,0,1,5.88,3H29a1,1,0,0,1,.9.56,1,1,0,0,1-.11,1.06L27,12.27c0,.14,0,.28-.05.41a12.46,12.46,0,0,1,.09,1.43A13.82,13.82,0,0,1,13.35,28ZM4.9,22.34A11.63,11.63,0,0,0,13.35,26,11.82,11.82,0,0,0,25.07,14.11,11.42,11.42,0,0,0,25,12.77a1.11,1.11,0,0,1,0-.26c0-.22.05-.43.06-.65a1,1,0,0,1,.22-.58l1.67-2.11H25.06a1,1,0,0,1-.85-.47,5.3,5.3,0,0,0-4.5-2.51,5.41,5.41,0,0,0-5.36,5.45,1.07,1.07,0,0,1-.4.83,1,1,0,0,1-.87.2A11.83,11.83,0,0,1,6,7,10,10,0,0,0,8.57,20.12a1,1,0,0,1,.37,1.05,1,1,0,0,1-.83.74Z'/></svg>
+      </b:includable>
+
+      <!--[ Telegram icon ]-->
+      <b:includable id='telegram-icon'>
+        <svg viewBox='0 0 32 32'><path d='M24,28a1,1,0,0,1-.62-.22l-6.54-5.23a1.83,1.83,0,0,1-.13.16l-4,4a1,1,0,0,1-1.65-.36L8.2,18.72,2.55,15.89a1,1,0,0,1,.09-1.82l26-10a1,1,0,0,1,1,.17,1,1,0,0,1,.33,1l-5,22a1,1,0,0,1-.65.72A1,1,0,0,1,24,28Zm-8.43-9,7.81,6.25L27.61,6.61,5.47,15.12l4,2a1,1,0,0,1,.49.54l2.45,6.54,2.89-2.88-1.9-1.53A1,1,0,0,1,13,19a1,1,0,0,1,.35-.78l7-6a1,1,0,1,1,1.3,1.52Z'/></svg>
+      </b:includable>
+      
+      
+            <!--[ Message icon ]-->
+      <b:includable id='message-icon'>
+        <svg class='line' viewBox='0 0 24 24'><g transform='translate(2.452080, 2.851980)'><path d='M15.0928322,6.167017 C15.0928322,6.167017 11.8828071,10.0196486 9.53493746,10.0196486 C7.18807029,10.0196486 3.941955,6.167017 3.941955,6.167017'/><path d='M1.04805054e-13,9.11679198 C1.04805054e-13,2.27869674 2.38095238,8.8817842e-15 9.52380952,8.8817842e-15 C16.6666667,8.8817842e-15 19.047619,2.27869674 19.047619,9.11679198 C19.047619,15.9538847 16.6666667,18.233584 9.52380952,18.233584 C2.38095238,18.233584 1.04805054e-13,15.9538847 1.04805054e-13,9.11679198 Z'/></g></svg>
+      </b:includable>
+      
+      
+            <!--[ Paper icon ]-->
+      <b:includable id='paper-icon'>
+        <svg class='line' viewBox='0 0 24 24'><g transform='translate(3.649800, 2.749900)'><line x1='10.6555' x2='5.2555' y1='12.6999' y2='12.6999'/><line x1='8.6106' x2='5.2546' y1='8.6886' y2='8.6886'/><path d='M16.51,5.55 L10.84,0.15 C10.11,0.05 9.29,0 8.39,0 C2.1,0 -1.95399252e-14,2.32 -1.95399252e-14,9.25 C-1.95399252e-14,16.19 2.1,18.5 8.39,18.5 C14.69,18.5 16.79,16.19 16.79,9.25 C16.79,7.83 16.7,6.6 16.51,5.55 Z'/><path d='M10.2844,0.0827 L10.2844,2.7437 C10.2844,4.6017 11.7904,6.1067 13.6484,6.1067 L16.5994,6.1067'/></g></svg>
+      </b:includable>
+      
+
+      
       <!--[ Loadmore pagination ]-->
       <b:includable id='post-paginationMore'>
         <script> /*! Simple AJAX infinite scroll by Taufik Nurrohman dte.web.id */ !function(t,e){t.InfiniteScroll=function(n){function r(t,n){return n=n||e,n.querySelectorAll(t)}function o(t){return void 0!==t}function a(t){return&quot;function&quot;==typeof t}function i(t,e){t=t||{};for(var n in e)t[n]=&quot;object&quot;==typeof e[n]?i(t[n],e[n]):e[n];return t}function s(t,e,n){return o(t)?o(e)?void(o(n)?g[t][n]=e:g[t].push(e)):g[t]:g}function d(t,e){o(e)?delete g[t][e]:g[t]=[]}function l(t,e){if(o(g[t]))for(var n in g[t])g[t][n](e)}function c(){return L.innerHTML=p.text.loading,v=!0,M?(y.classList.add(p.state.loading),l(&quot;loading&quot;,[p]),void u(M,function(t,n){y.className=x+&quot; &quot;+p.state.load,h=e.createElement(&quot;div&quot;),h.innerHTML=t;var o=r(&quot;title&quot;,h),a=r(p.target.post,h),i=r(p.target.anchors+&quot; &quot;+p.target.anchor,h),s=r(p.target.post,H);if(o=o&amp;&amp;o[0]?o[0].innerHTML:&quot;&quot;,a.length&amp;&amp;s.length){var d=s[s.length-1];e.title=o,d.insertAdjacentHTML(&quot;afterend&quot;,&quot; &quot;),h=e.createElement(&quot;div&quot;);for(var c=0,u=a.length;u&gt;c;++c)h.appendChild(a[c]);d.insertAdjacentHTML(&quot;afterend&quot;,h.innerHTML),f(),M=i.length?i[0].href:!1,v=!1,q++,l(&quot;load&quot;,[p,t,n])}},function(t,e){y.classList.add(p.state.error),v=!1,f(1),l(&quot;error&quot;,[p,t,e])})):(y.classList.add(p.state.loaded),L.innerHTML=p.text.loaded,l(&quot;loaded&quot;,[p]))}function f(t){if(L.innerHTML=&quot;&quot;,T){h.innerHTML=p.text[t?&quot;error&quot;:&quot;load&quot;];var e=h.firstChild;e.onclick=function(){return 2===p.type&amp;&amp;(T=!1),c(),!1},L.appendChild(e)}}var u=&quot;infinite-scroll-state-&quot;,p={target:{posts:&quot;.posts&quot;,post:&quot;.post&quot;,anchors:&quot;.anchors&quot;,anchor:&quot;.anchor&quot;},text:{load:&quot;%s&quot;,loading:&quot;%s&quot;,loaded:&quot;%s&quot;,error:&quot;%s&quot;},state:{load:u+&quot;load&quot;,loading:u+&quot;loading&quot;,loaded:u+&quot;loaded&quot;,error:u+&quot;error&quot;}},g={load:[],loading:[],loaded:[],error:[]};p=i(p,n||{}),p.on=s,p.off=d;var h=null,u=function(e,n,r){if(t.XMLHttpRequest){var o=new XMLHttpRequest;o.onreadystatechange=function(){if(4===o.readyState){if(200!==o.status)return void(r&amp;&amp;a(r)&amp;&amp;r(o.responseText,o));n&amp;&amp;a(n)&amp;&amp;n(o.responseText,o)}},o.open(&quot;GET&quot;,e),o.send()}},T=1!==p.type,v=!1,H=r(p.target.posts)[0],L=r(p.target.anchors)[0],M=r(p.target.anchor,L),m=e.body,y=e.documentElement,x=y.className||&quot;&quot;,E=H.offsetTop+H.offsetHeight,j=t.innerHeight,A=0,b=null,q=1;if(M.length){M=M[0].href,H.insertAdjacentHTML(&quot;afterbegin&quot;,&quot; &quot;),h=e.createElement(&quot;div&quot;),f();var w=function(){E=H.offsetTop+H.offsetHeight,j=t.innerHeight,A=m.scrollTop||y.scrollTop,v||E&gt;A+j||c()};w(),0!==p.type&amp;&amp;t.addEventListener(&quot;scroll&quot;,function(){T||(b&amp;&amp;t.clearTimeout(b),b=t.setTimeout(w,200))},!1)}return p}}(window,document);
@@ -1094,8 +1369,6 @@ loading: &quot;<div class='jsLoad wait noPost' expr:data-text='data:messages.loa
 loaded: &quot;<div class='jsLoad noPost' expr:data-text='data:messages.noResultsFound'/>&quot;,
 error: &quot;<a class='jsLoad error' expr:aria-label='data:messages.loadMorePosts' expr:data-text='data:messages.moreEllipsis' href='javascript:;'/>&quot;} }); }</script>
       </b:includable>
-      
-
             <b:includable id='share-icon'>
         <svg class='line' viewBox='0 0 24 24'><path class='fill' d='M92.30583,264.72053a3.42745,3.42745,0,0,1-.37,1.57,3.51,3.51,0,1,1,0-3.13995A3.42751,3.42751,0,0,1,92.30583,264.72053Z' transform='translate(-83.28571 -252.73452)'/><circle class='fill' cx='18.48892' cy='5.49436' r='3.51099'/><circle class='fill' cx='18.48892' cy='18.50564' r='3.51099'/><line class='cls-3' x1='12.53012' x2='8.65012' y1='8.476' y2='10.416'/><line class='cls-3' x1='12.53012' x2='8.65012' y1='15.496' y2='13.556'/></svg>
       </b:includable>
@@ -1107,6 +1380,19 @@ error: &quot;<a class='jsLoad error' expr:aria-label='data:messages.loadMorePost
           </a>
         </b:if>
       </b:includable>
+            <b:includable id='onelabel'>
+           <div class='byline post-labels'>
+             <b:if cond='data:post.labels'>
+               <b:loop index='i' values='data:post.labels' var='label'>
+                 <b:if cond='data:i &lt;= 0'>
+                 <a expr:href='data:label.url' expr:title='data:label.name'>
+                   <data:label.name/>
+                 </a>
+                 </b:if>
+               </b:loop>
+             </b:if>
+           </div>
+       </b:includable>
       
       <b:includable id='postAuthorName'>
         <b:if cond='data:widgets.Blog.first.allBylineItems.author'>
@@ -1114,6 +1400,7 @@ error: &quot;<a class='jsLoad error' expr:aria-label='data:messages.loadMorePost
             <b:if cond='data:post.author.profileUrl'>
               <meta expr:content='data:post.author.profileUrl' property='author'/>
               <a expr:aria-label='data:post.author.name' expr:data-text='data:post.author.name' expr:href='&quot;/search/label/&quot; + data:post.author.name' rel='author noreferrer' target='_blank'/>
+              
               <b:else/>
               <span expr:data-text='data:post.author.name'/>
             </b:if>
@@ -1124,9 +1411,9 @@ error: &quot;<a class='jsLoad error' expr:aria-label='data:messages.loadMorePost
         <b:if cond='data:widgets.Blog.first.allBylineItems.author and data:post.author.authorPhoto.image'>
           <div class='postAuthorImage'>
             <b:if cond='!data:view.isPost'>
-              <div class='authorImage lazy' expr:data-bg='resizeImage(data:post.author.authorPhoto.image,47,&quot;1:1&quot;)'/>
+              <div class='authorImage lazyload' expr:data-bg='resizeImage(data:post.author.authorPhoto.image,47,&quot;1:1&quot;)'/>
               <b:else/>
-              <div class='authorImage lazy' expr:data-bg='resizeImage(data:post.author.authorPhoto.image,60,&quot;1:1&quot;)'/>
+              <div class='authorImage lazyload' expr:data-bg='resizeImage(data:post.author.authorPhoto.image,60,&quot;1:1&quot;)'/>
             </b:if>
           </div>
         </b:if>
@@ -1149,8 +1436,8 @@ error: &quot;<a class='jsLoad error' expr:aria-label='data:messages.loadMorePost
             <script>
               var labelArray = [<b:if cond='data:post.labels'><b:loop values='data:post.labels' var='label'>&quot;<data:label.name/>&quot;<b:if cond='data:label.isLast != &quot;true&quot;'>,</b:if></b:loop></b:if>];
               var relatedPostConfig = {
-                homePage: &quot;<data:blog.homepageUrl.canonical/>&quot;,
-                widgetTitle: &quot;<h3 class='title'><b:if cond='data:post.labels none (label =&gt; label.name in [&quot;Product&quot; , &quot;Label_1&quot;])'><data:messages.youMayLikeThesePosts/><b:else/>Related products!</b:if></h3>&quot;,
+                homePage: &quot;https://www.notepedia.xyz/&quot;,
+                widgetTitle: &quot;<h4 class='title'><b:if cond='data:post.labels none (label =&gt; label.name in [&quot;Product&quot; , &quot;Label_1&quot;])'><data:messages.youMayLikeThesePosts/><b:else/>Related products!</b:if></h4>&quot;,
                 numPosts: 6,
                 summaryLength: 20,
                 titleLength:&quot;auto&quot;,
@@ -1164,30 +1451,11 @@ error: &quot;<a class='jsLoad error' expr:aria-label='data:messages.loadMorePost
               }
             </script>
             <script>/*<![CDATA[*/ 
-var randomRelatedIndex,showRelatedPost;(function(n,m,k){var d={widgetTitle:"<h3 class='title'>Related Posts</h3>",widgetStyle:1,homePage:"https://www.smarttechmukesh.online",numPosts:7,summaryLength:320,titleLength:"auto",thumbnailSize:200,noImage:"data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",containerId:"related-posts",newTabLink:false,moreText:"Read more",callBack:function(){}}; for(var f in relatedPostConfig){d[f]=(relatedPostConfig[f]=="undefined")?d[f]:relatedPostConfig[f]}var j=function(a){var b=m.createElement("script");b.async="async";b.rel="preload";b.src=a;k.appendChild(b)},o=function(b,a){return Math.floor(Math.random()*(a-b+1))+b},l=function(a){var p=a.length,c,b;if(p===0){return false}while(--p){c=Math.floor(Math.random()*(p+1));b=a[p];a[p]=a[c];a[c]=b}return a},e=(typeof labelArray=="object"&&labelArray.length>0)?"/-/"+l(labelArray)[0]:"",h=function(b){var c=b.feed.openSearch$totalResults.$t-d.numPosts,a=o(1,(c>0?c:1));j(d.homePage.replace(/\/$/,"")+"/feeds/posts/summary"+e+"?alt=json-in-script&orderby=updated&start-index="+a+"&max-results="+d.numPosts+"&callback=showRelatedPost")},g=function(z){var s=document.getElementById(d.containerId),x=l(z.feed.entry),A=d.widgetStyle,c=d.widgetTitle+'<ul class="related style-'+A+'">',b=d.newTabLink?' target="_blank"':"",y='<!-- <div class="clear"/> -->',v,t,w,r,u;if(!s){return}for(var q=0;q<d.numPosts;q++){if(q==x.length){break}t=x[q].title.$t;w=(d.titleLength!=="auto"&&d.titleLength<t.length)?t.substring(0,d.titleLength)+"&hellip;":t; r=("media$thumbnail"in x[q]&&d.thumbnailSize!==false)?x[q].media$thumbnail.url.replace(/.*?:\/\//g , "//").replace(/\/s[0-9]+(\-c)?/, "/s"+d.thumbnailSize):d.noImage;u=("summary"in x[q]&&d.summaryLength>0)?x[q].summary.$t.replace(/<br ?\/?>/g," ").replace(/<.*?>/g,"").replace(/[<>]/g,"").substring(0,d.summaryLength)+"&hellip;":"";for(var p=0,a=x[q].link.length;p<a;p++){v=(x[q].link[p].rel=="alternate")?x[q].link[p].href:"#"} if(A==2){c+='<li><div class="item"><div class="itemThumbnail postThumbnail"><a aria-label="'+w+'" href="'+v+'"><div class="lazy" data-bg="'+r+'"></div></a></div><div class="itemTitle"><a href="'+v+'"><span>'+w+'</span></a></div></div></li>'} else{c+='<li><div class="item"><div class="itemThumbnail posthumbnail"><a aria-label="'+w+'" href="'+v+'"><div class="lazy" data-bg="'+r+'"></div></a></div><div class="itemTitle"><a href="'+v+'"><span>'+w+'</span></a></div></div></li>'} }s.innerHTML=c+="</ul>";d.callBack()};randomRelatedIndex=h;showRelatedPost=g;j(d.homePage.replace(/\/$/,"")+"/feeds/posts/summary"+e+"?alt=json-in-script&orderby=updated&max-results=0&callback=randomRelatedIndex")})(window,document,document.getElementsByTagName("head")[0]); /*]]>*/</script>
+var randomRelatedIndex,showRelatedPost;(function(n,m,k){var d={widgetTitle:"<h4 class='title'>Related Posts</h4>",widgetStyle:1,homePage:"",numPosts:7,summaryLength:320,titleLength:"auto",thumbnailSize:200,noImage:"data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",containerId:"related-posts",newTabLink:false,moreText:"Read more",callBack:function(){}}; for(var f in relatedPostConfig){d[f]=(relatedPostConfig[f]=="undefined")?d[f]:relatedPostConfig[f]}var j=function(a){var b=m.createElement("script");b.async="async";b.rel="preload";b.src=a;k.appendChild(b)},o=function(b,a){return Math.floor(Math.random()*(a-b+1))+b},l=function(a){var p=a.length,c,b;if(p===0){return false}while(--p){c=Math.floor(Math.random()*(p+1));b=a[p];a[p]=a[c];a[c]=b}return a},e=(typeof labelArray=="object"&&labelArray.length>0)?"/-/"+l(labelArray)[0]:"",h=function(b){var c=b.feed.openSearch$totalResults.$t-d.numPosts,a=o(1,(c>0?c:1));j(d.homePage.replace(/\/$/,"")+"/feeds/posts/summary"+e+"?alt=json-in-script&orderby=updated&start-index="+a+"&max-results="+d.numPosts+"&callback=showRelatedPost")},g=function(z){var s=document.getElementById(d.containerId),x=l(z.feed.entry),A=d.widgetStyle,c=d.widgetTitle+'<ul class="related style-'+A+'">',b=d.newTabLink?' target="_blank"':"",y='<!-- <div class="clear"/> -->',v,t,w,r,u;if(!s){return}for(var q=0;q<d.numPosts;q++){if(q==x.length){break}t=x[q].title.$t;w=(d.titleLength!=="auto"&&d.titleLength<t.length)?t.substring(0,d.titleLength)+"&hellip;":t; r=("media$thumbnail"in x[q]&&d.thumbnailSize!==false)?x[q].media$thumbnail.url.replace(/.*?:\/\//g , "//").replace(/\/s[0-9]+(\-c)?/, "/s"+d.thumbnailSize):d.noImage;u=("summary"in x[q]&&d.summaryLength>0)?x[q].summary.$t.replace(/<br ?\/?>/g," ").replace(/<.*?>/g,"").replace(/[<>]/g,"").substring(0,d.summaryLength)+"&hellip;":"";for(var p=0,a=x[q].link.length;p<a;p++){v=(x[q].link[p].rel=="alternate")?x[q].link[p].href:"#"} if(A==2){c+='<li><div class="item"><div class="itemThumbnail postThumbnail"><a aria-label="'+w+'" href="'+v+'"><div class="lazy" data-bg="'+r+'"></div></a></div><div class="itemTitle"><a href="'+v+'"><span>'+w+'</span></a></div></div></li>'} else{c+='<li><div class="item"><div class="itemThumbnail posthumbnail"><a aria-label="'+w+'" href="'+v+'"><div class="lazy" data-bg="'+r+'"></div></a></div><div class="itemTitle"><a href="'+v+'"><span>'+w+'</span></a></div></div></li>'} }s.innerHTML=c+="</ul>";d.callBack()};randomRelatedIndex=h;showRelatedPost=g;j(d.homePage.replace(/\/$/,"")+"/feeds/posts/summary"+e+"?alt=json-in-script&orderby=updated&max-results=0&callback=randomRelatedIndex")})(window,document,document.getElementsByTagName("head")[0]); /*]]>*/</script>
           </div>
         </div>
       </b:includable>
-      
-      <!--[ Post authors ]-->
-      <b:includable id='post-authorProfile'>
-        <div class='postAuthors'>
-          <div class='authorImage'>
-            <b:if cond='data:post.author.authorPhoto.image'>
-              <div class='authorImg lazy' expr:data-bg='resizeImage(data:post.author.authorPhoto.image,80,&quot;1:1&quot;)'/>
-              <b:else/>
-              <div class='authorImg'>
-                <!--<b:include name='profile-icon'/>-->
-              </div>
-            </b:if>
-          </div>
-          <div class='authorInfo'>
-            <div class='authorName' data-write='Written by' expr:data-text='data:post.author.name'/>
-            <div class='authorAbout' expr:data-text='data:post.author.aboutMe snippet {length: 100, links: false, linebreaks: false}'/>
-          </div>
-        </div>
-      </b:includable>
-      
+   
       <b:includable id='post-adBot'>
         <div class='postAd'>
           <!--[ Bottom article Ad ]-->
@@ -1245,36 +1513,63 @@ var randomRelatedIndex,showRelatedPost;(function(n,m,k){var d={widgetTitle:"<h3 
           </div>
       </b:includable>
       
+      
+         
+      <!--[ Post authors ]-->
+      <b:includable id='post-authorProfile'>
+        <div class='postAuthors'>
+          <div class='authorImage'>
+            <b:if cond='data:post.author.authorPhoto.image'>
+              <div class='authorImg lazyload' expr:data-bg='resizeImage(data:post.author.authorPhoto.image,80,&quot;1:1&quot;)'/>
+              <b:else/>
+              <div class='authorImg'> 
+                <!--<b:include name='profile-icon'/>-->
+              </div>
+            </b:if>
+          </div>
+          <div class='authorInfo'>
+          <div class='nameandate'>
+            <div class='authorName' data-write='Written by' expr:data-text='data:post.author.name'/>
+            <div class='postDatetime'>
+       <data:post.date/>
+            </div>
+            </div>
+            <div class='authorAbout' expr:data-text='data:post.author.aboutMe'/>
+          </div>
+        </div>
+      </b:includable>
+      
+      
       <!--[ Format Snippet text ]-->
       <b:includable id='postEntrySnippet'>
         <p><b:eval expr='snippet(data:post.body, {length: 100, links: false, linebreaks: false})'/></p>
       </b:includable>
       
-      <!--[ Format Author Label ]-->
-      
-      <b:includable id='authorLabel'>
-        <div class='author' expr:id='&quot;author&quot; + data:post.id'>
-          <script type='text/javascript'>createLink(&quot;author<data:post.id/>&quot;,&quot;/search/label/&quot;,&quot;<data:post.author.name/>&quot;);</script>
-        </div>
-      </b:includable>
-      
-       <!--[ Format Label Just Show First Label ]-->
-      <b:includable id='onelabel'>
-           <div class='byline post-labels'>
-             <b:if cond='data:post.labels'>
-               <b:loop index='i' values='data:post.labels' var='label'>
-                 <b:if cond='data:i &lt;= 0'>
-                 <a expr:href='data:label.url' expr:title='data:label.name'>
-                   <data:label.name/>
-                 </a>
-                 </b:if>
-               </b:loop>
-             </b:if>
-           </div>
-       </b:includable>
-      
+        <b:includable id='authorandreader'>
+      <b:tag class='postAuthor' cond='data:widgets.Blog.first.allBylineItems.author' name='div'>
+                      <b:include name='postAuthorImage'/>
+                      <b:tag class='postAuthorName' cond='data:widgets.Blog.first.allBylineItems.author' name='div'>
+                        <b:include name='postAuthorName'/>
+                        <div class='postTimes'>
+                          <div class='postDatetime'>
+                            <b:include name='timeFormat'/>
+                          </div>
+                          <b:if cond='data:view.isMultipleItems'>
+                            <div class='homeLabel'>
+                				<b:include name='onelabel'/>
+                         </div>
+                            </b:if>
+                          <b:if cond='data:view.isPost'>
+                          <div class='postReadtime'>
+                            <span id='readTime'/>
+                          </div>
+                          </b:if>
+                        </div>
+                      </b:tag>
+                    </b:tag>
+               </b:includable>
       <!--[ Icon Facebook ]-->
-      <b:includable id='facebook-icon'>
+      <b:includable id='facebook-icon2'>
         <svg fill='none' height='18' width='18' xmlns='http://www.w3.org/2000/svg'>
           <path d='M16 0H0v16h7.997V9.96h-2.04V7.61h2.04V5.88c0-.98.271-1.742.813-2.284.543-.542 1.278-.813 2.208-.813.929 0 1.531.034 1.807.103v2.09h-1.24c-.447 0-.752.096-.916.285-.163.19-.245.473-.245.852V7.61h2.323l-.31 2.35h-2.013V16H16V0z' fill='#fff'>
           </path>
@@ -1289,35 +1584,17 @@ var randomRelatedIndex,showRelatedPost;(function(n,m,k){var d={widgetTitle:"<h3 
       </b:includable>
       
       <!--[ Icon Twitter ]-->
-      <b:includable id='twitter-icon'>
+      <b:includable id='twitter-icon2'>
         <svg fill='none' height='18' width='23' xmlns='http://www.w3.org/2000/svg'>
           <path d='M18.867 4v.5c0 1.333-.266 2.683-.8 4.048a11.415 11.415 0 01-2.358 3.702c-1.04 1.103-2.32 2.003-3.845 2.702C10.339 15.65 8.586 16 6.604 16c-.602 0-1.197-.039-1.785-.115a12.4 12.4 0 01-3.322-.914A11.667 11.667 0 010 14.192a12.448 12.448 0 001.025.039c.998 0 1.959-.148 2.882-.442A8.158 8.158 0 006.398 12.5c-.943 0-1.784-.266-2.522-.798-.738-.532-1.251-1.202-1.538-2.01.137.039.27.061.4.068.13.006.27.01.42.01a5.646 5.646 0 001.149-.116A4.292 4.292 0 011.846 8.25C1.189 7.506.86 6.654.86 5.692v-.077c.287.154.592.276.913.366.321.09.66.134 1.015.134a4.029 4.029 0 01-1.394-1.413A3.708 3.708 0 01.86 2.769c0-.359.055-.711.164-1.057.11-.347.26-.674.452-.981.52.615 1.107 1.173 1.763 1.673.656.5 1.36.933 2.113 1.298.752.365 1.548.657 2.389.875.84.218 1.705.346 2.594.385a3.677 3.677 0 01-.123-.924c0-.55.113-1.073.338-1.567.226-.493.534-.923.923-1.288A4.416 4.416 0 0114.52 0c.63 0 1.214.115 1.754.346.54.23 1.008.539 1.405.923.492-.09.97-.215 1.435-.375.465-.16.903-.356 1.313-.586-.164.461-.41.884-.738 1.269-.329.385-.711.705-1.149.961a10.2 10.2 0 001.251-.23c.41-.103.814-.244 1.21-.423a9.093 9.093 0 01-.974 1.134A9.64 9.64 0 0118.867 4z' fill='#fff'> </path>
         </svg>
       </b:includable>
-      <b:includable id='whatsapp-icon'>
-        <svg viewBox='0 0 24 24'>
-          <path class='st0' d='M20,4C15.6-0.3,8.4-0.3,4,4c-3.5,3.5-4.2,8.5-2.2,12.7c0.2,0.6-0.9,4.6,0,5.5s4.8-0.2,5.5,0c4.2,1.9,9.2,1.2,12.7-2.2C24.3,15.6,24.3,8.4,20,4z'/>
-		<path d='M9.2,10.8c-0.1,0.1-0.1,0.3,0,0.5c0.3,0.5,1,1.7,1.7,2.2c0.8,0.7,2.3,1.5,2.7,1.5s1.3-1.4,1.3-1.4s0.2-0.3,0.7,0c0.5,0.2,2.2,1.1,2.2,1.1s0.2,0,0.3,0.5c0,0.5-0.1,1.3-0.7,1.8s-1.5,1.1-3.2,0.7c-1.6-0.4-3.3-1.4-4.2-2.2c-0.9-0.8-3.4-3-3.9-5.6s1.6-3.4,1.6-3.4s0.9-0.2,1.2,0.2C9.1,7,10,9.2,10,9.2s0.1,0.3-0.1,0.7C9.7,10.1,9.4,10.5,9.2,10.8z'/>
-</svg>
-      </b:includable> 
+
     </b:defaultmarkup>
   </b:defaultmarkups>
   
   
-  <b:if cond='data:view.isMultipleItems'>
-                <script type='text/javascript'>/*<![CDATA[*/
-
-//function for custom make struktur post
-function postS(idP,imgP,titleP,urlP,textP,autUrl,autP,timeUrl,timeP){
-  	let idPP = document.getElementById(idP);
-    let postSt  ='<div class="cardPost" style="background-image:url('+imgP+')"><div class="cardContent"><h2><a href="'+urlP+'" alt="'+titleP+'" rel="bookmark">'+titleP+'</a></h2><p>'+textP+'</p><ul><li class="author"><a href="'+autUrl+''+autP+'" alt="'+autP+'">'+autP+'</a></li><li><a href="'+timeUrl+'" alt="'+timeP+'">'+timeP+'</a></li></ul></div></div>';
-  	idPP.innerHTML = postSt;
-}
-     
-/*]]>*/     
-</script>
-            
-  </b:if>
+ 
   
    <!--[ Jquery Action ]-->
   <b:if cond='!data:view.isError'>
@@ -1345,12 +1622,10 @@ function postS(idP,imgP,titleP,urlP,textP,autUrl,autP,timeUrl,timeP){
 		if (scroll > 500) {
 			$("#navigation").addClass("mini-header");
 			$("#minitoggle").addClass("top");
-			$(".tableOfContainer").addClass("top");
     		}
 		if (scroll < 300) {
         	$("#navigation").removeClass("mini-header");
 			$("#minitoggle").removeClass("top");
-			$(".tableOfContainer").removeClass("top");
       }
 	});
 
@@ -1377,20 +1652,14 @@ $(document).ready(function() {
 	
 });
 
-
-//function for custom link
-function createLink(linkClass,linkPath,link){
-  	var linkdata = document.getElementById(linkClass);
-  	var taglink = '<a href="'+linkPath+link +'" title="'+link+'" >'+link+'</a>';
-  	linkdata.innerHTML = taglink;
-}
-
 //function for custom link
 function timeLink(linkClass,linkPath,link){
   	var linkdata = document.getElementById(linkClass);
   	var taglink = '<a href="'+linkPath +'" >'+link+'</a>';
   	linkdata.innerHTML = taglink;
 }
+
+
 
 
       /*]]>*/</script>
@@ -1457,7 +1726,7 @@ function timeLink(linkClass,linkPath,link){
                     </div>
                   </b:includable>
               </b:widget>
-              <b:widget id='Label1' locked='false' title='Menu Navigation' type='Label' version='1'>
+              <b:widget id='Label1' locked='false' mobile='no' title='Menu Navigation' type='Label' version='1'>
                 <b:widget-settings>
                   <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
                   <b:widget-setting name='display'>LIST</b:widget-setting>
@@ -1477,41 +1746,43 @@ function timeLink(linkClass,linkPath,link){
                   </b:if>
                 </b:includable>
               </b:widget>
-              <b:widget id='LinkList1' locked='false' title='' type='LinkList' version='2' visible='true'>
+              <b:widget id='HTML1' locked='false' title='' type='HTML' version='2' visible='true'>
                 <b:widget-settings>
-                  <b:widget-setting name='sorting'>NONE</b:widget-setting>
-                  <b:widget-setting name='text-1'>Instagram</b:widget-setting>
-                  <b:widget-setting name='link-1'>https://instagram.com</b:widget-setting>
-                  <b:widget-setting name='text-0'>Facebook</b:widget-setting>
-                  <b:widget-setting name='link-2'>https://twitter.com</b:widget-setting>
-                  <b:widget-setting name='link-0'>https://facebook.com</b:widget-setting>
-                  <b:widget-setting name='text-2'>Twitter</b:widget-setting>
+                  <b:widget-setting name='content'>&lt;label&gt;
+      &lt;input class=&#39;switch&#39; type=&#39;checkbox&#39; onclick=&quot;darkMode()&quot;/&gt;
+      &lt;div&gt;
+        &lt;div class=&#39;moon&#39;&gt;
+          &lt;svg fill=&#39;none&#39; viewbox=&#39;0 0 32 32&#39; xmlns=&#39;http://www.w3.org/2000/svg&#39;&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M14.228 7.9439C10.5176 8.82869 7.75757 12.1054 7.75757 15.9987C7.75757 20.5716 11.5618 24.2919 16.2367 24.2919C19.2323 24.2919 21.9337 22.7699 23.4514 20.3585C23.2779 20.3676 23.1033 20.3722 22.9287 20.3722C17.7826 20.3722 13.5951 16.2772 13.5951 11.2435C13.5951 10.1032 13.8108 8.98914 14.228 7.9439M16.2367 26.4993C10.3171 26.4993 5.50037 21.7899 5.50037 15.9987C5.50037 10.2109 10.3171 5.49927 16.2367 5.49927C16.6598 5.49927 17.0501 5.72963 17.2435 6.09753C17.438 6.46428 17.4087 6.90668 17.1638 7.24363C16.3059 8.42297 15.8535 9.80631 15.8535 11.2435C15.8535 15.06 19.0272 18.1637 22.9287 18.1637C23.6483 18.1637 24.3573 18.0582 25.0359 17.8531C25.4378 17.7293 25.8785 17.8359 26.1738 18.1304C26.4715 18.425 26.5758 18.8559 26.4446 19.2467C25.0019 23.5847 20.9 26.4993 16.2367 26.4993&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+          &lt;/path&gt;&lt;/svg&gt;
+        &lt;/div&gt;
+        &lt;div class=&#39;sun&#39;&gt;
+          &lt;svg fill=&#39;none&#39; viewbox=&#39;0 0 32 32&#39; xmlns=&#39;http://www.w3.org/2000/svg&#39;&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M16.0003 21.4194C13.0123 21.4194 10.5813 18.9874 10.5813 15.9994C10.5813 13.0114 13.0123 10.5804 16.0003 10.5804C18.9883 10.5804 21.4193 13.0114 21.4193 15.9994C21.4193 18.9874 18.9883 21.4194 16.0003 21.4194M16.0003 8.64136C11.9423 8.64136 8.64233 11.9414 8.64233 15.9994C8.64233 20.0574 11.9423 23.3574 16.0003 23.3574C20.0573 23.3574 23.3583 20.0574 23.3583 15.9994C23.3583 11.9414 20.0573 8.64136 16.0003 8.64136&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M16.0004 7.08447C16.5364 7.08447 16.9704 6.64946 16.9704 6.11446V3.34546C16.9704 2.81046 16.5364 2.37646 16.0004 2.37646C15.4644 2.37646 15.0304 2.81046 15.0304 3.34546V6.11446C15.0304 6.64946 15.4644 7.08447 16.0004 7.08447&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M6.11559 15.0298H3.34559C2.81059 15.0298 2.37659 15.4648 2.37659 15.9998C2.37659 16.5348 2.81059 16.9688 3.34559 16.9688H6.11559C6.65159 16.9688 7.08459 16.5348 7.08459 15.9998C7.08459 15.4648 6.65159 15.0298 6.11559 15.0298&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M16.0004 24.9146C15.4644 24.9146 15.0304 25.3496 15.0304 25.8846V28.6536C15.0304 29.1886 15.4644 29.6236 16.0004 29.6236C16.5364 29.6236 16.9704 29.1886 16.9704 28.6536V25.8846C16.9704 25.3496 16.5364 24.9146 16.0004 24.9146&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M28.6542 15.0298H25.8842C25.3492 15.0298 24.9152 15.4648 24.9152 15.9998C24.9152 16.5348 25.3492 16.9688 25.8842 16.9688H28.6542C29.1902 16.9688 29.6242 16.5348 29.6242 15.9998C29.6242 15.4648 29.1902 15.0298 28.6542 15.0298&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M22.9896 9.97995C23.2376 9.97995 23.4856 9.88495 23.6756 9.69595L24.7036 8.66795C25.0816 8.28995 25.0816 7.67495 24.7036 7.29595C24.3246 6.91795 23.7106 6.91795 23.3316 7.29595L22.3036 8.32495C21.9256 8.70295 21.9256 9.31695 22.3036 9.69595C22.4926 9.88495 22.7416 9.97995 22.9896 9.97995&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M8.32507 9.69593C8.51407 9.88493 8.76207 9.97993 9.01107 9.97993C9.25907 9.97993 9.50707 9.88493 9.69607 9.69593C10.0751 9.31693 10.0751 8.70293 9.69607 8.32493L8.66807 7.29693C8.28907 6.91893 7.67507 6.91893 7.29707 7.29693C6.91807 7.67493 6.91807 8.28993 7.29707 8.66793L8.32507 9.69593Z&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M8.32507 22.3043L7.29707 23.3313C6.91807 23.7093 6.91807 24.3243 7.29707 24.7023C7.48607 24.8923 7.73407 24.9873 7.98207 24.9873C8.23007 24.9873 8.47807 24.8923 8.66807 24.7023L9.69607 23.6753C10.0751 23.2973 10.0751 22.6833 9.69607 22.3043C9.31807 21.9253 8.70307 21.9253 8.32507 22.3043&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+            &lt;path clip-rule=&#39;evenodd&#39; d=&#39;M23.6752 22.3043C23.2962 21.9253 22.6822 21.9253 22.3032 22.3043C21.9252 22.6833 21.9252 23.2973 22.3042 23.6753L23.3322 24.7023C23.5212 24.8923 23.7692 24.9873 24.0182 24.9873C24.2662 24.9873 24.5142 24.8923 24.7032 24.7023C25.0822 24.3243 25.0822 23.7093 24.7032 23.3313L23.6752 22.3043Z&#39; fill=&#39;currentColor&#39; fill-rule=&#39;evenodd&#39;/&gt;
+          &lt;/path&gt;&lt;/path&gt;&lt;/path&gt;&lt;/path&gt;&lt;/path&gt;&lt;/path&gt;&lt;/path&gt;&lt;/path&gt;&lt;/path&gt;&lt;/svg&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/label&gt;</b:widget-setting>
                 </b:widget-settings>
                 <b:includable id='main'>
-                  <b:include name='widget-title'/>
-                  <b:include name='content'/>
-                </b:includable>
-                <b:includable id='content'>
-                  <ul>
-                    <b:loop index='soc' values='data:links' var='link'>
-                      <b:if cond='data:soc &lt;= 5'>
-                        <li>
-                          <a expr:aria-label='data:link.name' expr:href='data:link.target'>
-                             <b:if cond='data:link.name == &quot;Facebook&quot;'>
-                               <b:include name='facebook-icon'/>
-                               <b:elseif cond='data:link.name == &quot;Instagram&quot;'/>
-                               <b:include name='instagram-icon'/>
-                               <b:elseif cond='data:link.name == &quot;Twitter&quot;'/>
-                               <b:include name='twitter-icon'/>
-                            </b:if>
-                          </a>
-                        </li>
-                      </b:if>
-                    </b:loop>
-                  </ul>
-                </b:includable>
+  <div class='widget-content'>
+    <data:content/>
+    
+  </div>
+</b:includable>
               </b:widget>
             </b:section>
+            
+            
+                
           </nav>
         </header>
         <div aria-controls='outCanvas' aria-label='outcanvas' class='nav-toggle' data-bs-toggle='offcanvas' href='#outCanvas' id='minitoggle' role='button' type='button'>
@@ -1602,9 +1873,10 @@ function timeLink(linkClass,linkPath,link){
 </b:widget>
 </b:section>
         </div>
-        <section class='main-content'>
+        <section class='main-content container-xxl'>
                       <b:tag class='row m-0' cond='data:view.isPost' name='div'> 
                            <b:tag class='leftsidebar col-md-2 d-none d-md-block' cond='data:view.isPost' name='aside'>
+                             <div class='row h-100'>
           <b:if cond='data:view.isPost'>
 
             <div class='tableOfContainer'>
@@ -1616,111 +1888,56 @@ function timeLink(linkClass,linkPath,link){
               </div>
             
   			</b:if>
-            <b:section cond='data:view.isPost' id='left-sidebar' showaddelement='yes'/>
-            
+            <b:section cond='data:view.isPost' id='left-sidebar' showaddelement='yes'>
+              <b:widget id='LinkList1' locked='false' mobile='no' title='' type='LinkList' version='2' visible='true'>
+                <b:widget-settings>
+                  <b:widget-setting name='sorting'>NONE</b:widget-setting>
+                  <b:widget-setting name='text-1'>Instagram</b:widget-setting>
+                  <b:widget-setting name='link-1'>https://instagram.com</b:widget-setting>
+                  <b:widget-setting name='text-0'>Facebook</b:widget-setting>
+                  <b:widget-setting name='link-2'>https://twitter.com</b:widget-setting>
+                  <b:widget-setting name='link-0'>https://facebook.com</b:widget-setting>
+                  <b:widget-setting name='text-2'>Twitter</b:widget-setting>
+                </b:widget-settings>
+                <b:includable id='main'>
+                  <b:include name='widget-title'/>
+                  <b:include name='content'/>
+                </b:includable>
+                <b:includable id='content'>
+                  <ul>
+                    <b:loop index='soc' values='data:links' var='link'>
+                      <b:if cond='data:soc &lt;= 5'>
+                        <li>
+                          <a expr:aria-label='data:link.name' expr:href='data:link.target'>
+                             <b:if cond='data:link.name == &quot;Facebook&quot;'>
+                               <b:include name='facebook-icon2'/>
+                               <b:elseif cond='data:link.name == &quot;Instagram&quot;'/>
+                               <b:include name='instagram-icon'/>
+                               <b:elseif cond='data:link.name == &quot;Twitter&quot;'/>
+                               <b:include name='twitter-icon2'/>
+                            </b:if>
+                          </a>
+                        </li>
+                      </b:if>
+                    </b:loop>
+                  </ul>
+                </b:includable>
+              </b:widget>
+            </b:section>
+                             </div>
               </b:tag>
-          
-          
-        <b:section cond='data:view.isHomepage' id='headline'>
-          <b:widget id='FeaturedPost1' locked='true' title='' type='FeaturedPost' version='2' visible='true'>
-            <b:widget-settings>
-              <b:widget-setting name='showSnippet'>true</b:widget-setting>
-              <b:widget-setting name='showPostTitle'>true</b:widget-setting>
-              <b:widget-setting name='postId'>1269395033431696187</b:widget-setting>
-              <b:widget-setting name='showFirstImage'>true</b:widget-setting>
-              <b:widget-setting name='useMostRecentPost'>false</b:widget-setting>
-            </b:widget-settings>
-            <b:includable id='main' var='this'>
-              <b:include name='snippetedPosts'/>
-        </b:includable>
-            <b:includable id='blogThisShare'/>
-            <b:includable id='bylineByName' var='byline'/>
-            <b:includable id='bylineRegion' var='regionItems'/>
-            <b:includable id='commentsLink'/>
-            <b:includable id='commentsLinkIframe'/>
-            <b:includable id='emailPostIcon'/>
-            <b:includable id='facebookShare'/>
-            <b:includable id='footerBylines'>
-            <b:include name='onelabel'/>
-           	<b:include name='timeFormat'/>
-           	<b:include name='authorLabel'/>
-        </b:includable>
-            <b:includable id='googlePlusShare'/>
-            <b:includable id='headerByline'/>
-            <b:includable id='linkShare'/>
-            <b:includable id='otherSharingButton'/>
-            <b:includable id='platformShare'/>
-            <b:includable id='postAuthor'/>
-            <b:includable id='postCommentsLink'/>
-            <b:includable id='postJumpLink' var='post'/>
-            <b:includable id='postLabels'/>
-            <b:includable id='postLocation'/>
-            <b:includable id='postReactions'/>
-            <b:includable id='postShareButtons'/>
-            <b:includable id='postTimestamp'/>
-            <b:includable id='sharingButton'/>
-            <b:includable id='sharingButtonContent'/>
-            <b:includable id='sharingButtons'/>
-            <b:includable id='sharingButtonsMenu'/>
-            <b:includable id='sharingPlatformIcon'/>
-            <b:includable id='snippetedPostByline' var='post'/>
-            <b:includable id='snippetedPostContent'>
-          <b:with value='data:postDisplay.showFeaturedImage and data:post.featuredImage' var='hasImage'>
-            <div class='post-content'>
-              <b:class cond='data:hasImage' name='has-featured-image'/>
-              <b:class cond='not data:hasImage' name='no-featured-image'/>
-
-              <!-- Change the order and add a snippet container -->
-             
-              <b:include cond='data:hasImage' data='post' name='snippetedPostThumbnail'/>
-               <div class='container text-headline '>
-                
-                <!--<b:include name='headerByline'/>-->
-                <b:include cond='data:this.postDisplay.showTitle' name='snippetedPostTitle'/>
-                <!--<b:with value='&quot;featured-post&quot;' var='snippetPrefix'>
-                  <b:include cond='data:this.postDisplay.showSnippet' data='post' name='postSnippet'/>
-                </b:with>-->
-                 <b:include name='postEntrySnippet'/>
-                <div class='post-footer'>
-                  <b:include name='footerBylines'/>
-                </div>
-                     </div>
-            </div>
-          </b:with>
-            </b:includable>
-            <b:includable id='snippetedPostThumbnail'>
-              <b:include data='{image: data:featuredImage, maxSize: 954, selector: &quot;.hero-thumb&quot;}' name='responsiveImageStyle'/>
-              <div class='headline'><div class='thumb hero-thumb'><div class='header-overlay'/></div></div>
-            </b:includable>
-            <b:includable id='snippetedPostTitle'>
-           <b:if cond='data:post.title != &quot;&quot;'>
-             <h1 class='post-title'><a expr:alt='data:post.title' expr:href='data:post.url'><data:post.title/></a></h1>
-           </b:if>
-         </b:includable>
-            <b:includable id='snippetedPosts'>
-           <div role='feed'>
-             <!-- Don't render the post that we're currently already looking at. -->
-             <b:loop values='data:posts filter (p =&gt; p.id != data:view.postId)' var='post'>
-               <article class='post' role='article'>
-                 <b:include name='snippetedPostContent'/>
-               </article>
-             </b:loop>
-           </div>
-         </b:includable>
-          </b:widget>
-        </b:section>
-		<b:tag class='middlecontent col-md-7' cond='data:view.isPost' name='div'>
+		<b:tag class='middlecontent col-md-7 ' cond='data:view.isPost' name='div'>
         <b:section id='main-widget'>
-          <b:widget id='Blog1' locked='true' title='Postingan Blog' type='Blog' version='2' visible='true'>
+          <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='commentLabel'>comments</b:widget-setting>
+              <b:widget-setting name='commentLabel'>Comment</b:widget-setting>
               <b:widget-setting name='showShareButtons'>true</b:widget-setting>
               <b:widget-setting name='authorLabel'>Oleh</b:widget-setting>
               <b:widget-setting name='disableGooglePlusShare'>true</b:widget-setting>
               <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
-              <b:widget-setting name='timestampLabel'/>
+              <b:widget-setting name='timestampLabel'>On</b:widget-setting>
               <b:widget-setting name='reactionsLabel'/>
-              <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+              <b:widget-setting name='showAuthorProfile'>true</b:widget-setting>
               <b:widget-setting name='style.layout'>1x1</b:widget-setting>
               <b:widget-setting name='showLocation'>false</b:widget-setting>
               <b:widget-setting name='showTimestamp'>true</b:widget-setting>
@@ -1730,12 +1947,11 @@ function timeLink(linkClass,linkPath,link){
               <b:widget-setting name='style.textcolor'>#2b2631</b:widget-setting>
               <b:widget-setting name='showCommentLink'>true</b:widget-setting>
               <b:widget-setting name='style.urlcolor'>#2b2631</b:widget-setting>
-              <b:widget-setting name='postLocationLabel'>Location:</b:widget-setting>
               <b:widget-setting name='showAuthor'>true</b:widget-setting>
               <b:widget-setting name='style.linkcolor'>#2b2631</b:widget-setting>
               <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
               <b:widget-setting name='showLabels'>true</b:widget-setting>
-              <b:widget-setting name='postLabelsLabel'>Labels:</b:widget-setting>
+              <b:widget-setting name='postLabelsLabel'>in</b:widget-setting>
               <b:widget-setting name='showBacklinks'>false</b:widget-setting>
               <b:widget-setting name='showInlineAds'>false</b:widget-setting>
               <b:widget-setting name='showReactions'>false</b:widget-setting>
@@ -1803,54 +2019,11 @@ function timeLink(linkClass,linkPath,link){
             <b:includable id='commentItem' var='comment'/>
             <b:includable id='commentList' var='comments'/>
             <b:includable id='commentPicker' var='post'/>
-            <b:includable id='commentblock' var='cb'>
-           <div class='commentAvatar'>
-             <b:if cond='data:cb.level.authorAvatarSrc'>
-               <div class='lazy' expr:data-bg='resizeImage(data:cb.level.authorAvatarSrc, 100, &quot;1:1&quot;)'/>
-             </b:if>
-           </div>
-           &lt;div class=&#39;commentInner&#39;&gt;
-           <div class='commentBlock' itemscope='itemscope' itemtype='https://schema.org/Comment'>
-             <div class='commentHeader'>
-               <b:if cond='data:cb.level.author != &quot;Anonymous&quot;'> 
-                 <span class='name' itemprop='author' itemscope='itemscope' itemtype='https://schema.org/Person'>
-                   <span itemprop='name'><data:cb.level.author/></span>
-                   <b:if cond='data:post.author.name == data:cb.level.author'>
-                     <svg viewBox='0 0 24 24'><path clip-rule='evenodd' d='M9.3764 20.0279L18.1628 8.66544C18.6403 8.0527 18.8101 7.3443 18.6509 6.62299C18.513 5.96726 18.1097 5.34377 17.5049 4.87078L16.0299 3.69906C14.7459 2.67784 13.1541 2.78534 12.2415 3.95706L11.2546 5.23735C11.1273 5.39752 11.1591 5.63401 11.3183 5.76301C11.3183 5.76301 13.812 7.76246 13.8651 7.80546C14.0349 7.96671 14.1622 8.1817 14.1941 8.43969C14.2471 8.94493 13.8969 9.41792 13.377 9.48242C13.1329 9.51467 12.8994 9.43942 12.7297 9.29967L10.1086 7.21422C9.98126 7.11855 9.79025 7.13898 9.68413 7.26797L3.45514 15.3303C3.0519 15.8355 2.91395 16.4912 3.0519 17.1255L3.84777 20.5761C3.89021 20.7589 4.04939 20.8879 4.24039 20.8879L7.74222 20.8449C8.37891 20.8341 8.97316 20.5439 9.3764 20.0279ZM14.2797 18.9533H19.9898C20.5469 18.9533 21 19.4123 21 19.9766C21 20.5421 20.5469 21 19.9898 21H14.2797C13.7226 21 13.2695 20.5421 13.2695 19.9766C13.2695 19.4123 13.7226 18.9533 14.2797 18.9533Z' fill-rule='evenodd'/></svg>
-                   </b:if>
-                 </span>
-                 <b:else/>
-                 <span class='name' itemprop='author' itemscope='itemscope' itemtype='https://schema.org/Person'>
-                   <span itemprop='name'>Anonymous</span>
-                 </span>
-               </b:if>
-               <span class='datetime' expr:data-datetime='data:cb.level.timestamp' itemprop='datePublished'>
-                 <data:cb.level.timestamp/></span>
-             </div>
-             <div class='commentContent' itemprop='text'>
-               <b:class cond='data:cb.level.isDeleted' name='hasDeleted'/>
-               <b:if cond='data:cb.level.author != data:post.author.name'>
-                 <b:eval expr='data:cb.level.body snippet { links: false }'/>
-                 <b:else/>
-                 <data:cb.level.body/>
-               </b:if>
-             </div>
-           </div>
-         </b:includable>
+            <b:includable id='commentblock' var='cb'/>
             <b:includable id='comments' var='post'/>
             <b:includable id='commentsLink'/>
             <b:includable id='commentsLinkIframe'/>
-            <b:includable id='commentsTitle'>
-           <h3 class='title'>
-             <b:if cond='data:post.numberOfComments &gt; 0'>
-               <b:message name='messages.numberOfComments'>
-                 <b:param expr:value='data:post.numberOfComments' name='numComments'/>
-               </b:message>
-               <b:else/>
-               <data:messages.postAComment/>
-             </b:if>
-           </h3>
-         </b:includable>
+            <b:includable id='commentsTitle'/>
             <b:includable id='defaultAdUnit'>
            <ins class='adsbygoogle' data-ad-format='auto' expr:data-ad-client='data:adClientId ?: data:blog.adsenseClientId' expr:data-ad-host='data:blog.adsenseHostId' expr:data-analytics-uacct='data:blog.analyticsAccountNumber' expr:style='data:style ?: &quot;display: block;&quot;'/>
            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -1895,16 +2068,6 @@ function timeLink(linkClass,linkPath,link){
             <b:includable id='otherSharingButton'/>
             <b:includable id='platformShare'/>
             <b:includable id='post' var='post'/>
-            <b:includable id='post-commentButton'>
-        <!--[ Show/hide Comment ]-->
-        <label class='commentsButton button outline' for='forshow-comment'>
-          <b:if cond='data:post.numberOfComments &gt; 0'>
-            <span expr:data-text='data:messages.joinTheConversation + &quot; (&quot; + data:post.numberOfComments + &quot;)&quot;'/>
-            <b:else/>
-            <span expr:data-text='data:messages.postAComment'/>
-          </b:if>
-        </label>
-      </b:includable>
             <b:includable id='postAuthor'/>
             <b:includable id='postBody' var='post'/>
             <b:includable id='postBodySnippet' var='post'/>
@@ -1919,11 +2082,20 @@ function timeLink(linkClass,linkPath,link){
               <b:include cond='data:view.isSingleItem' data='post' name='breadcrumb'/>
               
               <b:if cond='data:view.isMultipleItems'>
-   
-                
-                  <script>postS(&quot;titletop<data:post.id/>&quot;,&quot;<b:eval cond='data:post.featuredImage' expr='resizeImage(data:post.featuredImage, 600, &quot;18:9&quot;)'/>&quot;,&quot; <b:eval expr='data:post.title'/>&quot;,&quot;<b:eval expr='data:post.url'/>&quot;,&quot;<b:eval expr='snippet(data:post.body, {length: 100, links: false, linebreaks: false})'/>&quot;,&quot;/search/label/&quot;,&quot;<data:post.author.name/>&quot;,&quot;<b:include name='timeUrl'/>&quot;,&quot;<data:post.date/>&quot;)</script>
-
-                
+                <b:if cond='data:post.featuredImage'>
+              
+                <div class='cardPost lazyload' expr:data-bg='resizeImage(data:post.featuredImage, 300, &quot;1:1&quot;)'>
+                  <div class='cardContent'>
+                    <a expr:alt='data:post.title' expr:href='data:post.url'>
+                    <div class='cardContentTitle' expr:data-text='data:post.title'/>
+                      
+                    <b:include name='postEntrySnippet'/>
+                    </a>
+                    <b:include name='authorandreader'/>
+                  </div>
+                </div>
+             
+                </b:if>          
                 <!--[ Post header ]-->
               </b:if>
 				<b:if cond='data:view.isPost'>
@@ -1964,22 +2136,20 @@ function timeLink(linkClass,linkPath,link){
                   </b:if>
                 </b:tag>
                   </b:if>
+              
+              <b:include cond='data:view.isPost and !data:view.isPreview' data='post' name='post-related'/>
                 <!--[ Post writter ]-->
                 <b:include cond='data:post.author.aboutMe and data:view.isPost and !data:view.isPreview' name='post-authorProfile'/>
                 <!--[ Share button ]-->
                 <b:include cond='data:post.shareUrl and data:view.isPost and !data:view.isPreview' name='postInfoShare'/>
+              
+              <script async='async' crossorigin='anonymous' issue-term='title' repo='nndwn/comment' src='https://utteranc.es/client.js' theme='github-light'>
+</script>
 			
             </article>
             <!--[ Post footer ]-->
             <b:tag class='postFooter' cond='data:view.isPost' name='div'>
-              <!--[ Related post ]-->
-              <b:include cond='data:view.isPost and !data:view.isPreview' data='post' name='post-related'/>
-              <!--[ Matched content ad ]-->
-              <!--<b:include cond='data:view.isPost and !data:view.isPreview' data='post' name='post-relatedAd'/>-->
-              <b:tag class='blogComments' cond='data:post.allowComments and data:view.isPost and !data:view.isPreview' id='comments' name='div'>
-                <!--[ Blogger Comments ]-->
-                <b:include cond='data:post.allowComments and data:view.isPost and !data:view.isPreview' data='post' name='threadedComments-modifV3'/>
-              </b:tag>
+  
             </b:tag>
             <!--[ Post table of content ]-->
              <!--<b:include cond='data:view.isPost' data='post' name='postTableofContent'/>-->
@@ -1999,22 +2169,7 @@ function timeLink(linkClass,linkPath,link){
                  <b:include name='postCommentsLinks'/>
                </b:if>
                <b:else/>
-               <!--[ Info in item page ]-->
-               <b:tag class='postAuthor' cond='data:widgets.Blog.first.allBylineItems.author' name='div'>
-                 <b:include name='postAuthorImage'/>
-                 <b:tag class='postAuthorName' cond='data:widgets.Blog.first.allBylineItems.author' name='div'>
-                   <b:include name='postAuthorName'/>
-                    <div class='postTimes'>
-               <div class='postDatetime'>
-                 <b:include name='timeFormat'/>
-               </div>
-               <!--[ Reading time ]-->
-               <div class='postReadtime'>             
-                 <span id='readTime'/>
-               </div>
-             </div>     
-                 </b:tag>
-               </b:tag>
+                <b:include name='authorandreader'/>
                <div class='postComments'>
                  <!--[ Post comment count ]-->
                  <b:if cond='data:post.allowComments and data:widgets.Blog.first.allBylineItems.comments'>
@@ -2022,7 +2177,7 @@ function timeLink(linkClass,linkPath,link){
                  </b:if>
                  <b:if cond='data:post.shareUrl and data:widgets.Blog.first.allBylineItems.share'>
                    <!--[ Share button ]-->
-                   <label for='offshare-check'>
+                   <label aria-controls='shareBut' aria-label='shareBut' class='shareBut' data-bs-toggle='offcanvas' href='#shareBut' role='button' type='button'>
                      <b:include name='share-icon'/>
                    </label>
                  </b:if>
@@ -2030,134 +2185,74 @@ function timeLink(linkClass,linkPath,link){
              </b:if>
            </b:tag>
          </b:includable>
-            <b:includable id='postInfoDate'>
-           <b:if cond='data:widgets.Blog.first.allBylineItems.timestamp and data:post.labels'>
-             <div class='postTimes'>
-               <div class='postDatetime'>
-                 <b:include name='postTimestamps'/>
-               </div>
-               <!--[ Reading time ]-->
-               <div class='postReadtime'>             
-                 <span id='readTime'/>
-               </div>
-             </div>
-           </b:if>
-         </b:includable>
+            <b:includable id='postInfoDate'/>
             <b:includable id='postInfoShare'>
-           <div class='postShare' expr:data-text='data:messages.share + &quot;:&quot;'>
-             <div class='shareContent' expr:data-text='data:messages.share + &quot;:&quot;'>
-               <!-- Share to Facebook -->
-               <div class='shareIcon facebook'>
-                 <a aria-label='Share on Facebook' data-text='Facebook' expr:href='&quot;https://www.facebook.com/sharer.php?u=&quot; + data:blog.url.canonical' rel='noopener' role='button' target='_blank'>
-                  <!-- <b:include name='facebook-icon'/>-->
-                 </a>
-               </div>
-               <!-- Share to Whatsapp -->
-               <div class='shareIcon whatsapp'>
-                 <a aria-label='Share on Whatsapp' data-text='Whatsapp' expr:href='&quot;https://api.whatsapp.com/send?text=&quot; + data:blog.url.canonical' rel='noopener' role='button' target='_blank'>
-                    <!--<b:include name='whatsapp-icon'/>-->
-                 </a>
-               </div>
-               <!-- Share to Twitter -->
-               <div class='shareIcon twitter'>
-                 <a aria-label='Twitter' expr:href='&quot;https://twitter.com/share?url=&quot; + data:blog.url.canonical' rel='noopener' role='button' target='_blank' title='Share to Twitter'>
-                    <!--<b:include name='twitter-icon'/> -->
-                 </a>
-               </div>
-               <div class='shareIcon shareButton'>
-                 <label for='offshare-check'>
-                   <!--<b:include name='share-icon'/>-->
-                 </label>
-               </div>
+              <div aria-labelledby='shareBut' class='offcanvas offcanvas-bottom' expr:data-text='data:messages.share + &quot;:&quot;' id='shareBut' tabindex='-1'>
+             <div class='header-share'>
+                <div class='header-text-share' expr:data-text='data:messages.shareToOtherApps'> </div>
+               	<button aria-label='Close' class='btn-close text-reset' data-bs-dismiss='offcanvas' type='button'/>
              </div>
-             <input class='shareIn d-none' id='offshare-check' type='checkbox'/>
-             <div class='shareInner'>
-               <div class='shareBlock'>
-                 <div class='shareHeader' expr:data-text='data:messages.shareToOtherApps'>
-                   <label for='offshare-check'>
-                      <!--<b:include name='close-icon'/>-->
-                   </label>
-                 </div>
-                 <div class='shareBox'>
-                   <!--[ Preview post ]-->
-                   <div class='sharePreview'>
-                     <b:if cond='data:post.featuredImage'>
-                       <div class='previewImg lazy' expr:data-bg='resizeImage(data:post.featuredImage, 120, &quot;1:1&quot;)'/>
-                       <b:else/>
-                       <div class='previewImg'>
-                         <!--<b:include name='image-icon'/>-->
-                       </div>
-                     </b:if>
-                     <div class='previewContent'>
-                       <div class='previewTitle' expr:data-text='data:post.title'/>
-                       <b:if cond='data:widgets.Blog.first.allBylineItems.labels'>
-                         <div class='previewLabel'>
-                           <b:loop index='i' values='data:post.labels' var='label'>
-                             <b:if cond='data:i == 0'>
-                               <b:tag expr:data-text='&quot;#&quot; + data:label.name' name='span'/>
-                             </b:if>
-                           </b:loop>
-                         </div>
-                       </b:if>
+             
+             <div class='body-share'>
+               <div class='sharePreview'>
+                 <b:if cond='data:post.featuredImage'>
+                   <div class='previewImg lazyload' expr:data-bg='resizeImage(data:post.featuredImage, 120, &quot;1:1&quot;)'/>
+                 </b:if>
+                 <div class='previewContent'>
+                   <div class='previewTitle' expr:data-text='data:post.title'/>
+                   <b:if cond='data:widgets.Blog.first.allBylineItems.labels'>
+                     <div class='previewLabel'>
+                       <b:loop index='i' values='data:post.labels' var='label'>
+                         <b:if cond='data:i == 0'>
+                           <b:tag expr:data-text='&quot;#&quot; + data:label.name' name='span'/>
+                         </b:if>
+                       </b:loop>
                      </div>
-                   </div>
-                   <ul>
-                     <!--<li>-->
-                     <!-- Share to Twitter -->
-                     <!--<a aria-label='Twitter' data-text='Twitter' expr:href='&quot;https://twitter.com/share?url=&quot; + data:blog.url.canonical' rel='noopener' target='_blank'>
-<b:include name='twitter-icon'/>
-</a>
-</li>-->
-                     <li>
-                       <!-- Share to Telegram -->
-                       <a aria-label='Telegram' data-text='Telegram' expr:href='&quot;https://t.me/share/url?url=&quot; + data:blog.url.canonical' rel='noopener' target='_blank'>
-                          <!--<b:include name='telegram-icon'/>-->
-                       </a>
-                     </li>
-                     <li>
-                       <!-- Pin to Pinterst -->
-                       <a aria-label='Pinterest' data-pin-config='beside' data-text='Pinterest' expr:href='&quot;https://pinterest.com/pin/create/button/?url=&quot; + data:blog.url.canonical + &quot;&amp;media=&quot; + resizeImage(data:blog.postImageUrl, 1600)' rel='noopener' target='_blank'>
-                         <!--<b:include name='pinterest-icon'/>-->
-                       </a>
-                     </li>
-                     <li>
-                       <!-- Share Linkedin -->
-                       <a aria-label='Linkedin' data-text='Linkedin' expr:href='&quot;https://www.linkedin.com/sharing/share-offsite/?url=&quot; + data:blog.url.canonical' rel='noopener' target='_blank'>
-                        <!-- <b:include name='linkedIn-icon'/>-->
-                       </a>
-                     </li>
-                     <li>
-                       <!-- Share to Line -->
-                       <a aria-label='Line' data-text='Line' expr:href='&quot;https://timeline.line.me/social-plugin/share?url=&quot; + data:blog.url.canonical' rel='nofollow noreferrer' target='_blank'>
-                        <!-- <b:include name='line-icon'/>-->
-                       </a>
-                     </li>
-                     <li>
-                       <!-- Share to Tumblr -->
-                       <a aria-label='Tumblr' data-text='Tumblr' expr:href='&quot;https://www.tumblr.com/share/link?url=&quot; + data:blog.url.canonical' rel='noopener' target='_blank'>
-                         <!--<b:include name='tumblr-icon'/>-->
-                       </a>
-                     </li>
-                     <li>
-                       <!-- Send to email -->
-                       <a aria-label='Email' data-text='Email' expr:href='&quot;mailto:?body=&quot; + data:blog.url.canonical' target='_blank'>
-                         <!--<b:include name='message-icon'/>-->
-                       </a>
-                     </li>
-                     <li>
-                       <!-- Copy link -->
-                       <div class='copyLink' data-text='Copy link' onclick='copyFunction()'>
-                         <!--<b:include name='paper-icon'/>-->
-                       </div>
-                       <input expr:value='data:blog.url.canonical' id='getlink' readonly='readonly' type='text'/>
-                       <div class='shareNotif' id='shareNotif'/>
-                     </li>
-                   </ul>
+                   </b:if>
                  </div>
                </div>
-               <label class='fullClose' for='offshare-check'/>
+               <ul>
+                 <li>
+                   <!-- Share to Facebook -->
+                   <a aria-label='Share on Facebook' data-text='Facebook' expr:href='&quot;https://www.facebook.com/sharer.php?u=&quot; + data:blog.url.canonical' rel='noopener' role='button' target='_blank'>
+                     <b:include name='facebook-icon'/>
+                   </a>
+                 </li>
+                 <li>
+                   <!-- Share to Whatsapp -->
+                   <a aria-label='Share on Whatsapp' data-text='Whatsapp' expr:href='&quot;https://api.whatsapp.com/send?text=&quot; + data:blog.url.canonical' rel='noopener' role='button' target='_blank'>
+                     <b:include name='whatsapp-icon'/>
+                   </a>
+                 </li>
+                 <li>
+                 <!-- Share to Twitter -->
+                   <a aria-label='Twitter' data-text='Twitter' expr:href='&quot;https://twitter.com/share?url=&quot; + data:blog.url.canonical' rel='noopener' target='_blank'>
+                     <b:include name='twitter-icon'/>
+                   </a>
+                 </li>
+                 <li>
+                   <!-- Share to Telegram -->
+                   <a aria-label='Telegram' data-text='Telegram' expr:href='&quot;https://t.me/share/url?url=&quot; + data:blog.url.canonical' rel='noopener' target='_blank'>
+                     <b:include name='telegram-icon'/>
+                   </a>
+                 </li>
+                 <li>
+                   <!-- Send to email -->
+                   <a aria-label='Email' data-text='Email' expr:href='&quot;mailto:?body=&quot; + data:blog.url.canonical' target='_blank'>
+                     <b:include name='message-icon'/>
+                   </a>
+                 </li>
+                 <li>
+                   <!-- Copy link -->
+                   <div class='copyLink' data-text='Copy link' onclick='copyFunction()'>
+                     <b:include name='paper-icon'/>
+                   </div>
+                   <input expr:value='data:blog.url.canonical' id='getlink' readonly='readonly' type='text'/>
+                   <div class='shareNotif' id='shareNotif'/>
+                 </li>
+               </ul>
              </div>
-           </div>
+              </div>
          </b:includable>
             <b:includable id='postJumpLink' var='post'/>
             <b:includable id='postLabels'/>
@@ -2241,145 +2336,12 @@ function timeLink(linkClass,linkPath,link){
             <b:includable id='threadedCommentForm' var='post'/>
             <b:includable id='threadedCommentJs' var='post'/>
             <b:includable id='threadedComments' var='post'/>
-            <b:includable id='threadedComments-modifV3' var='post'>
-           <input class='commentShow hidden' id='forshow-comment' type='checkbox'/>
-           <b:include cond='data:post.allowComments' name='post-commentButton'/>
-           <section class='comments threaded' expr:data-embed='data:post.embedCommentForm' expr:data-num-comments='data:post.numberOfComments'>
-             <b:class name='commentFixed'/>
-             <b:tag class='commentSection' id='commentSection' name='div'>
-               <b:tag class='commentAll hidden' id='forall-comment' name='input' type='checkbox'/>
-               <!--[ Comments title ]-->
-               <div class='commentsTitle'>
-                 <b:class cond='data:post.numberOfComments == 0' name='empty'/>
-                 <b:include name='commentsTitle'/>
-                 <div class='commentsIcon'>
-                   <b:if cond='data:post.numberOfComments &gt; 0'>
-                     <!-- Sort comments -->
-                     <label class='commentSort' expr:aria-label='data:messages.manageComments' expr:data-new='data:messages.newest' expr:data-text='data:messages.oldest' for='forall-comment'>
-                         <!--<b:include name='filter-icon'/>-->
-                     </label>
-                   </b:if>
-                   <label aria-label='Close comment' class='commentClose' data-text='Close' for='forshow-comment'>
-                       <!-- <b:include name='close-icon'/>-->
-                   </label>
-                 </div>
-               </div>
-               <div class='commentsInner'>
-                 <b:if cond='data:post.numberOfComments &gt; 0'>
-                   <div class='commentsContent'>
-                     <ol id='commentHolder'>
-                       <b:loop values='data:post.comments where (c =&gt; not c.inReplyTo)' var='commentLevel1'>
-                         <li class='comment' expr:id='&quot;c&quot; + data:commentLevel1.id'>
-                           <b:class cond='data:cb.level.author == data:post.author.name' name='author'/>
-                           <b:include data='{level: data:commentLevel1,d: true}' name='commentblock'/>
-                           <b:with value='data:post.comments where (c =&gt; c.inReplyTo == data:commentLevel1.id)' var='commentL2'>
-                             <b:if cond='data:commentL2.size != &quot;0&quot;'>
-                               <div class='commentReplies'>
-                                 <input class='threadShow hidden' expr:id='&quot;off-&quot; + data:commentLevel1.id' type='checkbox'/>
-                                 <div class='commentThread' expr:id='&quot;c&quot; + data:commentLevel1.id + &quot;-rt&quot;'>
-                                   <label class='threadToggle' data-text='Response' expr:for='&quot;off-&quot; + data:commentLevel1.id'>
-                                     <!-- <b:include name='arow-down-icon'/>-->
-                                              </label>
-
-                                              <ul class='threadChrome'>
-                                                <b:loop values='data:commentL2' var='commentLevel2'>
-                                                  <li class='comment' expr:id='&quot;c&quot; + data:commentLevel2.id'>
-                                                    <b:class cond='data:cb.level.author == data:post.author.name' name='author'/>
-                                                    <b:include data='{level: data:commentLevel2,d: true}' name='commentblock'/>
-                                                    &lt;/div&gt;
-                                                  </li>
-                                                </b:loop>
-                                              </ul>
-
-                                            </div>
-                                            <b:if cond='data:post.allowNewComments'>
-                                              <div class='commentReply'>
-                                                <a aria-label='Reply' class='replyTo' data-text='Reply' expr:data-reply-to='data:commentLevel1.id' href='javascript:;' role='button' target='_self'>
-                                                  <!-- <b:include name='reply-icon'/>-->
-                                                </a>
-                                              </div>
-                                            </b:if>
-                                          </div>
-                                        </b:if>
-                                      </b:with>
-
-                                      <b:if cond='data:post.allowNewComments'>
-                                        <div class='commentActions'>
-                                          <a aria-label='Reply' class='replyTo' data-text='Reply' expr:data-reply-to='data:commentLevel1.id' href='javascript:;' role='button' target='_self'>
-                                            <!--<b:include name='reply-icon'/>-->
-                                          </a>
-                                        </div>
-                                      </b:if>
-                                      &lt;/div&gt;
-                                    </li>
-                                  </b:loop>
-                                </ol>
-
-                                <!--[ Timeago script ]-->
-                                <script>/*<![CDATA[*/ (function timeAgo(selector) { var templates = {prefix: "", suffix: " ago", seconds: "Seconds", minute: "Minute", minutes: "%d min", hour: "An hour", hours: "%d hours", day: "A day", days: "%d days", month: "A month", months: "%d months", year: "A year", years: "%d years"}; var template = function(t, n) { return templates[t] && templates[t].replace(/%d/i, Math.abs(Math.round(n))); }; var timer = function(time) { if (!time) return; time = time.replace(/\.\d+/, ""); time = time.replace(/-/, "/").replace(/-/, "/"); time = time.replace(/T/, " ").replace(/Z/, " UTC"); time = time.replace(/([\+\-]\d\d)\:?(\d\d)/, " $1$2"); time = new Date(time * 1000 || time); var now = new Date(); var seconds = ((now.getTime() - time) * .001) >> 0; var minutes = seconds / 60; var hours = minutes / 60; var days = hours / 24; var years = days / 365; return templates.prefix + ( seconds < 45 && template('seconds', seconds) || seconds < 90 && template('minute', 1) || minutes < 45 && template('minutes', minutes) || minutes < 90 && template('hour', 1) || hours < 24 && template('hours', hours) || hours < 42 && template('day', 1) || days < 30 && template('days', days) || days < 45 && template('month', 1) || days < 365 && template('months', days / 30) || years < 1.5 && template('year', 1) || template('years', years) ) + templates.suffix; }; var elements = document.getElementsByClassName('datetime'); for (var i in elements) { var $this = elements[i]; if (typeof $this === 'object') { $this.innerHTML = timer($this.getAttribute('title') || $this.getAttribute('data-datetime')); } } setTimeout(timeAgo, 60000); })(); /*]]>*/</script>
-                              </div>
-
-                              <b:if cond='data:post.allowNewComments'>
-                                <div class='commentsAdd'>
-                                  <script>var comment = true;</script>
-                                  <div aria-label='Berkomentar' class='hidden' id='addcomment' role='button'><data:messages.postAComment/></div>
-                                </div>
-                              </b:if>
-                              <b:else/>
-                              <script>var comment = false;</script>
-                            </b:if>
-
-                            <div class='commentForm'>
-                              <b:if cond='data:post.allowNewComments'>
-                                <div id='threaded-comment-form'>
-
-                                  <!--[ Comment message ]-->
-                                  <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
-                                    <div class='commentMessages'>
-                                      <data:this.messages.blogComment/>
-                                    </div>
-                                  </b:if>
-
-                                  <!--[ Comment iframe (remove comment tag below to improve height of comment form) ]-->
-                                  <!--<a aria-label='Comment Form' expr:href='data:post.commentFormIframeSrc + &quot;&amp;skin=contempo&quot; + data:variantParam' id='comment-editor-src'/>-->
-                                  <iframe class='blogger-iframe-colorize blogger-comment-from-post lazy' expr:data-src='data:post.commentFormIframeSrc appendParams {skin: &quot;contempo&quot;}' height='296' id='comment-editor' name='comment-editor' title='Blogger comment' width='100'/>
-
-                                  <!--<script src='https://www.blogger.com/static/v1/jsbin/1875144490-comment_from_post_iframe.js'/>
-                                  <script>BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);</script>-->
-                                </div>
-
-                                <b:else/>
-                                <!--[ If comment was disable ]-->
-                                <div class='commentsDisable'>
-                                  <data:post.noNewCommentsText/>
-                                </div>
-                              </b:if>
-                            </div>
-
-                            <b:if cond='data:showCmtPopup'>
-                              <div id='commentPopup'>
-                                <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'/>
-                              </div>
-                            </b:if>
-                          </div>
-
-                        </b:tag>
-
-                        <script>/*<![CDATA[*/ function resizeCommentScroll() {const distanceY = window.pageYOffset || document.documentElement.scrollTop, shrinkOn = 20, commentEl = document.getElementById('commentSection');if (distanceY > shrinkOn) {commentEl.classList.add("show");} else {commentEl.classList.remove("show");} } window.addEventListener('scroll', resizeCommentScroll); /*]]>*/</script>
-
-                        <label class='fullClose' for='forshow-comment'/>
-                      </section>
-
-                      <b:if cond='data:post.allowNewComments'>
-                        <script>/*<![CDATA[*/ document.addEventListener("DOMContentLoaded", function() { var a=document, b = a.getElementById("comment-editor"), d = b.getAttribute("data-src"); if (b.setAttribute("src", d), 1 == comment) { var f = a.getElementsByClassName("replyTo"), c = a.getElementById("threaded-comment-form"), h = f.length, k = function(b, d, e, f) { b.addEventListener("click", function() { var c = b.getAttribute("data-reply-to"); a.getElementById("c" + c).appendChild(d); a.getElementById("threaded-comment-form").className = 'comment-replybox-single'; a.getElementById("addcomment").className = 'commentsReply button outline'; e.src = f + "&parentID=" + c }) }; for (i = 0; i < h; i++) k(f[i], c, b, d); var l = a.getElementsByClassName("commentForm")[0]; a.getElementById("addcomment").addEventListener("click", function() { l.appendChild(c); a.getElementById("threaded-comment-form").className = 'comment-replybox-thread'; a.getElementById("addcomment").className = 'hidden'; b.src = d }) } }); /*]]>*/</script>
-                      </b:if>
-                    </b:includable>
           </b:widget>
         </b:section>
                         </b:tag>
                         <b:tag class='rightsidebar col-md-3 d-none d-md-block' cond='data:view.isPost' name='aside'>
                           <b:section cond='data:view.isPost' id='right-sidebar'>
-                            <b:widget cond='data:view.isHomepage or data:view.isPost' id='PopularPosts00' locked='false' title='Popular post' type='PopularPosts' version='2' visible='true'>
+                            <b:widget cond='data:view.isHomepage or data:view.isPost' id='PopularPosts00' locked='false' mobile='no' title='Popular post' type='PopularPosts' version='2' visible='true'>
                               <b:widget-settings>
                                 <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
                                 <b:widget-setting name='showThumbnails'>false</b:widget-setting>
@@ -2411,18 +2373,19 @@ function timeLink(linkClass,linkPath,link){
                               <b:includable id='postCommentsLink'/>
                               <b:includable id='postInfo'>
                       <div class='itemInfo postInfo'>
-                        <b:if cond='data:post.labels any (label =&gt; label.name in [&quot;Sponsored&quot; , &quot;Advertorial&quot;])'>
-                          <!--[ Post jumplinks ]-->
-                          <b:include cond='data:widgets.Blog.first.allBylineItems.timestamp' name='postJumpLinks'/>
-                          <b:else/>
-                          <!--[ Post timestamp ]-->
-                          <b:include cond='data:widgets.Blog.first.allBylineItems.timestamp' name='postTimestamps'/>
-                        </b:if>
-
-                        <!--[ Post comment count ]-->
-                        <b:if cond='data:widgets.Blog.first.allBylineItems.comments'>
-                          <b:include name='postCommentsLinks'/>
-                        </b:if>
+                                   <b:tag class='postAuthorName' cond='data:widgets.Blog.first.allBylineItems.author' name='div'>
+                        <b:include name='postAuthorName'/>
+                        <div class='postTimes'>
+                          <div class='postDatetime'>
+                            <b:include name='timeFormat'/>
+                          </div>
+      
+                            <div class='homeLabel'>
+                				<b:include name='onelabel'/>
+                         </div>
+					
+                        </div>
+                      </b:tag>
                       </div>
                     </b:includable>
                               <b:includable id='postJumpLink' var='post'/>
@@ -2440,54 +2403,25 @@ function timeLink(linkClass,linkPath,link){
                               <b:includable id='snippetedPostContent'>
                       <!--[ Post thumbnail ]-->
                       <b:include cond='data:i == 0 and data:this.postDisplay.showFeaturedImage' name='snippetedPostThumbnail'/>
-
-                      <div class='itemContent'>
-                        <!--[ Post header ]-->
-                        <b:if cond='data:post.labels any (label =&gt; label.name in [&quot;Sponsored&quot; , &quot;Advertorial&quot;])'>
-                          <b:include name='postSponsored'/>
-                          <b:elseif cond='data:post.labels any (label =&gt; label.name in [&quot;Product&quot; , &quot;Label_1&quot;])'/>
-                          <b:include name='postProduct'/>
-                          <b:else/>
-                          <b:include name='postHeaders'/>
-                        </b:if>
+                        <!--</b:if>-->
 
                         <div class='itemInner'>
                           <div class='itemFlex'>
                             <b:include cond='data:this.postDisplay.showTitle' name='snippetedPostTitle'/>
-                            <b:include cond='data:i == 0 or data:post.labels any (label =&gt; label.name in [&quot;Product&quot; , &quot;Label_1&quot;])' name='snippetedPostEntry'/>
-
-                            <b:if cond='data:post.labels none (label =&gt; label.name in [&quot;Product&quot; , &quot;Label_1&quot;])'>
-                              <!--[ Post info ]-->
                               <b:include cond='!data:view.isPage' name='postInfo'/>
-                            </b:if>
                           </div>
                         </div>
-                      </div>
                     </b:includable>
-                              <b:includable id='snippetedPostEntry'>
-                      <b:if cond='data:this.postDisplay.showSnippet'>
-                        <p class='itemEntry'>
-                          <b:class cond='data:post.labels any (label =&gt; label.name in [&quot;Product&quot; , &quot;Label_1&quot;])' name='productPrice'/>
-                          <b:include name='postEntrySnippet'/>
-                        </p>
-                        <b:elseif cond='data:post.labels any (label =&gt; label.name in [&quot;Product&quot; , &quot;Label_1&quot;])'/>
-                        <p class='itemEntry productPrice'><b:include name='postEntrySnippet'/></p>
-                      </b:if>
-                    </b:includable>
+                              <b:includable id='snippetedPostEntry'/>
                               <b:includable id='snippetedPostThumbnail'>
-                      <div class='itemThumbnail postThumbnail'>
-                        <b:tag expr:name='data:post.featuredImage ? &quot;a&quot; : &quot;div&quot;'>
-                          <b:attr cond='data:post.featuredImage' expr:value='data:post.url' name='href'/>
-                          <b:if cond='data:post.featuredImage'>
-                            <img class='imgThumb lazy' expr:alt='data:post.title' expr:data-src='resizeImage(data:post.featuredImage, 600, &quot;20:9&quot;)' src='data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='/>
-                            <b:else/>
-                            <span class='imgThumb' data-text='No image'/>
-                          </b:if>
-                        </b:tag>
-                      </div>
-                    </b:includable>
+  <div class='item-thumbnail'>
+    <a expr:href='data:post.url'>
+      <b:include data='{                         image: data:post.featuredImage,                         imageSizes: [72, 144],                         imageRatio: &quot;1:1&quot;,                         sourceSizes: &quot;72px&quot;                        }' name='responsiveImage'/>
+    </a>
+  </div>
+</b:includable>
                               <b:includable id='snippetedPostTitle'>
-                      <h3 class='itemTitle'><a expr:href='data:post.url.canonical'><data:post.title.escaped/></a></h3>
+                      <h5 class='itemTitle'><a expr:href='data:post.url.canonical'><data:post.title.escaped/></a></h5>
                     </b:includable>
                               <b:includable id='snippetedPosts'>
                       <div class='itemPopulars' role='feed'>
@@ -2505,7 +2439,7 @@ function timeLink(linkClass,linkPath,link){
                     </b:includable>
                             </b:widget>
                           </b:section>
-                          <b:if cond='data:view.isPost'>test</b:if>
+                          
                         </b:tag>
           </b:tag> 
         </section>
@@ -2521,13 +2455,22 @@ function timeLink(linkClass,linkPath,link){
           <b:if cond='!data:view.isError'>
  
 
-
+<script src='http://afarkas.github.io/lazysizes/lazysizes.min.js'> </script>
             <script>/*<![CDATA[*/ 
 
-function darkMode(){localStorage.setItem("mode","darkmode"===localStorage.getItem("mode")?"light":"darkmode"),"darkmode"===localStorage.getItem("mode")?document.querySelector("#mainContent").classList.add("darkMode"):document.querySelector("#mainContent").classList.remove("darkMode")}; function listMode(){localStorage.setItem("list","listmode"===localStorage.getItem("list")?"grid":"listmode"),"listmode"===localStorage.getItem("list")?document.querySelector("#mainContent").classList.add("listMode"):document.querySelector("#mainContent").classList.remove("listMode")}; function copyFunction(){document.getElementById("getlink").select(),document.execCommand("copy"),document.getElementById("shareNotif").innerHTML="<span>Link copied!</span>" };
+$('input.switch:checkbox').change(function(){
+    if($(this).is(":checked")) {
+        $('body').addClass("darkMode");
+    } else {
+        $('body').removeClass("darkMode");
+    }
+});
 
-/*! lazysizes - v5.3.0 by github.com/aFarkas */
-!function(e){var t=function(u,D,f){"use strict";var k,H;if(function(){var e;var t={lazyClass:"lazy",loadedClass:"lazyloaded",loadingClass:"lazyloading",preloadClass:"lazypreload",errorClass:"lazyerror",autosizesClass:"lazyautosizes",fastLoadedClass:"ls-is-cached",iframeLoadMode:0,srcAttr:"data-src",srcsetAttr:"data-srcset",sizesAttr:"data-sizes",minSize:40,customMedia:{},init:true,expFactor:1.5,hFac:.8,loadMode:2,loadHidden:true,ricTimeout:0,throttleDelay:125};H=u.lazySizesConfig||u.lazysizesConfig||{};for(e in t){if(!(e in H)){H[e]=t[e]}}}(),!D||!D.getElementsByClassName){return{init:function(){},cfg:H,noSupport:true}}var O=D.documentElement,i=u.HTMLPictureElement,P="addEventListener",$="getAttribute",q=u[P].bind(u),I=u.setTimeout,U=u.requestAnimationFrame||I,o=u.requestIdleCallback,j=/^picture$/i,r=["load","error","lazyincluded","_lazyloaded"],a={},G=Array.prototype.forEach,J=function(e,t){if(!a[t]){a[t]=new RegExp("(\\s|^)"+t+"(\\s|$)")}return a[t].test(e[$]("class")||"")&&a[t]},K=function(e,t){if(!J(e,t)){e.setAttribute("class",(e[$]("class")||"").trim()+" "+t)}},Q=function(e,t){var a;if(a=J(e,t)){e.setAttribute("class",(e[$]("class")||"").replace(a," "))}},V=function(t,a,e){var i=e?P:"removeEventListener";if(e){V(t,a)}r.forEach(function(e){t[i](e,a)})},X=function(e,t,a,i,r){var n=D.createEvent("Event");if(!a){a={}}a.instance=k;n.initEvent(t,!i,!r);n.detail=a;e.dispatchEvent(n);return n},Y=function(e,t){var a;if(!i&&(a=u.picturefill||H.pf)){if(t&&t.src&&!e[$]("srcset")){e.setAttribute("srcset",t.src)}a({reevaluate:true,elements:[e]})}else if(t&&t.src){e.src=t.src}},Z=function(e,t){return(getComputedStyle(e,null)||{})[t]},s=function(e,t,a){a=a||e.offsetWidth;while(a<H.minSize&&t&&!e._lazysizesWidth){a=t.offsetWidth;t=t.parentNode}return a},ee=function(){var a,i;var t=[];var r=[];var n=t;var s=function(){var e=n;n=t.length?r:t;a=true;i=false;while(e.length){e.shift()()}a=false};var e=function(e,t){if(a&&!t){e.apply(this,arguments)}else{n.push(e);if(!i){i=true;(D.hidden?I:U)(s)}}};e._lsFlush=s;return e}(),te=function(a,e){return e?function(){ee(a)}:function(){var e=this;var t=arguments;ee(function(){a.apply(e,t)})}},ae=function(e){var a;var i=0;var r=H.throttleDelay;var n=H.ricTimeout;var t=function(){a=false;i=f.now();e()};var s=o&&n>49?function(){o(t,{timeout:n});if(n!==H.ricTimeout){n=H.ricTimeout}}:te(function(){I(t)},true);return function(e){var t;if(e=e===true){n=33}if(a){return}a=true;t=r-(f.now()-i);if(t<0){t=0}if(e||t<9){s()}else{I(s,t)}}},ie=function(e){var t,a;var i=99;var r=function(){t=null;e()};var n=function(){var e=f.now()-a;if(e<i){I(n,i-e)}else{(o||r)(r)}};return function(){a=f.now();if(!t){t=I(n,i)}}},e=function(){var v,m,c,h,e;var y,z,g,p,C,b,A;var n=/^img$/i;var d=/^iframe$/i;var E="onscroll"in u&&!/(gle|ing)bot/.test(navigator.userAgent);var _=0;var w=0;var M=0;var N=-1;var L=function(e){M--;if(!e||M<0||!e.target){M=0}};var x=function(e){if(A==null){A=Z(D.body,"visibility")=="hidden"}return A||!(Z(e.parentNode,"visibility")=="hidden"&&Z(e,"visibility")=="hidden")};var W=function(e,t){var a;var i=e;var r=x(e);g-=t;b+=t;p-=t;C+=t;while(r&&(i=i.offsetParent)&&i!=D.body&&i!=O){r=(Z(i,"opacity")||1)>0;if(r&&Z(i,"overflow")!="visible"){a=i.getBoundingClientRect();r=C>a.left&&p<a.right&&b>a.top-1&&g<a.bottom+1}}return r};var t=function(){var e,t,a,i,r,n,s,o,l,u,f,c;var d=k.elements;if((h=H.loadMode)&&M<8&&(e=d.length)){t=0;N++;for(;t<e;t++){if(!d[t]||d[t]._lazyRace){continue}if(!E||k.prematureUnveil&&k.prematureUnveil(d[t])){R(d[t]);continue}if(!(o=d[t][$]("data-expand"))||!(n=o*1)){n=w}if(!u){u=!H.expand||H.expand<1?O.clientHeight>500&&O.clientWidth>500?500:370:H.expand;k._defEx=u;f=u*H.expFactor;c=H.hFac;A=null;if(w<f&&M<1&&N>2&&h>2&&!D.hidden){w=f;N=0}else if(h>1&&N>1&&M<6){w=u}else{w=_}}if(l!==n){y=innerWidth+n*c;z=innerHeight+n;s=n*-1;l=n}a=d[t].getBoundingClientRect();if((b=a.bottom)>=s&&(g=a.top)<=z&&(C=a.right)>=s*c&&(p=a.left)<=y&&(b||C||p||g)&&(H.loadHidden||x(d[t]))&&(m&&M<3&&!o&&(h<3||N<4)||W(d[t],n))){R(d[t]);r=true;if(M>9){break}}else if(!r&&m&&!i&&M<4&&N<4&&h>2&&(v[0]||H.preloadAfterLoad)&&(v[0]||!o&&(b||C||p||g||d[t][$](H.sizesAttr)!="auto"))){i=v[0]||d[t]}}if(i&&!r){R(i)}}};var a=ae(t);var S=function(e){var t=e.target;if(t._lazyCache){delete t._lazyCache;return}L(e);K(t,H.loadedClass);Q(t,H.loadingClass);V(t,B);X(t,"lazyloaded")};var i=te(S);var B=function(e){i({target:e.target})};var T=function(e,t){var a=e.getAttribute("data-load-mode")||H.iframeLoadMode;if(a==0){e.contentWindow.location.replace(t)}else if(a==1){e.src=t}};var F=function(e){var t;var a=e[$](H.srcsetAttr);if(t=H.customMedia[e[$]("data-media")||e[$]("media")]){e.setAttribute("media",t)}if(a){e.setAttribute("srcset",a)}};var s=te(function(t,e,a,i,r){var n,s,o,l,u,f;if(!(u=X(t,"lazybeforeunveil",e)).defaultPrevented){if(i){if(a){K(t,H.autosizesClass)}else{t.setAttribute("sizes",i)}}s=t[$](H.srcsetAttr);n=t[$](H.srcAttr);if(r){o=t.parentNode;l=o&&j.test(o.nodeName||"")}f=e.firesLoad||"src"in t&&(s||n||l);u={target:t};K(t,H.loadingClass);if(f){clearTimeout(c);c=I(L,2500);V(t,B,true)}if(l){G.call(o.getElementsByTagName("source"),F)}if(s){t.setAttribute("srcset",s)}else if(n&&!l){if(d.test(t.nodeName)){T(t,n)}else{t.src=n}}if(r&&(s||l)){Y(t,{src:n})}}if(t._lazyRace){delete t._lazyRace}Q(t,H.lazyClass);ee(function(){var e=t.complete&&t.naturalWidth>1;if(!f||e){if(e){K(t,H.fastLoadedClass)}S(u);t._lazyCache=true;I(function(){if("_lazyCache"in t){delete t._lazyCache}},9)}if(t.loading=="lazy"){M--}},true)});var R=function(e){if(e._lazyRace){return}var t;var a=n.test(e.nodeName);var i=a&&(e[$](H.sizesAttr)||e[$]("sizes"));var r=i=="auto";if((r||!m)&&a&&(e[$]("src")||e.srcset)&&!e.complete&&!J(e,H.errorClass)&&J(e,H.lazyClass)){return}t=X(e,"lazyunveilread").detail;if(r){re.updateElem(e,true,e.offsetWidth)}e._lazyRace=true;M++;s(e,t,r,i,a)};var r=ie(function(){H.loadMode=3;a()});var o=function(){if(H.loadMode==3){H.loadMode=2}r()};var l=function(){if(m){return}if(f.now()-e<999){I(l,999);return}m=true;H.loadMode=3;a();q("scroll",o,true)};return{_:function(){e=f.now();k.elements=D.getElementsByClassName(H.lazyClass);v=D.getElementsByClassName(H.lazyClass+" "+H.preloadClass);q("scroll",a,true);q("resize",a,true);q("pageshow",function(e){if(e.persisted){var t=D.querySelectorAll("."+H.loadingClass);if(t.length&&t.forEach){U(function(){t.forEach(function(e){if(e.complete){R(e)}})})}}});if(u.MutationObserver){new MutationObserver(a).observe(O,{childList:true,subtree:true,attributes:true})}else{O[P]("DOMNodeInserted",a,true);O[P]("DOMAttrModified",a,true);setInterval(a,999)}q("hashchange",a,true);["focus","mouseover","click","load","transitionend","animationend"].forEach(function(e){D[P](e,a,true)});if(/d$|^c/.test(D.readyState)){l()}else{q("load",l);D[P]("DOMContentLoaded",a);I(l,2e4)}if(k.elements.length){t();ee._lsFlush()}else{a()}},checkElems:a,unveil:R,_aLSL:o}}(),re=function(){var a;var n=te(function(e,t,a,i){var r,n,s;e._lazysizesWidth=i;i+="px";e.setAttribute("sizes",i);if(j.test(t.nodeName||"")){r=t.getElementsByTagName("source");for(n=0,s=r.length;n<s;n++){r[n].setAttribute("sizes",i)}}if(!a.detail.dataAttr){Y(e,a.detail)}});var i=function(e,t,a){var i;var r=e.parentNode;if(r){a=s(e,r,a);i=X(e,"lazybeforesizes",{width:a,dataAttr:!!t});if(!i.defaultPrevented){a=i.detail.width;if(a&&a!==e._lazysizesWidth){n(e,r,i,a)}}}};var e=function(){var e;var t=a.length;if(t){e=0;for(;e<t;e++){i(a[e])}}};var t=ie(e);return{_:function(){a=D.getElementsByClassName(H.autosizesClass);q("resize",t)},checkElems:t,updateElem:i}}(),t=function(){if(!t.i&&D.getElementsByClassName){t.i=true;re._();e._()}};return I(function(){H.init&&t()}),k={cfg:H,autoSizer:re,loader:e,init:t,uP:Y,aC:K,rC:Q,hC:J,fire:X,gW:s,rAF:ee}}(e,e.document,Date);e.lazySizes=t,"object"==typeof module&&module.exports&&(module.exports=t)}("undefined"!=typeof window?window:{});
+function listMode(){localStorage.setItem("list","listmode"===localStorage.getItem("list")?"grid":"listmode"),"listmode"===localStorage.getItem("list")?document.querySelector("#mainContent").classList.add("listMode"):document.querySelector("#mainContent").classList.remove("listMode")}; 
+
+function copyFunction(){document.getElementById("getlink").select(),document.execCommand("copy"),document.getElementById("shareNotif").innerHTML="<span>Link copied!</span>" };
+
+
 
 /*! lazysizes unveilhooks - v5.3.0 */
 !function(e,t){var a=function(){t(e.lazySizes),e.removeEventListener("lazyunveilread",a,!0)};t=t.bind(null,e,e.document),"object"==typeof module&&module.exports?t(require("lazysizes")):"function"==typeof define&&define.amd?define(["lazysizes"],t):e.lazySizes?a():e.addEventListener("lazyunveilread",a,!0)}(window,function(e,i,o){"use strict";var l,d,u={};function s(e,t,a){var n,r;u[e]||(n=i.createElement(t?"link":"script"),r=i.getElementsByTagName("script")[0],t?(n.rel="stylesheet",n.href=e):(n.onload=function(){n.onerror=null,n.onload=null,a()},n.onerror=n.onload,n.src=e),u[e]=!0,u[n.src||n.href]=!0,r.parentNode.insertBefore(n,r))}i.addEventListener&&(l=function(e,t){var a=i.createElement("img");a.onload=function(){a.onload=null,a.onerror=null,a=null,t()},a.onerror=a.onload,a.src=e,a&&a.complete&&a.onload&&a.onload()},addEventListener("lazybeforeunveil",function(e){var t,a,n;if(e.detail.instance==o&&!e.defaultPrevented){var r=e.target;if("none"==r.preload&&(r.preload=r.getAttribute("data-preload")||"auto"),null!=r.getAttribute("data-autoplay"))if(r.getAttribute("data-expand")&&!r.autoplay)try{r.play()}catch(e){}else requestAnimationFrame(function(){r.setAttribute("data-expand","-10"),o.aC(r,o.cfg.lazyClass)});(t=r.getAttribute("data-link"))&&s(t,!0),(t=r.getAttribute("data-script"))&&(e.detail.firesLoad=!0,s(t,null,function(){e.detail.firesLoad=!1,o.fire(r,"_lazyloaded",{},!0,!0)})),(t=r.getAttribute("data-require"))&&(o.cfg.requireJs?o.cfg.requireJs([t]):s(t)),(a=r.getAttribute("data-bg"))&&(e.detail.firesLoad=!0,l(a,function(){r.style.backgroundImage="url("+(d.test(a)?JSON.stringify(a):a)+")",e.detail.firesLoad=!1,o.fire(r,"_lazyloaded",{},!0,!0)})),(n=r.getAttribute("data-poster"))&&(e.detail.firesLoad=!0,l(n,function(){r.poster=n,e.detail.firesLoad=!1,o.fire(r,"_lazyloaded",{},!0,!0)}))}},!(d=/\(|\)|\s|'/)))});
